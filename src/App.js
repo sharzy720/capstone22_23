@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import {Paper, Container} from "@mui/material";
+
+//TODO get container to have no extra spacing around it
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+          <Grid container>
+              <Grid item md={8}>
+                  <Paper style={{backgroundColor: "lightblue", width: "100%"}}>
+                      Visualization
+                  </Paper>
+              </Grid>
+              <Grid item md={4}>
+                  <Paper style={{backgroundColor: "lightcoral"}}>
+                      Details
+                  </Paper>
+
+              </Grid>
+          </Grid>
+      </div>
   );
 }
 
-export default App;
+export default App
