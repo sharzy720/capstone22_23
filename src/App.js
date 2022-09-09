@@ -7,15 +7,15 @@ import {Paper, Container} from "@mui/material";
 
 const App = () => {
   return (
-      <div>
-          <Grid container>
+      <div style={{border: "black 1px solid"}}>
+          <Grid container spacing={1} style={{padding: "10px"}}>
               <Grid item md={8}>
-                  <Paper style={{backgroundColor: "lightblue", width: "100%"}}>
+                  <Paper style={{backgroundColor: "lightblue", height: "98vh"}}>
                       Visualization
                   </Paper>
               </Grid>
               <Grid item md={4}>
-                  <Paper style={{backgroundColor: "lightcoral"}}>
+                  <Paper style={{backgroundColor: "lightcoral", height: "98vh"}}>
                       Details
                   </Paper>
 
