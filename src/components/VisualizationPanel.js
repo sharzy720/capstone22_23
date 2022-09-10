@@ -5,7 +5,7 @@ import {Paper, Container} from "@mui/material";
 //TODO fill with all things visualization
 //TODO on larger screens the visualization container does not take up the full screen
 
-const VisualizationPanel = () => {
+function VisualizationPanel() {
     return (
         <Paper style={{backgroundColor: "lightblue",
                        height: "98vh",
