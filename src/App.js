@@ -1,23 +1,26 @@
 
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import {Paper, Container} from "@mui/material";
+import DetailsPanel from "./components/DetailsPanel";
+import VisualizationPanel from "./components/VisualizationPanel";
 
 //TODO get container to have no extra spacing around it
 
 const App = () => {
   return (
-      <div style={{border: "black 1px solid"}}>
-          <Grid container spacing={1} style={{padding: "10px"}}>
+      <div style={{border: "black 1px solid", backgroundColor: "black"}}>
+          <Grid
+              container
+              direction={"row"}
+              spacing={{ md: 1, xl: 2}}
+              style={{padding: "10px"}}>
+
               <Grid item md={8}>
-                  <Paper style={{backgroundColor: "lightblue", height: "98vh"}}>
-                      Visualization
-                  </Paper>
+                  <VisualizationPanel/>
+
               </Grid>
               <Grid item md={4}>
-                  <Paper style={{backgroundColor: "lightcoral", height: "98vh"}}>
-                      Details
-                  </Paper>
+                  <DetailsPanel/>
 
               </Grid>
           </Grid>
