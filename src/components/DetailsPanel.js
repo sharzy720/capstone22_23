@@ -1,6 +1,7 @@
 
 import React from 'react'
 import {Paper} from "@mui/material";
+import Button from "./Button";
 
 //TODO fill with all information about the dataset
 
@@ -19,6 +20,7 @@ function DetailsPanel() {
                     All information pertaining to the elliptic dataset will be
                     put here
                 </p>
+                <Button/>
             </div>
         </Paper>
     );
