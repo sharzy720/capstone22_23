@@ -2,6 +2,8 @@
 import React from 'react'
 import {Paper, Container} from "@mui/material";
 import D3Visualization from "./D3Visualization";
+import ForceGraphVis from "./ForceGraphVis";
+import Vis1 from './Vis1.js';
 
 //TODO fill with all things visualization
 //TODO on larger screens the visualization container does not take up the full screen
@@ -24,7 +26,9 @@ function VisualizationPanel() {
                                 width: "100vh",
                                 border: "black 1px solid"}}>
                 {/*Call the d3 visualization here*/}
-                <D3Visualization/>
+                {/*<D3Visualization/>*/}
+                {/*<ForceGraphVis/>*/}
+                <Vis1/>
             </Container>
         </Paper>
     );

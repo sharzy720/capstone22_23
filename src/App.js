@@ -3,6 +3,8 @@ import React from 'react'
 import Grid from '@mui/material/Grid'
 import DetailsPanel from "./components/DetailsPanel";
 import VisualizationPanel from "./components/VisualizationPanel";
+import D3Visualization from "./components/D3Visualization";
+import ForceGraphVis from "./components/ForceGraphVis";
 
 //TODO get container to have no extra spacing around it
 
@@ -24,6 +26,8 @@ const App = () => {
 
               </Grid>
           </Grid>
+          {/*<D3Visualization/>*/}
+          {/*<ForceGraphVis/>*/}
       </div>
   );
 }
