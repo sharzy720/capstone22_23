@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import './D3Visualization.css';
 
-const D3Visualization = () => {
+const D3Visualization = (props) => {
 
+    var test = props.value;
     const d3Chart = useRef()
 
     const parseDate = d3.timeParse('%Y-%m-%d')
