@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import './Vis1.css'
+import './Vis1.css';
 
 const Vis1 = () => {
 
@@ -10,26 +10,29 @@ const Vis1 = () => {
         height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("svg")
+    var svg = d3.select("#visual")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
+    let link;
+    let node;
+    let simulation;
 
     d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_network.json", function( data) {
 
         // Initialize the links
-        var link = svg
+        link = svg
             .selectAll("line")
             .data(data.links)
             .enter()
             .append("line")
-            .style("stroke", "#aaa")
+            .style("stroke", "#aaaaaa")
 
         // Initialize the nodes
-        var node = svg
+        node = svg
             .selectAll("circle")
             .data(data.nodes)
             .enter()
@@ -38,7 +41,7 @@ const Vis1 = () => {
             .style("fill", "#69b3a2")
 
         // Let's list the force we wanna apply on the network
-        var simulation = d3.forceSimulation(data.nodes)                 // Force algorithm is applied to data.nodes
+        simulation = d3.forceSimulation(data.nodes)                 // Force algorithm is applied to data.nodes
             .force("link", d3.forceLink()                               // This force provides links between nodes
                 .id(function(d) { return d.id; })                     // This provide  the id of a node
                 .links(data.links)                                    // and this the list of links
