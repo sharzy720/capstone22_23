@@ -4,6 +4,8 @@ import {Paper, Container} from "@mui/material";
 import D3Visualization from "./D3Visualization";
 import ForceGraphVis from "./ForceGraphVis";
 import Vis1 from './Vis1.js';
+import Vis2 from './Vis2.js';
+import * as d3 from "d3";
 
 //TODO fill with all things visualization
 //TODO on larger screens the visualization container does not take up the full screen
@@ -22,15 +24,24 @@ function VisualizationPanel() {
             </div>
 
             {/*Container for the graph visualization*/}
-            <Container style={{ height: "88vh",
+            <Container style={{ height: "100vh",
                                 width: "100vh",
                                 border: "black 1px solid"}}>
                 {/*Call the d3 visualization here*/}
                 {/*<D3Visualization/>*/}
                 {/*<ForceGraphVis/>*/}
-                <Vis1/>
+                {/*<Vis1/>*/}
+                {/*<div id='visual' ></div>*/}
+                {/*<Vis2/>*/}
+                <ForceGraphVis/>
+
+
+
+
             </Container>
+
         </Paper>
+
     );
 }
 
