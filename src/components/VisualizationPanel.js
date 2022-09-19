@@ -24,8 +24,8 @@ function VisualizationPanel() {
             </div>
 
             {/*Container for the graph visualization*/}
-            <Container style={{ height: "100vh",
-                                width: "100vh",
+            <Container style={{ height: "88vh",
+                                width: "100%",
                                 border: "black 1px solid"}}>
                 {/*Call the d3 visualization here*/}
                 {/*<D3Visualization/>*/}
