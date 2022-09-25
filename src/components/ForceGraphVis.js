@@ -7,8 +7,10 @@ const ForceGraphVis = () => {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
-    var width = svg.attr("width");
-    var height = svg.attr("height");
+    // var width = svg.attr("width");
+    // var height = svg.attr("height");
+    var width = 500
+    var height = 500
 
     //intialize data
     var graph = {

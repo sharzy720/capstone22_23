@@ -27,8 +27,8 @@ function VisualizationPanel() {
                                 border: "black 1px solid"}}>
                 {/*Call the d3 visualization here*/}
                 {/*<D3Visualization/>*/}
-                {/*<ForceGraphVis/>*/}
-                <Vis1/>
+                <ForceGraphVis/>
+                {/*<Vis1/>*/}
             </Container>
         </Paper>
     );
