@@ -4,8 +4,8 @@ import * as d3 from 'd3';
 import './JSONForceGraph.css';
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/test_nodenames2.json';
-import links from '../JSONFiles/test_nodelinks2.json';
+import nodes from '../JSONFiles/test_nodenames3.json';
+import links from '../JSONFiles/test_nodelinks3.json';
 
 const JSONForceGraph = () => {
 
@@ -23,7 +23,9 @@ const JSONForceGraph = () => {
             d3
                 .forceLink()
                 .id(function(d) {
-                    return d.name;
+                    if (d != null) {
+                        return d.name;
+                    }
                 })
                 .links(links)
         )
