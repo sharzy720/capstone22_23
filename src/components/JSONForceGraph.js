@@ -28,7 +28,7 @@ const JSONForceGraph = () => {
                 .links(links)
         )
 
-        .force("charge", d3.forceManyBody().strength(-1))
+        .force("charge", d3.forceManyBody().strength(-0.2))
         .force("center", d3.forceCenter(width / 2, height / 2))
         .on("tick", ticked);
 
@@ -63,6 +63,12 @@ const JSONForceGraph = () => {
         );
 
     function ticked() {
+        // var tick_width = document.getElementById("forceGraph").offsetWidth;
+        // var tick_height = document.getElementById("forceGraph").offsetHeight;
+
+        // Allows for a boundry to be set up at the edges on the display area
+        var radius = 0;
+
         link
             .attr("x1", function(d) {
                 return d.source.x;
@@ -79,15 +85,20 @@ const JSONForceGraph = () => {
 
         node
             .attr("cx", function(d) {
-                return d.x;
+                // return d.x;
+                return (d.x = Math.max(radius, Math.min(width - radius, d.x)));
             })
             .attr("cy", function(d) {
-                return d.y;
+                // return d.y;
+                return (d.y = Math.max(radius, Math.min(height - radius, d.y)));
             });
     }
 
     function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        // States how fast nodes will spread out while dragging
+        var alpha = 0.1
+
+        if (!d3.event.active) simulation.alphaTarget(alpha).restart();
         d.fx = d.x;
         d.fy = d.y;
     }
@@ -98,7 +109,10 @@ const JSONForceGraph = () => {
     }
 
     function dragended(d) {
-        if (!d3.event.active) simulation.alphaTarget(0);
+        // States how fast nodes will spread out when stopped dragging
+        var alpha = 0
+
+        if (!d3.event.active) simulation.alphaTarget(alpha);
         d.fx = null;
         d.fy = null;
     }
