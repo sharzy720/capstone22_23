@@ -4,15 +4,15 @@ import * as d3 from 'd3';
 import './JSONForceGraph.css';
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/test_nodenames.json';
-import links from '../JSONFiles/test_nodelinks.json';
+import nodes from '../JSONFiles/test_nodenames2.json';
+import links from '../JSONFiles/test_nodelinks2.json';
 
 const JSONForceGraph = () => {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
-    var width = 500
-    var height = 500
+    var width = 1150
+    var height = 1150
 
 
 
@@ -28,7 +28,7 @@ const JSONForceGraph = () => {
                 .links(links)
         )
 
-        .force("charge", d3.forceManyBody().strength(-10))
+        .force("charge", d3.forceManyBody().strength(-1))
         .force("center", d3.forceCenter(width / 2, height / 2))
         .on("tick", ticked);
 
@@ -105,7 +105,7 @@ const JSONForceGraph = () => {
 
     return (
         <div id='forceGraph'>
-            <svg ref={svg} width={"960"} height={"600"}></svg>
+            <svg ref={svg} width={"100%"} height={"100%"}></svg>
         </div>
     )
 }
