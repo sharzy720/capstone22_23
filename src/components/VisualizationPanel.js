@@ -25,7 +25,8 @@ function VisualizationPanel() {
             {/*Container for the graph visualization*/}
             <Container style={{ height: "88vh",
                                 width: "100vh",
-                                border: "black 1px solid"}}>
+                                border: "black 1px solid",
+                                padding: "0px"}}>
                 {/*<ForceGraphVis/>*/}
                 <JSONForceGraph/>
             </Container>
