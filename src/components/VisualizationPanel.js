@@ -4,6 +4,7 @@ import {Paper, Container} from "@mui/material";
 import D3Visualization from "./D3Visualization";
 import ForceGraphVis from "./ForceGraphVis";
 import Vis1 from './Vis1.js';
+import JSONForceGraph from "./JSONForceGraph";
 
 //TODO fill with all things visualization
 //TODO on larger screens the visualization container does not take up the full screen
@@ -27,7 +28,8 @@ function VisualizationPanel() {
                                 border: "black 1px solid"}}>
                 {/*Call the d3 visualization here*/}
                 {/*<D3Visualization/>*/}
-                <ForceGraphVis/>
+                {/*<ForceGraphVis/>*/}
+                <JSONForceGraph/>
                 {/*<Vis1/>*/}
             </Container>
         </Paper>
