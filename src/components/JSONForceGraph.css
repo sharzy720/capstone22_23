@@ -1,0 +1,15 @@
+.links line {
+    stroke: #999;
+    stroke-opacity: 0.6;
+}
+
+.nodes circle {
+    stroke: #fff4;
+    stroke-width: 1.5px;
+}
+
+#forceGraph{
+    width: 100%;
+    height: 100%;
+    border: black solid 1px;
+}
