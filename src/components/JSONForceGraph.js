@@ -3,6 +3,10 @@ import * as d3 from 'd3';
 // import { event } from 'd3-drag';
 import './JSONForceGraph.css';
 
+// import nodes and links from JSON files
+import nodes from '../JSONFiles/test_nodenames.json';
+import links from '../JSONFiles/test_nodelinks.json';
+
 const JSONForceGraph = () => {
 
     //initilize svg or grab svg
@@ -10,30 +14,10 @@ const JSONForceGraph = () => {
     var width = 500
     var height = 500
 
-    //intialize data
-    var graph = {
-        nodes: [
-            { name: "Alice" },
-            { name: "Bob" },
-            { name: "Chen" },
-            { name: "Dawg" },
-            { name: "Ethan" },
-            { name: "George" },
-            { name: "Frank" },
-            { name: "Hanes" }
-        ],
-        links: [
-            { source: "Alice", target: "Bob" },
-            { source: "Chen", target: "Bob" },
-            { source: "Dawg", target: "Chen" },
-            { source: "Hanes", target: "Frank" },
-            { source: "Hanes", target: "George" },
-            { source: "Dawg", target: "Ethan" }
-        ]
-    };
+
 
     var simulation = d3
-        .forceSimulation(graph.nodes)
+        .forceSimulation(nodes)
         .force(
             "link",
             d3
@@ -41,10 +25,10 @@ const JSONForceGraph = () => {
                 .id(function(d) {
                     return d.name;
                 })
-                .links(graph.links)
+                .links(links)
         )
 
-        .force("charge", d3.forceManyBody().strength(-30))
+        .force("charge", d3.forceManyBody().strength(-10))
         .force("center", d3.forceCenter(width / 2, height / 2))
         .on("tick", ticked);
 
@@ -52,7 +36,7 @@ const JSONForceGraph = () => {
         .append("g")
         .attr("class", "links")
         .selectAll("line")
-        .data(graph.links)
+        .data(links)
         .enter()
         .append("line")
         .attr("stroke-width", function(d) {
@@ -63,7 +47,7 @@ const JSONForceGraph = () => {
         .append("g")
         .attr("class", "nodes")
         .selectAll("circle")
-        .data(graph.nodes)
+        .data(nodes)
         .enter()
         .append("circle")
         .attr("r", 5)
