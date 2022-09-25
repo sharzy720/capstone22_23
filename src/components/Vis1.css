@@ -1,0 +1,17 @@
+body {
+    font-family: sans-serif;
+}
+.links line {
+    stroke: grey;
+}
+.flag {
+    background: url('https://dl.dropboxusercontent.com/s/yx2q52k9g420tov/flags.png') no-repeat;
+    background-color: #000;
+    position: absolute;
+}
+.tooltip {
+    position: absolute;
+    background-color: lightgrey;
+    padding: 10px;
+}
+
