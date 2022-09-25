@@ -26,11 +26,8 @@ function VisualizationPanel() {
             <Container style={{ height: "88vh",
                                 width: "100vh",
                                 border: "black 1px solid"}}>
-                {/*Call the d3 visualization here*/}
-                {/*<D3Visualization/>*/}
                 {/*<ForceGraphVis/>*/}
                 <JSONForceGraph/>
-                {/*<Vis1/>*/}
             </Container>
         </Paper>
     );

@@ -7,8 +7,6 @@ const JSONForceGraph = () => {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
-    // var width = svg.attr("width");
-    // var height = svg.attr("height");
     var width = 500
     var height = 500
 
