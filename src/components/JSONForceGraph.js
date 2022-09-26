@@ -4,15 +4,19 @@ import * as d3 from 'd3';
 import './JSONForceGraph.css';
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/test_nodenames3.json';
-import links from '../JSONFiles/test_nodelinks3.json';
+import nodes from '../JSONFiles/test_nodenames2.json';
+import links from '../JSONFiles/test_nodelinks2.json';
 
-const JSONForceGraph = () => {
+const JSONForceGraph = (props) => {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
     var width = 1150
     var height = 1150
+    // var offsetwidth = document.getElementById("visContainer").offsetWidth;
+    // var offsetheight = document.getElementById("visContainer").offsetHeight;
+    // console.log("width = " + document.getElementById("forceGraph").offsetWidth
+    //     + "\theight = " + document.getElementById("forceGraph").offsetHeight)
 
 
 
@@ -120,8 +124,15 @@ const JSONForceGraph = () => {
     }
 
     return (
-        <div id='forceGraph'>
-            <svg ref={svg} width={"100%"} height={"100%"}></svg>
+        <div id='forceGraph'
+            style={{
+                width: '100%',
+                height: '100%'
+            }}>
+            <svg id={'graph'}
+                 ref={svg}
+                 width={"100%"}
+                 height={"100%"}></svg>
         </div>
     )
 }
