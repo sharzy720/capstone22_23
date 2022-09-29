@@ -19,116 +19,116 @@ function JSONForceGraph(props) {
         var height = document.getElementById('visContainer').clientHeight;
 
 
-    // var offsetwidth = document.getElementById("visContainer").offsetWidth;
-    // var offsetheight = document.getElementById("visContainer").offsetHeight;
-    // console.log("width = " + document.getElementById("forceGraph").offsetWidth
-    //     + "\theight = " + document.getElementById("forceGraph").offsetHeight)
+        // var offsetwidth = document.getElementById("visContainer").offsetWidth;
+        // var offsetheight = document.getElementById("visContainer").offsetHeight;
+        // console.log("width = " + document.getElementById("forceGraph").offsetWidth
+        //     + "\theight = " + document.getElementById("forceGraph").offsetHeight)
 
 
 
-    var simulation = d3
-        .forceSimulation(nodes)
-        .force(
-            "link",
-            d3
-                .forceLink()
-                .id(function(d) {
-                    if (d != null) {
-                        return d.name;
-                    }
+        var simulation = d3
+            .forceSimulation(nodes)
+            .force(
+                "link",
+                d3
+                    .forceLink()
+                    .id(function(d) {
+                        if (d != null) {
+                            return d.name;
+                        }
+                    })
+                    .links(links)
+            )
+
+            .force("charge", d3.forceManyBody().strength(-0.2))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .on("tick", ticked);
+
+        var link = svg
+            .append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(links)
+            .enter()
+            .append("line")
+            .attr("stroke-width", function(d) {
+                return 3;
+            });
+
+        var node = svg
+            .append("g")
+            .attr("class", "nodes")
+            .selectAll("circle")
+            .data(nodes)
+            .enter()
+            .append("circle")
+            .attr("r", 5)
+            .attr("fill", function(d) {
+                return "red";
+            })
+            .call(
+                d3
+                    .drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended)
+            );
+
+        function ticked() {
+            // var tick_width = document.getElementById("forceGraph").offsetWidth;
+            // var tick_height = document.getElementById("forceGraph").offsetHeight;
+
+            // Allows for a boundry to be set up at the edges on the display area
+            var radius = 0;
+
+            link
+                .attr("x1", function(d) {
+                    return d.source.x;
                 })
-                .links(links)
-        )
+                .attr("y1", function(d) {
+                    return d.source.y;
+                })
+                .attr("x2", function(d) {
+                    return d.target.x;
+                })
+                .attr("y2", function(d) {
+                    return d.target.y;
+                });
 
-        .force("charge", d3.forceManyBody().strength(-0.2))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .on("tick", ticked);
+            node
+                .attr("cx", function(d) {
+                    // return d.x;
+                    return (d.x = Math.max(radius, Math.min(width - radius, d.x)));
+                })
+                .attr("cy", function(d) {
+                    // return d.y;
+                    return (d.y = Math.max(radius, Math.min(height - radius, d.y)));
+                });
+        }
 
-    var link = svg
-        .append("g")
-        .attr("class", "links")
-        .selectAll("line")
-        .data(links)
-        .enter()
-        .append("line")
-        .attr("stroke-width", function(d) {
-            return 3;
-        });
+        function dragstarted(d) {
+            // States how fast nodes will spread out while dragging
+            var alpha = 0.1
 
-    var node = svg
-        .append("g")
-        .attr("class", "nodes")
-        .selectAll("circle")
-        .data(nodes)
-        .enter()
-        .append("circle")
-        .attr("r", 5)
-        .attr("fill", function(d) {
-            return "red";
-        })
-        .call(
-            d3
-                .drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended)
-        );
+            if (!d3.event.active) simulation.alphaTarget(alpha).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
 
-    function ticked() {
-        // var tick_width = document.getElementById("forceGraph").offsetWidth;
-        // var tick_height = document.getElementById("forceGraph").offsetHeight;
+        function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
 
-        // Allows for a boundry to be set up at the edges on the display area
-        var radius = 0;
+        function dragended(d) {
+            // States how fast nodes will spread out when stopped dragging
+            var alpha = 0
 
-        link
-            .attr("x1", function(d) {
-                return d.source.x;
-            })
-            .attr("y1", function(d) {
-                return d.source.y;
-            })
-            .attr("x2", function(d) {
-                return d.target.x;
-            })
-            .attr("y2", function(d) {
-                return d.target.y;
-            });
-
-        node
-            .attr("cx", function(d) {
-                // return d.x;
-                return (d.x = Math.max(radius, Math.min(width - radius, d.x)));
-            })
-            .attr("cy", function(d) {
-                // return d.y;
-                return (d.y = Math.max(radius, Math.min(height - radius, d.y)));
-            });
-    }
-
-    function dragstarted(d) {
-        // States how fast nodes will spread out while dragging
-        var alpha = 0.1
-
-        if (!d3.event.active) simulation.alphaTarget(alpha).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-    }
-
-    function dragged(d) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
-    }
-
-    function dragended(d) {
-        // States how fast nodes will spread out when stopped dragging
-        var alpha = 0
-
-        if (!d3.event.active) simulation.alphaTarget(alpha);
-        d.fx = null;
-        d.fy = null;
-    }
-    }, 1000);
+            if (!d3.event.active) simulation.alphaTarget(alpha);
+            d.fx = null;
+            d.fy = null;
+        }
+    }, 100);
     return (
         <div id='forceGraph'
             style={{
