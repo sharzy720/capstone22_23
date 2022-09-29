@@ -7,12 +7,18 @@ import './JSONForceGraph.css';
 import nodes from '../JSONFiles/test_nodenames2.json';
 import links from '../JSONFiles/test_nodelinks2.json';
 
-const JSONForceGraph = (props) => {
+function JSONForceGraph(props) {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
-    var width = 1150
-    var height = 1150
+
+    //var width = 1150
+    //var height = 1150
+    setTimeout(function(){
+        var width = document.getElementById('visContainer').clientWidth;
+        var height = document.getElementById('visContainer').clientHeight;
+
+
     // var offsetwidth = document.getElementById("visContainer").offsetWidth;
     // var offsetheight = document.getElementById("visContainer").offsetHeight;
     // console.log("width = " + document.getElementById("forceGraph").offsetWidth
@@ -122,7 +128,7 @@ const JSONForceGraph = (props) => {
         d.fx = null;
         d.fy = null;
     }
-
+    }, 1000);
     return (
         <div id='forceGraph'
             style={{
