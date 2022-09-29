@@ -25,7 +25,7 @@ function VisualizationPanel() {
             {/*Container for the graph visualization*/}
             <Container
                 id={'visContainer'}
-                style={{ height: "100%",
+                style={{ height: "85%",
                                 width: "100%",
                                 border: "black 1px solid",
                                 padding: "0px"}}>
