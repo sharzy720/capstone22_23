@@ -23,10 +23,15 @@ function VisualizationPanel() {
             </div>
 
             {/*Container for the graph visualization*/}
-            <Container style={{ height: "88vh",
-                                width: "100vh",
-                                border: "black 1px solid"}}>
+            <Container
+                id={'visContainer'}
+                style={{ height: "85%",
+                                width: "100%",
+                                border: "black 1px solid",
+                                padding: "0px"}}>
                 {/*<ForceGraphVis/>*/}
+
+                {/*<JSONForceGraph width={1150} height={1150}/>*/}
                 <JSONForceGraph/>
             </Container>
         </Paper>

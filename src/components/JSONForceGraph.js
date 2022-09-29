@@ -3,125 +3,142 @@ import * as d3 from 'd3';
 // import { event } from 'd3-drag';
 import './JSONForceGraph.css';
 
-const JSONForceGraph = () => {
+// import nodes and links from JSON files
+import nodes from '../JSONFiles/test_nodenames2.json';
+import links from '../JSONFiles/test_nodelinks2.json';
+
+function JSONForceGraph(props) {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
-    var width = 500
-    var height = 500
 
-    //intialize data
-    var graph = {
-        nodes: [
-            { name: "Alice" },
-            { name: "Bob" },
-            { name: "Chen" },
-            { name: "Dawg" },
-            { name: "Ethan" },
-            { name: "George" },
-            { name: "Frank" },
-            { name: "Hanes" }
-        ],
-        links: [
-            { source: "Alice", target: "Bob" },
-            { source: "Chen", target: "Bob" },
-            { source: "Dawg", target: "Chen" },
-            { source: "Hanes", target: "Frank" },
-            { source: "Hanes", target: "George" },
-            { source: "Dawg", target: "Ethan" }
-        ]
-    };
+    //var width = 1150
+    //var height = 1150
+    setTimeout(function(){
+        var width = document.getElementById('visContainer').clientWidth;
+        var height = document.getElementById('visContainer').clientHeight;
 
-    var simulation = d3
-        .forceSimulation(graph.nodes)
-        .force(
-            "link",
-            d3
-                .forceLink()
-                .id(function(d) {
-                    return d.name;
+
+        // var offsetwidth = document.getElementById("visContainer").offsetWidth;
+        // var offsetheight = document.getElementById("visContainer").offsetHeight;
+        // console.log("width = " + document.getElementById("forceGraph").offsetWidth
+        //     + "\theight = " + document.getElementById("forceGraph").offsetHeight)
+
+
+
+        var simulation = d3
+            .forceSimulation(nodes)
+            .force(
+                "link",
+                d3
+                    .forceLink()
+                    .id(function(d) {
+                        if (d != null) {
+                            return d.name;
+                        }
+                    })
+                    .links(links)
+            )
+
+            .force("charge", d3.forceManyBody().strength(-0.2))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .on("tick", ticked);
+
+        var link = svg
+            .append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(links)
+            .enter()
+            .append("line")
+            .attr("stroke-width", function(d) {
+                return 3;
+            });
+
+        var node = svg
+            .append("g")
+            .attr("class", "nodes")
+            .selectAll("circle")
+            .data(nodes)
+            .enter()
+            .append("circle")
+            .attr("r", 5)
+            .attr("fill", function(d) {
+                return "red";
+            })
+            .call(
+                d3
+                    .drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended)
+            );
+
+        function ticked() {
+            // var tick_width = document.getElementById("forceGraph").offsetWidth;
+            // var tick_height = document.getElementById("forceGraph").offsetHeight;
+
+            // Allows for a boundry to be set up at the edges on the display area
+            var radius = 0;
+
+            link
+                .attr("x1", function(d) {
+                    return d.source.x;
                 })
-                .links(graph.links)
-        )
+                .attr("y1", function(d) {
+                    return d.source.y;
+                })
+                .attr("x2", function(d) {
+                    return d.target.x;
+                })
+                .attr("y2", function(d) {
+                    return d.target.y;
+                });
 
-        .force("charge", d3.forceManyBody().strength(-30))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .on("tick", ticked);
+            node
+                .attr("cx", function(d) {
+                    // return d.x;
+                    return (d.x = Math.max(radius, Math.min(width - radius, d.x)));
+                })
+                .attr("cy", function(d) {
+                    // return d.y;
+                    return (d.y = Math.max(radius, Math.min(height - radius, d.y)));
+                });
+        }
 
-    var link = svg
-        .append("g")
-        .attr("class", "links")
-        .selectAll("line")
-        .data(graph.links)
-        .enter()
-        .append("line")
-        .attr("stroke-width", function(d) {
-            return 3;
-        });
+        function dragstarted(d) {
+            // States how fast nodes will spread out while dragging
+            var alpha = 0.1
 
-    var node = svg
-        .append("g")
-        .attr("class", "nodes")
-        .selectAll("circle")
-        .data(graph.nodes)
-        .enter()
-        .append("circle")
-        .attr("r", 5)
-        .attr("fill", function(d) {
-            return "red";
-        })
-        .call(
-            d3
-                .drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended)
-        );
+            if (!d3.event.active) simulation.alphaTarget(alpha).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
 
-    function ticked() {
-        link
-            .attr("x1", function(d) {
-                return d.source.x;
-            })
-            .attr("y1", function(d) {
-                return d.source.y;
-            })
-            .attr("x2", function(d) {
-                return d.target.x;
-            })
-            .attr("y2", function(d) {
-                return d.target.y;
-            });
+        function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
 
-        node
-            .attr("cx", function(d) {
-                return d.x;
-            })
-            .attr("cy", function(d) {
-                return d.y;
-            });
-    }
+        function dragended(d) {
+            // States how fast nodes will spread out when stopped dragging
+            var alpha = 0
 
-    function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-    }
-
-    function dragged(d) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
-    }
-
-    function dragended(d) {
-        if (!d3.event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-    }
-
+            if (!d3.event.active) simulation.alphaTarget(alpha);
+            d.fx = null;
+            d.fy = null;
+        }
+    }, 100);
     return (
-        <div id='forceGraph'>
-            <svg ref={svg} width={"960"} height={"600"}></svg>
+        <div id='forceGraph'
+            style={{
+                width: '100%',
+                height: '100%'
+            }}>
+            <svg id={'graph'}
+                 ref={svg}
+                 width={"100%"}
+                 height={"100%"}></svg>
         </div>
     )
 }
