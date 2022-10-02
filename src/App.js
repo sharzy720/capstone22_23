@@ -8,7 +8,7 @@ import VisualizationPanel from "./components/VisualizationPanel";
 
 const App = () => {
   return (
-      <div style={{border: "black 1px solid", backgroundColor: "black"}}>
+      <div style={{backgroundColor: "black"}}>
           <Grid
               container
               direction={"row"}
