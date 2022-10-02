@@ -24,8 +24,8 @@ function DetailsPanel() {
                 </p>
 
 
-                <Button onClickFunction={incrementCounter} label={counter} />
-                <Button onClickFunction={incrementCounter} label={"Pineapple"} />
+                {/*<Button onClickFunction={incrementCounter} label={counter} />*/}
+                {/*<Button onClickFunction={incrementCounter} label={"Pineapple"} />*/}
             </div>
         </Paper>
     );
