@@ -4,8 +4,8 @@ import * as d3 from 'd3';
 import './JSONForceGraph.css';
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/test_nodenames2.json';
-import links from '../JSONFiles/test_nodelinks2.json';
+import nodes from '../JSONFiles/test_nodenames3.json';
+import links from '../JSONFiles/test_nodelinks3.json';
 
 function JSONForceGraph(props) {
 
@@ -40,7 +40,7 @@ function JSONForceGraph(props) {
                     .links(links)
             )
 
-            .force("charge", d3.forceManyBody().strength(-0.2))
+            .force("charge", d3.forceManyBody().strength(-0.3))
             .force("center", d3.forceCenter(width / 2, height / 2))
             .on("tick", ticked);
 
