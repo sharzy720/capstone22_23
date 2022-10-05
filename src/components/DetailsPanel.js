@@ -2,6 +2,7 @@
 import React from 'react'
 import {Paper} from "@mui/material";
 import Button from "./Button";
+import Dropdown from "./Dropdown";
 
 //TODO fill with all information about the dataset
 
@@ -23,6 +24,7 @@ function DetailsPanel() {
                     put here
                 </p>
 
+                <Dropdown/>
 
                 {/*<Button onClickFunction={incrementCounter} label={counter} />*/}
                 {/*<Button onClickFunction={incrementCounter} label={"Pineapple"} />*/}
