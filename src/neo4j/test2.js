@@ -5,11 +5,16 @@
     const user = 'neo4j';
     const password = 'WCUCapstone2022';
     const timeStep = 4;
+    const fs = require('fs')
+    let idFile;
+    let transactionFile;
 
     // To learn more about the driver: https://neo4j.com/docs/javascript-manual/current/client-applications/#js-driver-driver-object
     const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
 
     try {
+        idFile = fs.openSync('../JSONFiles/ids_test.json', 'w');
+        transactionFile = fs.openSync('test.json', 'w');
         await getUserIds(driver);
         // await getSourceIds(driver);
         // await getTargetIds(driver);
@@ -40,10 +45,32 @@
 
             // console.log(readResult.records.toLocaleString())
 
+            // TODO create array of all user ids including duplicate ids
+            let userIDS = []
+
+            writeToFile(transactionFile, "[\n")
+
+            console.log("length of result" + readResult.records.length)
+
             readResult.records.forEach(record => {
                 // const test = record.get('n')
                 console.log(`Source ID: ${record.get('S.name')} ----> Target ID: ${record.get('T.name')}`)
+
+                let sourceID = record.get('S.name');
+                let targetID = record.get('T.name');
+
+                // TODO create json of transactions (source, target)
+                appendToFile(transactionFile, "{ \"source\": " + sourceID + ", \"target\": " + targetID + " },\n")
+
             });
+
+            appendToFile(transactionFile, "]")
+            // TODO remove duplicate user ids
+
+
+            // TODO create json of user ids (name)
+
+
         } catch (error) {
             console.error(`Something went wrong: ${error}`);
         } finally {
@@ -52,69 +79,28 @@
     }
 
     /**
-     * Gets ids of the source of a transaction from the database
-     * @param driver neo4j driver for running a query
-     * @returns {Promise<void>}
+     * Overwrites a given file with the given message
+     * @param message String to overwrite file with
      */
-    async function getSourceIds(driver) {
-
-        const session = driver.session({ database: 'neo4j' });
-
-        try {
-            const readQuery = `MATCH (n) WHERE (n.source) IS NOT NULL 
-                                RETURN DISTINCT "node" as entity, n.source AS source 
-                                UNION ALL 
-                                MATCH ()-[r]-() WHERE (r.source) IS NOT NULL 
-                                RETURN DISTINCT "relationship" AS entity, r.source AS source`;
-
-            const readResult = await session.readTransaction(tx =>
-                tx.run(readQuery)
-            );
-
-            // console.log(readResult.records.toLocaleString())
-
-            readResult.records.forEach(record => {
-                // const test = record.get('n')
-                console.log(`Found source id: ${record.get('source')}`)
-            });
-        } catch (error) {
-            console.error(`Something went wrong: ${error}`);
-        } finally {
-            await session.close();
-        }
+    function writeToFile(file, message) {
+        fs.writeFile(file, message, (err) => {
+            if (err) throw err;
+            else{
+                console.log("The file is updated with the given data")
+            }
+        })
     }
 
     /**
-     * Gets ids of the target of a transaction from the database
-     * @param driver neo4j driver for running a query
-     * @returns {Promise<void>}
+     * Appends a given file with the given message
+     * @param file File to append a String to
+     * @param message String to append to a file
      */
-    async function getTargetIds(driver) {
-
-        const session = driver.session({ database: 'neo4j' });
-
-        try {
-            const readQuery = `MATCH (n) WHERE (n.target) IS NOT NULL 
-                                RETURN DISTINCT "node" as entity, n.target AS target
-                                UNION ALL 
-                                MATCH ()-[r]-() WHERE (r.target) IS NOT NULL 
-                                RETURN DISTINCT "relationship" AS entity, r.target AS target`;
-
-            const readResult = await session.readTransaction(tx =>
-                tx.run(readQuery)
-            );
-
-            // console.log(readResult.records.toLocaleString())
-
-            readResult.records.forEach(record => {
-                // const test = record.get('n')
-                console.log(`Found target id: ${record.get('target')}`)
-            });
-        } catch (error) {
-            console.error(`Something went wrong: ${error}`);
-        } finally {
-            await session.close();
-        }
+    function appendToFile(file, message) {
+        fs.appendFile(file, message, function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+        });
     }
 
 })();
