@@ -114,7 +114,7 @@
         // appendToFile(idFile, "]");
     }
 
-    function createIdJson(ids) {
+    async function createIdJson(ids) {
         // TODO remove duplicate user ids
         // userIDS = [...new Set(userIDS)];
         // let userIds = ids.reduce((p, c) => p.set(c.a, c), new Map()).values()
@@ -132,13 +132,12 @@
         console.log("length of ids after removing duplicates: " + userIds.length)
 
 
-
         // console.log(userIds.toString())
 
         // // TODO create json of user ids (name)
         writeToFile(idFile, "[\n")
 
-        for (const id of userIds) {
+        for await (const id of userIds) {
             appendToFile(idFile, "{ \"name\": " + id + " },\n");
         }
 
@@ -146,7 +145,9 @@
         //     appendToFile(idFile, "{ \"name\": " + id + " },\n");
         // });
 
-        appendToFile(idFile, "]");
+        // For some reason without a short timeout the closing bracket will be placed in the middle of the above loop
+        setTimeout(() => {  appendToFile(idFile, "]"); }, 0);
+        // appendToFile(idFile, "]");
     }
 
     /**
