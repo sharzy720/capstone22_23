@@ -15,9 +15,7 @@
     try {
         idFile = fs.openSync('test_ids.json', 'w');
         transactionFile = fs.openSync('test.json', 'w');
-        await getUserIds(driver);
-        // await getSourceIds(driver);
-        // await getTargetIds(driver);
+        await receiveDatabaseData(driver);
 
         // await findPerson(driver, person2Name);
     } catch (error) {
@@ -27,12 +25,13 @@
         await driver.close();
     }
 
+
     /**
-     * Gets ids of the users in the database
+     * Receives transaction ids from given time step, parses transaction json
      * @param driver neo4j driver for running a query
      * @returns {Promise<void>}
      */
-    async function getUserIds(driver) {
+    async function receiveDatabaseData(driver) {
 
         const session = driver.session({ database: 'neo4j' });
 
@@ -46,24 +45,23 @@
                 tx.run(readQuery)
             );
 
-            // console.log(readResult.records.toLocaleString())
 
-
-            // TODO create json of transactions (source, target)
+            // Create json file of transactions (source, target)
             writeToFile(transactionFile, "[\n")
 
             console.log("length of result" + readResult.records.length)
 
             for await (const record of readResult.records) {
-                // const test = record.get('n')
-                console.log(`Source ID: ${record.get('S.name')} ----> Target ID: ${record.get('T.name')}`)
+                // console.log(`Source ID: ${record.get('S.name')} ----> Target ID: ${record.get('T.name')}`)
 
+                // Recording all user ids that were either the source or target of a transaction
                 let sourceID = record.get('S.name');
                 userIDS.push(sourceID.toString());
 
                 let targetID = record.get('T.name');
                 userIDS.push(targetID.toString());
 
+                // Appends source and target ids to the transaction json file
                 appendToFile(transactionFile, "{ \"source\": " + sourceID + ", \"target\": " + targetID + " },\n")
 
             }
@@ -82,76 +80,54 @@
             //
             // });
             appendToFile(transactionFile, "]")
-
-
-
-
         } catch (error) {
             console.error(`Something went wrong: ${error}`);
         } finally {
             await session.close();
         }
 
-        createIdJson(userIDS)
-
-        // // TODO remove duplicate user ids
-        // // userIDS = [...new Set(userIDS)];
-        // userIDS.reduce((p, c) => p.set(c.a, c), new Map()).values()
-        //
-        // console.log(userIDS.toString())
-        //
-        // // // TODO create json of user ids (name)
-        // writeToFile(idFile, "[\n")
-        //
-        // for await (const id of userIDS) {
-        //     appendToFile(idFile, "{ \"name\": " + id + " },\n");
-        // }
-        //
-        // // userIDS.forEach(id => {
-        // //     appendToFile(idFile, "{ \"name\": " + id + " },\n");
-        // // });
-        //
-        // appendToFile(idFile, "]");
+        await createUserIdJson(userIDS)
     }
 
-    async function createIdJson(ids) {
-        // TODO remove duplicate user ids
+
+    /**
+     * Creates a json file for all unique user ids that had transactions
+     * @param ids List of user ids
+     * @returns {Promise<void>}
+     */
+    async function createUserIdJson(ids) {
+        // Remove duplicate user ids
+
+        // Different ways to remove duplicate IDS choose one
         // userIDS = [...new Set(userIDS)];
         // let userIds = ids.reduce((p, c) => p.set(c.a, c), new Map()).values()
         // let userIds = [...new Set(ids)]
         // let userIds = ids.filter((element, index) => {
         //     return ids.indexOf(element) === index;
         // });
-        console.log("length of ids: " + ids.length)
         let userIds = []
         ids.forEach((c) => {
             if (!userIds.includes(c)) {
                 userIds.push(c);
             }
         });
-        console.log("length of ids after removing duplicates: " + userIds.length)
 
 
-        // console.log(userIds.toString())
-
-        // // TODO create json of user ids (name)
+        // Create json of user ids (name)
         writeToFile(idFile, "[\n")
 
         for await (const id of userIds) {
             appendToFile(idFile, "{ \"name\": " + id + " },\n");
         }
 
-        // userIDS.forEach(id => {
-        //     appendToFile(idFile, "{ \"name\": " + id + " },\n");
-        // });
-
-        // For some reason without a short timeout the closing bracket will be placed in the middle of the above loop
+        // Timeout so closing bracket is written to end of json and not the middle
         setTimeout(() => {  appendToFile(idFile, "]"); }, 0);
-        // appendToFile(idFile, "]");
     }
+
 
     /**
      * Overwrites a given file with the given message
+     * @param file File to overwrite
      * @param message String to overwrite file with
      */
     function writeToFile(file, message) {
@@ -162,6 +138,7 @@
             }
         })
     }
+
 
     /**
      * Appends a given file with the given message
