@@ -2,15 +2,21 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 // import { event } from 'd3-drag';
 import './JSONForceGraph.css';
+// import createJsonFiles from '../neo4j/test3';
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/test_nodenames3.json';
-import links from '../JSONFiles/test_nodelinks3.json';
+// import nodes from '../JSONFiles/test_nodenames3.json';
+// import links from '../JSONFiles/test_nodelinks3.json';
+// import nodes from '../neo4j/test_ids.json';
+// import links from '../neo4j/test.json';
 
 function JSONForceGraph(props) {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
+
+    // Creates JSON files from database
+    // createJsonFiles();
 
     //var width = 1150
     //var height = 1150
