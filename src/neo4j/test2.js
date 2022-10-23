@@ -1,20 +1,21 @@
 (async() => {
-    const neo4j = require('neo4j-driver');
+    const neo4j = require('neo4j-driver');                  // Neo4j driver for communicating with the database
 
-    const uri = 'neo4j+s://d0a1241d.databases.neo4j.io';
-    const user = 'neo4j';
-    const password = 'WCUCapstone2022';
-    const timeStep = 4;
-    const fs = require('fs')
-    let idFile;
-    let transactionFile;
+    const uri = 'neo4j+s://d0a1241d.databases.neo4j.io';    // URL for database
+    const user = 'neo4j';                                   // Username for database
+    const password = 'WCUCapstone2022';                     // Password for database
+    const timeStep = 4;                                     // Transaction time step to grab
+    const fs = require('fs')                                // Filesystem to use when creating json files
+    let userIDS = [];                                       // List of all user IDs in the time step
+    let idFile;                                             // JSON file to write user IDs to
+    let transactionFile;                                    // JSON file to write transaction IDs to
 
     // To learn more about the driver: https://neo4j.com/docs/javascript-manual/current/client-applications/#js-driver-driver-object
-    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
+    const driver = neo4j.driver(uri, neo4j.auth.basic(user, password)); // Logging into and connecting to database
 
     try {
-        idFile = fs.openSync('test_ids.json', 'w');
-        transactionFile = fs.openSync('test.json', 'w');
+        idFile = fs.openSync('test_ids.json', 'w');         // Opening User ID JSON file
+        transactionFile = fs.openSync('test.json', 'w');    // Opening transaction JSON file
         await receiveDatabaseData(driver);
 
         // await findPerson(driver, person2Name);
@@ -33,53 +34,42 @@
      */
     async function receiveDatabaseData(driver) {
 
-        const session = driver.session({ database: 'neo4j' });
-
-        // TODO create array of all user ids including duplicate ids
-        let userIDS = []
+        const session = driver.session({ database: 'neo4j' });  // Create database session
 
         try {
-            const readQuery = 'MATCH p = (S:source)-[* {\`time step\`:' + timeStep + '}]-(T:target) RETURN S.name, T.name';
+            // Query to run on the connected database
+            const readQuery = 'MATCH p = (S:source)-[* {\`time step\`:' + timeStep + '}]-(T:target) RETURN S.name, T.name LIMIT 500';
 
             const readResult = await session.readTransaction(tx =>
                 tx.run(readQuery)
-            );
+            );  // Result received from the database
 
 
             // Create json file of transactions (source, target)
             writeToFile(transactionFile, "[\n")
 
-            console.log("length of result" + readResult.records.length)
-
-            for await (const record of readResult.records) {
+            for await (const [index, record] of readResult.records.entries()) {
                 // console.log(`Source ID: ${record.get('S.name')} ----> Target ID: ${record.get('T.name')}`)
 
-                // Recording all user ids that were either the source or target of a transaction
-                let sourceID = record.get('S.name');
-                userIDS.push(sourceID.toString());
+                let sourceID = record.get('S.name');    // ID of source user
+                let targetID = record.get('T.name');    // ID of target user
 
-                let targetID = record.get('T.name');
-                userIDS.push(targetID.toString());
+                if (index === readResult.records.length - 1) {
+                    // Do not include a comma if the transaction is the last in the list
 
-                // Appends source and target ids to the transaction json file
-                appendToFile(transactionFile, "{ \"source\": " + sourceID + ", \"target\": " + targetID + " },\n")
+                    getUserIds(sourceID, targetID)
+                    // Appends source and target ids to the transaction json file
+                    appendToFile(transactionFile, "{ \"source\": " + sourceID + ", \"target\": " + targetID + " }\n")
 
+                } else {
+                    getUserIds(sourceID, targetID)
+                    // Appends source and target ids to the transaction json file
+                    appendToFile(transactionFile, "{ \"source\": " + sourceID + ", \"target\": " + targetID + " },\n")
+                }
             }
 
-            // readResult.records.forEach(record => {
-            //     // const test = record.get('n')
-            //     console.log(`Source ID: ${record.get('S.name')} ----> Target ID: ${record.get('T.name')}`)
-            //
-            //     let sourceID = record.get('S.name');
-            //     userIDS.push(sourceID);
-            //
-            //     let targetID = record.get('T.name');
-            //     userIDS.push(targetID);
-            //
-            //     appendToFile(transactionFile, "{ \"source\": " + sourceID + ", \"target\": " + targetID + " },\n")
-            //
-            // });
-            appendToFile(transactionFile, "]")
+            // Timeout so closing bracket is written to end of json and not the middle
+            setTimeout(() => {  appendToFile(transactionFile, "]"); }, 0);
         } catch (error) {
             console.error(`Something went wrong: ${error}`);
         } finally {
@@ -100,15 +90,15 @@
 
         // Different ways to remove duplicate IDS choose one
         // userIDS = [...new Set(userIDS)];
-        // let userIds = ids.reduce((p, c) => p.set(c.a, c), new Map()).values()
-        // let userIds = [...new Set(ids)]
-        // let userIds = ids.filter((element, index) => {
+        // let filteredUserIds = ids.reduce((p, c) => p.set(c.a, c), new Map()).values()
+        // let filteredUserIds = [...new Set(ids)]
+        // let filteredUserIds = ids.filter((element, index) => {
         //     return ids.indexOf(element) === index;
         // });
-        let userIds = []
-        ids.forEach((c) => {
-            if (!userIds.includes(c)) {
-                userIds.push(c);
+        let filteredUserIds = []    // List of user IDs without duplicate IDs
+        ids.forEach((id) => {
+            if (!filteredUserIds.includes(id)) {
+                filteredUserIds.push(id);
             }
         });
 
@@ -116,12 +106,31 @@
         // Create json of user ids (name)
         writeToFile(idFile, "[\n")
 
-        for await (const id of userIds) {
-            appendToFile(idFile, "{ \"name\": " + id + " },\n");
+        for await (const [index, id] of filteredUserIds.entries()) {
+
+            if (index === filteredUserIds.length - 1) {
+                // Do not include a comma if the id is that last id in the list
+                appendToFile(idFile, "{ \"name\": " + id + " }\n");
+            } else {
+                appendToFile(idFile, "{ \"name\": " + id + " },\n");
+            }
         }
 
         // Timeout so closing bracket is written to end of json and not the middle
         setTimeout(() => {  appendToFile(idFile, "]"); }, 0);
+    }
+
+
+    /**
+     * Pushes the given source and target IDs to the user list
+     * @param source Source user ID
+     * @param target Target user ID
+     */
+    function getUserIds(source, target) {
+        // Recording all user ids that were either the source or target of a transaction
+        userIDS.push(source.toString());
+
+        userIDS.push(target.toString());
     }
 
 
