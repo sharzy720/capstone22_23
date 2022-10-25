@@ -8,9 +8,12 @@ import Dropdown from "./Dropdown";
 
 var numNodes = 200000; //Var so you can change it later
 
-function DetailsPanel() {
-    const [counter, setCounter] = React.useState(10);
-    const incrementCounter = () => setCounter(counter+1);
+function DetailsPanel(props) {
+    {/*const [counter, setCounter] = React.useState(10);*/}
+    {/*const incrementCounter = () => setCounter(counter+1);*/}
+    const [timeStep, setTimeStep] = React.useState('1');
+
+    const updateValue = () => props.setGraph(timeStep);
     return (
         <Paper style={{backgroundColor: "lightcoral", height: "98vh"}}>
             <div style={{padding: "20px"}}>
@@ -24,7 +27,8 @@ function DetailsPanel() {
                     put here
                 </p>
 
-                <Dropdown/>
+                <Dropdown setTime_step={setTimeStep} timeStep={timeStep} />
+                <Button onClickFunction={updateValue}  label={props.graph} />
 
                 {/*<Button onClickFunction={incrementCounter} label={counter} />*/}
                 {/*<Button onClickFunction={incrementCounter} label={"Pineapple"} />*/}

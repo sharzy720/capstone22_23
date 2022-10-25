@@ -7,25 +7,27 @@ import VisualizationPanel from "./components/VisualizationPanel";
 //TODO get container to have no extra spacing around it
 
 const App = () => {
-  return (
-      <div style={{backgroundColor: "black"}}>
-          <Grid
-              container
-              direction={"row"}
-              spacing={{ md: 1, xl: 2}}
-              style={{padding: "10px"}}>
+    const [graph, setGraph] = React.useState('1');
 
-              <Grid item md={8}>
-                  <VisualizationPanel/>
+    return (
+        <div style={{backgroundColor: "black"}}>
+            <Grid
+                container
+                direction={"row"}
+                spacing={{ md: 1, xl: 2}}
+                style={{padding: "10px"}}>
 
-              </Grid>
-              <Grid item md={4}>
-                  <DetailsPanel/>
+                <Grid item md={8}>
+                    <VisualizationPanel/>
 
-              </Grid>
-          </Grid>
+                </Grid>
+                <Grid item md={4}>
+                    <DetailsPanel graph={graph} setGraph={setGraph} />
+
+                </Grid>
+            </Grid>
       </div>
-  );
+    );
 }
 
 export default App
