@@ -6,10 +6,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 function Dropdown (props) {
-    const [time_step, setTime_step] = React.useState('');
+
 
     const handleChange = (event) => {
-        setTime_step(event.target.value);
+        props.setTime_step(event.target.value);
     };
 
     return (
@@ -19,7 +19,7 @@ function Dropdown (props) {
                 <Select
                     labelId="time-step-select-label"
                     id="time-step-select"
-                    value={time_step}
+                    value={props.time_step}
                     label="time"
                     onChange={handleChange}
                 >
