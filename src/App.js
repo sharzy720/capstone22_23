@@ -18,7 +18,7 @@ const App = () => {
                 style={{padding: "10px"}}>
 
                 <Grid item md={8}>
-                    <VisualizationPanel/>
+                    <VisualizationPanel graph={graph}/>
 
                 </Grid>
                 <Grid item md={4}>

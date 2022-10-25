@@ -2,22 +2,22 @@
 import React from 'react'
 import {Paper, Container} from "@mui/material";
 // import D3Visualization from "./D3Visualization";
-// import ForceGraphVis from "./ForceGraphVis";
+import ForceGraphVis from "./ForceGraphVis";
 // import Vis1 from './Vis1.js';
 // import Vis2 from "./Vis2";
 // import JSONForceGraph from "./JSONForceGraph";
-import JSONForceGraph_V2 from "./JSONForceGraph_V2";
+// import JSONForceGraph_V2 from "./JSONForceGraph_V2";
 
 //TODO fill with all things visualization
 //TODO on larger screens the visualization container does not take up the full screen
 
-function VisualizationPanel() {
+function VisualizationPanel(props) {
     return (
         <Paper style={{backgroundColor: "lightblue",
                        height: "98vh",
                        width: "100%"}}>
             <div style={{padding: "20px"}}>
-                Visualization
+                Visualization - Time step: {props.graph}
                 <br/>
                 <p>
                     The visualization of our dataset will be placed here
@@ -30,10 +30,11 @@ function VisualizationPanel() {
                 style={{ height: "85%",
                         width: "100%",
                         padding: "0px"}}>
-                {/*<ForceGraphVis/>*/}
+
+                <ForceGraphVis/>
 
                 {/*<JSONForceGraph width={1150} height={1150}/>*/}
-                <JSONForceGraph_V2/>
+                {/*<JSONForceGraph_V2/>*/}
                 {/*<Vis2/>*/}
             </div>
         </Paper>
