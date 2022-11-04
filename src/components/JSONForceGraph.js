@@ -4,20 +4,23 @@ import * as d3 from 'd3';
 import './JSONForceGraph.css';
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/test_nodenames3.json';
-import links from '../JSONFiles/test_nodelinks3.json';
+import nodes from '../JSONFiles/test_nodenames2.json';
+import links from '../JSONFiles/test_nodelinks2.json';
 
 function JSONForceGraph(props) {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
 
+    //svg = svg.clear();
     //var width = 1150
     //var height = 1150
-    setTimeout(function(){
+    setTimeout(function() {
         var width = document.getElementById('visContainer').clientWidth;
         var height = document.getElementById('visContainer').clientHeight;
-
+        svg.selectAll("g").remove();
+        console.log("hello world");
+        // TODO Query here.
 
         // var offsetwidth = document.getElementById("visContainer").offsetWidth;
         // var offsetheight = document.getElementById("visContainer").offsetHeight;
@@ -32,17 +35,18 @@ function JSONForceGraph(props) {
                 "link",
                 d3
                     .forceLink()
-                    .id(function(d) {
+                    .id(function (d) {
                         if (d != null) {
                             return d.name;
                         }
                     })
                     .links(links)
             )
-
             .force("charge", d3.forceManyBody().strength(-0.3))
             .force("center", d3.forceCenter(width / 2, height / 2))
             .on("tick", ticked);
+
+
 
         var link = svg
             .append("g")
@@ -135,6 +139,7 @@ function JSONForceGraph(props) {
                 width: '100%',
                 height: '100%'
             }}>
+            {props.timestep}
             <svg id={'graph'}
                  ref={svg}
                  width={"100%"}
