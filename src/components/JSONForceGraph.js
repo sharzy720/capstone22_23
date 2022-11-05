@@ -1,16 +1,24 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import axios from "axios";
+
 // import { event } from 'd3-drag';
 import './JSONForceGraph.css';
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/test_nodenames2.json';
-import links from '../JSONFiles/test_nodelinks2.json';
+import nodes from '../JSONFiles/users.json';
+import links from '../JSONFiles/transactions.json';
 
 function JSONForceGraph(props) {
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
+    // Make request
+    axios.get('http://localhost:4000/transactions/4')
+        // Show response data
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+
 
     //svg = svg.clear();
     //var width = 1150
