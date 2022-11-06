@@ -1,23 +1,58 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
 import axios from "axios";
 
 // import { event } from 'd3-drag';
 import './JSONForceGraph.css';
+import {amET} from "@mui/material/locale";
 
 // import nodes and links from JSON files
 import nodes from '../JSONFiles/users.json';
 import links from '../JSONFiles/transactions.json';
 
+
 function JSONForceGraph(props) {
+
+
+    // let nodes
+    // let links
+
+    const [Nodes, setNodes]=useState()
+    const [Links, setLinks]=useState()
+
+    useEffect(() => {
+        console.log("====USE EFFECT RUNNING====")
+        // TODO Query here.
+        axios.get('http://localhost:4000/transactions/4')
+            // Show response data
+            .then(res => setLinks(res.data))
+            .catch(err => console.log(err))
+        console.log("Received links: " + JSON.stringify(Links))
+
+        axios.get('http://localhost:4000/users/4')
+            // Show response data
+            .then(res => setNodes(res.data))
+            .catch(err => console.log(err))
+        console.log("Received links: " + JSON.stringify(Nodes))
+    }, [null]);
+
+    // axios.get('http://localhost:4000/transactions/4')
+    //     // Show response data
+    //     .then(res => setLinks(res.data))
+    //     .catch(err => console.log(err))
+    // console.log("Received links: " + JSON.stringify(Links))
+    //
+    // axios.get('http://localhost:4000/users/4')
+    //     // Show response data
+    //     .then(res => setNodes(res.data))
+    //     .catch(err => console.log(err))
+    // console.log("Received links: " + JSON.stringify(Nodes))
+
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
-    // Make request
-    axios.get('http://localhost:4000/transactions/4')
-        // Show response data
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err))
+    // Getting transactions from API
+
 
 
     //svg = svg.clear();
@@ -27,8 +62,33 @@ function JSONForceGraph(props) {
         var width = document.getElementById('visContainer').clientWidth;
         var height = document.getElementById('visContainer').clientHeight;
         svg.selectAll("g").remove();
-        console.log("hello world");
-        // TODO Query here.
+        // console.log("hello world");
+
+        // const linkData = async () => {
+        //     await axios.get('http://localhost:4000/transactions/4')
+        //         .then(res => {
+        //             console.log("Links inside of axios: " + JSON.stringify(res.data))
+        //             return res.data
+        //         })
+        // }
+        //
+        // const nodeData = async () => {
+        //     const nodes = await axios.get('http://localhost:4000/users/4')
+        //         .then(res => {
+        //             return res.data
+        //         })
+        // }
+
+        // console.log(res.data)
+
+
+        // Getting users from API
+        // nodes = axios.get('http://localhost:4000/users/4')
+            // Show response data
+            // .then(res => res.data)
+            // .catch(err => console.log(err))
+
+        // console.log("Received nodes: " + nodeData())
 
         // var offsetwidth = document.getElementById("visContainer").offsetWidth;
         // var offsetheight = document.getElementById("visContainer").offsetHeight;
