@@ -7,8 +7,8 @@ import './JSONForceGraph.css';
 import {amET} from "@mui/material/locale";
 
 // import nodes and links from JSON files
-import nodes from '../JSONFiles/users.json';
-import links from '../JSONFiles/transactions.json';
+// import nodes from '../JSONFiles/users.json';
+// import links from '../JSONFiles/transactions.json';
 
 
 function JSONForceGraph(props) {
@@ -17,24 +17,26 @@ function JSONForceGraph(props) {
     // let nodes
     // let links
 
-    const [Nodes, setNodes]=useState()
-    const [Links, setLinks]=useState()
+    const [nodes, setNodes]=useState()
+    const [links, setLinks]=useState()
+
+    console.log("Prop timestep = " + props.timestep)
 
     useEffect(() => {
         console.log("====USE EFFECT RUNNING====")
         // TODO Query here.
-        axios.get('http://localhost:4000/transactions/4')
+        axios.get("http://localhost:4000/transactions/" + props.timestep)
             // Show response data
             .then(res => setLinks(res.data))
             .catch(err => console.log(err))
-        console.log("Received links: " + JSON.stringify(Links))
+        console.log("Received links: " + JSON.stringify(links))
 
-        axios.get('http://localhost:4000/users/4')
+        axios.get("http://localhost:4000/users/" + props.timestep)
             // Show response data
             .then(res => setNodes(res.data))
             .catch(err => console.log(err))
-        console.log("Received links: " + JSON.stringify(Nodes))
-    }, [null]);
+        console.log("Received nodes: " + JSON.stringify(nodes))
+    }, [props.timestep]);
 
     // axios.get('http://localhost:4000/transactions/4')
     //     // Show response data
