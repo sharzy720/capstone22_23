@@ -5,8 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function Dropdown (props) {
-
+function TimestepDropdown (props) {
 
     const handleChange = (event) => {
         props.setTime_step(event.target.value);
@@ -33,4 +32,4 @@ function Dropdown (props) {
     );
 }
 
-export default Dropdown
+export default TimestepDropdown
