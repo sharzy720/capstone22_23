@@ -6,7 +6,7 @@ import VisualizationPanel from "./components/VisualizationPanel";
 
 
 const App = () => {
-    const [graph, setGraph] = React.useState('1');
+    const [graph, setGraph] = React.useState('51');
 
     return (
         <div style={{
