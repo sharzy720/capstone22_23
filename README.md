@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Capstone Fall 2022 - Spring 2023 (Front End)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Creators: Johnathyn Strong and Nickolas Wofford
 
-## Available Scripts
+#### Description: This is the front end of our capstone project that aims to take a set of Bitcoin transactions and visualize the transactions in a easy to use web app.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Details
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The goal of this app is to visualize transactions from the Eliptic dataset. Since the Eliptic dataset consists of over 200k transactions we decided to create many subset of the data. We did this by splitting the dataset into time steps and then cutting the timesteps down to 1,000 transactions per. 1,000 transactions per time step gave the best amount of performance in the app and dataset depth.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For the design of the web app. We decided to use Material UI which allowed for us to easily have the app split into two sections. Material UI was also used because of its great looking buttons and drop down menus. The drop down menus were used to allow a user to select what time step they want to display as well as how many transactions that want to visualize from the selected time step.
 
-### `npm test`
+D3.js was used to visualize our dataset.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Axios was used to make requests to the back end's API where are the transaction data is received from.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Dependicies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* React
+* Material UI
+* D3.js
+* Axios
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## How to run
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+open a terminal and run 'npm start'
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+However for the project to work correctly you need to have the backend runing before running the frontend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Bugs
 
-## Learn More
+The graph visualization will sometimes render as a red dot in the top left corner of the visualization panel
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
