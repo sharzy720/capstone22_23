@@ -5,6 +5,10 @@ import JSONForceGraph from "./JSONForceGraph";
 
 
 function VisualizationPanel(props) {
+    let displayGraph = props.timestep !== 51;
+
+    console.log("displayGraph: " + displayGraph)
+
     return (
         <Paper style={{backgroundColor: "lightblue",
                        minHeight: "98.5vh",
@@ -20,10 +24,14 @@ function VisualizationPanel(props) {
             {/*/!*Container for the graph visualization*!/*/}
             <div
                 id={'visContainer'}
-                style={{ height: "85%",
-                        width: "100%",
+                style={{ height: "96vh",
+                        width: "73vw",
                         padding: "0px"}}>
-                <JSONForceGraph timestep={props.timestep} />
+
+                {displayGraph ?
+                    <JSONForceGraph timestep={props.timestep} /> :
+                    console.log("No graph displayed")
+                }
             </div>
         </Paper>
     );
