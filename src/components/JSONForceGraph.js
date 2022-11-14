@@ -135,7 +135,7 @@ function JSONForceGraph(props) {
             d.fx = null;
             d.fy = null;
         }
-    }, 100);
+    }, 200);
     return (
         <div id='forceGraph'
             style={{
