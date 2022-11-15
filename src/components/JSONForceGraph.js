@@ -14,18 +14,18 @@ function JSONForceGraph(props) {
     useEffect(() => {
         console.log("====USE EFFECT RUNNING====")
         // TODO Query here.
-        axios.get("http://localhost:4000/transactions/" + props.timestep)
+        axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
             // Show response data
             .then(res => setLinks(res.data))
             .catch(err => console.log(err))
         console.log("Received links: " + JSON.stringify(links))
 
-        axios.get("http://localhost:4000/users/" + props.timestep)
+        axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
             // Show response data
             .then(res => setNodes(res.data))
             .catch(err => console.log(err))
         console.log("Received nodes: " + JSON.stringify(nodes))
-    }, [props.timestep]);
+    }, [props.timestep, props.limit]);
 
     //initilize svg or grab svg
     var svg = d3.select("svg");

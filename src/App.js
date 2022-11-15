@@ -7,6 +7,7 @@ import VisualizationPanel from "./components/VisualizationPanel";
 
 const App = () => {
     const [graph, setGraph] = React.useState('51');
+    const [limit, setLimit] = React.useState('125');
 
     return (
         <div style={{
@@ -21,11 +22,11 @@ const App = () => {
                 style={{padding: "10px"}}>
 
                 <Grid item md={9}>
-                    <VisualizationPanel timestep={graph}/>
+                    <VisualizationPanel timestep={graph} limit={limit}/>
 
                 </Grid>
                 <Grid item md={3}>
-                    <DetailsPanel graph={graph} setGraph={setGraph} />
+                    <DetailsPanel graph={graph} setGraph={setGraph} limit={limit} setLimit={setLimit} />
 
                 </Grid>
             </Grid>

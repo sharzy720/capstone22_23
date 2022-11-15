@@ -29,7 +29,7 @@ function VisualizationPanel(props) {
                         padding: "0px"}}>
 
                 {displayGraph ?
-                    <JSONForceGraph timestep={props.timestep} /> :
+                    <JSONForceGraph timestep={props.timestep} limit={props.limit} /> :
                     console.log("No graph displayed")
                 }
             </div>

@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 function LimitDropdown (props) {
 
     const handleChange = (event) => {
-        props.setTime_step(event.target.value);
+        props.setLimit(event.target.value);
     };
 
     return (
@@ -18,10 +18,11 @@ function LimitDropdown (props) {
                 <Select
                     labelId="limit-select-label"
                     id="limit-select"
-                    value={props.time_step}
+                    value={props.limit}
                     label="limit"
                     onChange={handleChange}
                 >
+                    <MenuItem value={20}>20</MenuItem>
                     <MenuItem value={125}>125</MenuItem>
                     <MenuItem value={250}>250</MenuItem>
                     <MenuItem value={500}>500</MenuItem>

@@ -8,9 +8,12 @@ const numNodes = 4000; // Temp data value for amount of nodes in the graph
 
 function DetailsPanel(props) {
     const [timeStep, setTimeStep] = React.useState('1');
-    const [limit, setLimit] = React.useState('500')
+    const [limit, setLimit] = React.useState('125')
 
-    const updateValue = () => props.setGraph(timeStep);
+    const updateValue = () => {
+        props.setGraph(timeStep);
+        props.setLimit(limit);
+    }
     return (
         // old background color 'lightcoral
         <Paper style={{
@@ -38,14 +41,14 @@ function DetailsPanel(props) {
                 </p>
 
                 {/* Selecting the time step to display */}
-                <TimestepDropdown setTime_step={setTimeStep} timeStep={timeStep} />
+                <TimestepDropdown setTimestep={setTimeStep} timestep={timeStep} />
                 {/*<DisplayButton onClickFunction={updateValue} label={props.graph} />*/}
 
                 <br/>
                 {/*<br/>*/}
 
                 {/* Selecting the number of transactions to display */}
-                <LimitDropdown setLimit_step={setLimit} limit={limit} />
+                <LimitDropdown setLimit={setLimit} limit={limit} />
 
                 <br/>
 

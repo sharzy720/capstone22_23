@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 function TimestepDropdown (props) {
 
     const handleChange = (event) => {
-        props.setTime_step(event.target.value);
+        props.setTimestep(event.target.value);
     };
 
     return (
@@ -18,7 +18,7 @@ function TimestepDropdown (props) {
                 <Select
                     labelId="time-step-select-label"
                     id="time-step-select"
-                    value={props.time_step}
+                    value={props.timestep}
                     label="time"
                     onChange={handleChange}
                 >
