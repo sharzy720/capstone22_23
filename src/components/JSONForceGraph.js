@@ -6,38 +6,45 @@ import './JSONForceGraph.css';
 
 function JSONForceGraph(props) {
 
-    const [nodes, setNodes]=useState()
-    const [links, setLinks]=useState()
+    //const [nodes, setNodes]=useState()
+    //const [links, setLinks]=useState()
 
     console.log("Prop timestep = " + props.timestep)
-
     useEffect(() => {
-        console.log("====USE EFFECT RUNNING====")
-        // TODO Query here.
-        axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
-            // Show response data
-            .then(res => setLinks(res.data))
-            .catch(err => console.log(err))
-        console.log("Received links: " + JSON.stringify(links))
+        svg.selectAll("g").remove();
+    }, [props.links]);
+    /*useEffect(() => {
+        if (props.timestep <= 50) {
+            console.log("====USE EFFECT RUNNING====")
+            // TODO Query here.
+            axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
+                // Show response data
+                .then(res => setLinks(res.data))
+                .catch(err => console.log(err))
+            console.log("Received links: " + JSON.stringify(links))
 
-        axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
-            // Show response data
-            .then(res => setNodes(res.data))
-            .catch(err => console.log(err))
-        console.log("Received nodes: " + JSON.stringify(nodes))
+            axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
+                // Show response data
+                .then(res => setNodes(res.data))
+                .catch(err => console.log(err))
+            console.log("Received nodes: " + JSON.stringify(nodes))
+
+        }
     }, [props.timestep, props.limit]);
+    */
 
     //initilize svg or grab svg
     var svg = d3.select("svg");
     // Getting transactions from API
 
     setTimeout(function() {
+        
         var width = document.getElementById('visContainer').clientWidth;
         var height = document.getElementById('visContainer').clientHeight;
         svg.selectAll("g").remove();
 
         var simulation = d3
-            .forceSimulation(nodes)
+            .forceSimulation(props.nodes)
             .force(
                 "link",
                 d3
@@ -47,7 +54,7 @@ function JSONForceGraph(props) {
                             return d.name;
                         }
                     })
-                    .links(links)
+                    .links(props.links)
             )
             .force("charge", d3.forceManyBody().strength(-0.3))
             .force("center", d3.forceCenter(width / 2, height / 2))
@@ -58,7 +65,7 @@ function JSONForceGraph(props) {
             .append("g")
             .attr("class", "links")
             .selectAll("line")
-            .data(links)
+            .data(props.links)
             .enter()
             .append("line")
             .attr("stroke-width", function(d) {
@@ -69,7 +76,7 @@ function JSONForceGraph(props) {
             .append("g")
             .attr("class", "nodes")
             .selectAll("circle")
-            .data(nodes)
+            .data(props.nodes)
             .enter()
             .append("circle")
             .attr("r", 5)
@@ -135,7 +142,7 @@ function JSONForceGraph(props) {
             d.fx = null;
             d.fy = null;
         }
-    }, 200);
+    }, 100);
     return (
         <div id='forceGraph'
             style={{
