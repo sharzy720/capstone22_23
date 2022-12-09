@@ -1,3 +1,7 @@
+/**
+ * @file D3 Force graph visualization.
+ * @author Johnathyn Strong and Nickolas Wofford
+ */
 import React, {useEffect, useState} from 'react';
 import * as d3 from 'd3';
 import axios from "axios";
@@ -10,6 +14,9 @@ function JSONForceGraph(props) {
     //const [links, setLinks]=useState()
 
     console.log("Prop timestep = " + props.timestep)
+    /**
+     * useEffect() reaction to change. Might remove.
+     */
     useEffect(() => {
         svg.selectAll("g").remove();
     }, [props.links]);
@@ -34,15 +41,32 @@ function JSONForceGraph(props) {
     */
 
     //initilize svg or grab svg
+    /**
+     * Http object
+     * @type {object}
+     */
     var svg = d3.select("svg");
     // Getting transactions from API
 
     setTimeout(function() {
-        
+
+        /**
+         * width of container
+         * @type {number}
+         */
         var width = document.getElementById('visContainer').clientWidth;
+
+        /**
+         * height of container
+         * @type {number}
+         */
         var height = document.getElementById('visContainer').clientHeight;
         svg.selectAll("g").remove();
 
+        /**
+         * d3 force simulation
+         * @type {object}
+         */
         var simulation = d3
             .forceSimulation(props.nodes)
             .force(
@@ -60,7 +84,10 @@ function JSONForceGraph(props) {
             .force("center", d3.forceCenter(width / 2, height / 2))
             .on("tick", ticked);
 
-
+        /**
+         * Link data
+         * @type {list}
+         */
         var link = svg
             .append("g")
             .attr("class", "links")
@@ -72,6 +99,10 @@ function JSONForceGraph(props) {
                 return 3;
             });
 
+        /**
+         * Node data
+         * @type {list}
+         */
         var node = svg
             .append("g")
             .attr("class", "nodes")
@@ -90,6 +121,7 @@ function JSONForceGraph(props) {
                     .on("drag", dragged)
                     .on("end", dragended)
             );
+
 
         function ticked() {
             // Allows for a boundry to be set up at the edges on the display area

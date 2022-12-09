@@ -26,13 +26,13 @@ const numOfTransactions = 4000;
 function DetailsPanel(props) {
     /**
      * User selected timestep of transactions to query
-     * @type {Number}
+     * @type {String, Function}
      */
     const [timeStep, setTimeStep] = React.useState();
 
     /**
      * User selected number of transactions to return from the database
-     * @type {Number}
+     * @type {Number, Function}
      */
     const [limit, setLimit] = React.useState()
 

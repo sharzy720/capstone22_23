@@ -41,9 +41,13 @@ function VisualizationPanel(props) {
      */
     const [links, setLinks]=useState()
 
-    console.log("displayGraph: " + displayGraph)
+    
 
     // API request to get users JSON object
+
+    /**
+     * React to changes on node count
+     */
     useEffect(() => {
         if (props.timestep <= noGraph) {
             console.log("====USERS USE EFFECT RUNNING====")
@@ -52,24 +56,20 @@ function VisualizationPanel(props) {
                 // Show response data
                 .then(res => setNodes(res.data))
                 .catch(err => console.log(err))
-            console.log("Received nodes: " + JSON.stringify(nodes))
-
-            console.log("====USERS USE EFFECT ENDED====")
         }
     }, [props.timestep, props.limit]);
 
     // API request to get transactions JSON object
     useEffect(() => {
         if (props.timestep <= noGraph) {
-            console.log("====TRANSACTION USE EFFECT RUNNING====")
-
+            
             axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
                 // Show response data
                 .then(res => setLinks(res.data))
                 .catch(err => console.log(err))
             console.log("Received links: " + JSON.stringify(links))
 
-            console.log("====TRANSACTION USE EFFECT ENDED====")
+
         }
     }, [nodes]);
 

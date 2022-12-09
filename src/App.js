@@ -17,13 +17,13 @@ import VisualizationPanel from "./components/VisualizationPanel";
 const App = () => {
     /**
      * User selected timestep of transactions to query
-     * @type {Number}
+     * @type {String, Function}
      */
     const [timestep, setTimestep] = React.useState('51');
 
     /**
      * User selected number of transactions to return from the database
-     * @type {Number}
+     * @type {String, Function}
      */
     const [limit, setLimit] = React.useState('125');
 

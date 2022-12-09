@@ -1,3 +1,7 @@
+/**
+ * @file Dropdown menu for Limits
+ * @author Johnathyn Strong and Nickolas Wofford
+ */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -6,7 +10,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 function LimitDropdown (props) {
-
+    /**
+     * Event handle for user interacting with the drop down.
+     * @param event
+     */
     const handleChange = (event) => {
         props.setLimit(event.target.value);
     };
