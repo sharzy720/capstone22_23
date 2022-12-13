@@ -7,8 +7,8 @@ import LimitDropdown from "./LimitDropdown";
 const numNodes = 4000; // Temp data value for amount of nodes in the graph
 
 function DetailsPanel(props) {
-    const [timeStep, setTimeStep] = React.useState('1');
-    const [limit, setLimit] = React.useState('125')
+    const [timeStep, setTimeStep] = React.useState();
+    const [limit, setLimit] = React.useState()
 
     const updateValue = () => {
         props.setGraph(timeStep);

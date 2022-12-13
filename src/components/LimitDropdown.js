@@ -22,7 +22,6 @@ function LimitDropdown (props) {
                     label="limit"
                     onChange={handleChange}
                 >
-                    <MenuItem value={20}>20</MenuItem>
                     <MenuItem value={125}>125</MenuItem>
                     <MenuItem value={250}>250</MenuItem>
                     <MenuItem value={500}>500</MenuItem>
