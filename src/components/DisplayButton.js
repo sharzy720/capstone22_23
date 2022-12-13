@@ -5,7 +5,12 @@
 import React from 'react'
 import {Button} from "@mui/material";
 
-
+/**
+ * Creates a button to update the visualization using the user selected values
+ * @param {Function} props.onClickFunction
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function DisplayButton(props) {
     
     return (

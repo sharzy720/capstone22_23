@@ -2,51 +2,33 @@
  * @file D3 Force graph visualization.
  * @author Johnathyn Strong and Nickolas Wofford
  */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import * as d3 from 'd3';
-import axios from "axios";
 import './JSONForceGraph.css';
 
-
+/**
+ * Creates a force directed graph using the given links and nodes
+ * @param {Number} props.timestep
+ * @param {JSON} props.links
+ * @param {JSON} props.nodes
+ * @returns {JSX.Element}
+ */
 function JSONForceGraph(props) {
 
-    //const [nodes, setNodes]=useState()
-    //const [links, setLinks]=useState()
-
     console.log("Prop timestep = " + props.timestep)
+
+    /**
+     * Http object
+     * @type {object}
+     */
+    const svg = d3.select("svg");
+
     /**
      * useEffect() reaction to change. Might remove.
      */
     useEffect(() => {
         svg.selectAll("g").remove();
-    }, [props.links]);
-    /*useEffect(() => {
-        if (props.timestep <= 50) {
-            console.log("====USE EFFECT RUNNING====")
-            // TODO Query here.
-            axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
-                // Show response data
-                .then(res => setLinks(res.data))
-                .catch(err => console.log(err))
-            console.log("Received links: " + JSON.stringify(links))
-
-            axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
-                // Show response data
-                .then(res => setNodes(res.data))
-                .catch(err => console.log(err))
-            console.log("Received nodes: " + JSON.stringify(nodes))
-
-        }
-    }, [props.timestep, props.limit]);
-    */
-
-    //initilize svg or grab svg
-    /**
-     * Http object
-     * @type {object}
-     */
-    var svg = d3.select("svg");
-    // Getting transactions from API
+    }, [props.links, svg]);
 
     setTimeout(function() {
 
@@ -54,20 +36,20 @@ function JSONForceGraph(props) {
          * width of container
          * @type {number}
          */
-        var width = document.getElementById('visContainer').clientWidth;
+        let width = document.getElementById('visContainer').clientWidth;
 
         /**
          * height of container
          * @type {number}
          */
-        var height = document.getElementById('visContainer').clientHeight;
+        let height = document.getElementById('visContainer').clientHeight;
         svg.selectAll("g").remove();
 
         /**
          * d3 force simulation
          * @type {object}
          */
-        var simulation = d3
+        let simulation = d3
             .forceSimulation(props.nodes)
             .force(
                 "link",
@@ -88,14 +70,14 @@ function JSONForceGraph(props) {
          * Link data
          * @type {list}
          */
-        var link = svg
+        let link = svg
             .append("g")
             .attr("class", "links")
             .selectAll("line")
             .data(props.links)
             .enter()
             .append("line")
-            .attr("stroke-width", function(d) {
+            .attr("stroke-width", function () {
                 return 3;
             });
 
@@ -103,7 +85,7 @@ function JSONForceGraph(props) {
          * Node data
          * @type {list}
          */
-        var node = svg
+        let node = svg
             .append("g")
             .attr("class", "nodes")
             .selectAll("circle")
@@ -111,21 +93,21 @@ function JSONForceGraph(props) {
             .enter()
             .append("circle")
             .attr("r", 5)
-            .attr("fill", function(d) {
+            .attr("fill", function () {
                 return "red";
             })
             .call(
                 d3
                     .drag()
-                    .on("start", dragstarted)
+                    .on("start", dragStarted)
                     .on("drag", dragged)
-                    .on("end", dragended)
+                    .on("end", dragEnded)
             );
 
 
         function ticked() {
-            // Allows for a boundry to be set up at the edges on the display area
-            var radius = 0;
+            // Allows for a boundary to be set up at the edges on the display area
+            const radius = 0;
 
             link
                 .attr("x1", function(d) {
@@ -152,9 +134,9 @@ function JSONForceGraph(props) {
                 });
         }
 
-        function dragstarted(d) {
+        function dragStarted(d) {
             // States how fast nodes will spread out while dragging
-            var alpha = 0.1
+            const alpha = 0.1
 
             if (!d3.event.active) simulation.alphaTarget(alpha).restart();
             d.fx = d.x;
@@ -166,15 +148,16 @@ function JSONForceGraph(props) {
             d.fy = d3.event.y;
         }
 
-        function dragended(d) {
+        function dragEnded(d) {
             // States how fast nodes will spread out when stopped dragging
-            var alpha = 0
+            const alpha = 0;
 
             if (!d3.event.active) simulation.alphaTarget(alpha);
             d.fx = null;
             d.fy = null;
         }
     }, 100);
+
     return (
         <div id='forceGraph'
             style={{

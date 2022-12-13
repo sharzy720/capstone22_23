@@ -10,10 +10,16 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+/**
+ * Creates a drop-down menu for selecting a timestep to visualize
+ * @param {Function} props.setTimestep
+ * @param {number} props.timestep
+ * @returns {JSX.Element}
+ */
 function TimestepDropdown (props) {
 
     /**
-     * Event handle for user interacting with the drop down.
+     * Event handle for user interacting with the drop-down.
      * @param event
      */
     const handleChange = (event) => {

@@ -57,7 +57,7 @@ function VisualizationPanel(props) {
                 .then(res => setNodes(res.data))
                 .catch(err => console.log(err))
         }
-    }, [props.timestep, props.limit]);
+    }, [props.timestep, props.limit, noGraph]);
 
     // API request to get transactions JSON object
     useEffect(() => {
@@ -71,7 +71,7 @@ function VisualizationPanel(props) {
 
 
         }
-    }, [nodes]);
+    }, [nodes, links, noGraph, props.limit, props.timestep]);
 
     
     return (

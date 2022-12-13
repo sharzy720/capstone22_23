@@ -21,7 +21,6 @@ const numOfTransactions = 4000;
  * @param {Function} props.setTimestep
  * @param {Function} props.setLimit
  * @returns {JSX.Element}
- * @constructor
  */
 function DetailsPanel(props) {
     /**
@@ -71,7 +70,6 @@ function DetailsPanel(props) {
 
                 {/* Selecting the time step to display */}
                 <TimestepDropdown setTimestep={setTimeStep} timestep={timeStep} />
-                {/*<DisplayButton onClickFunction={updateValue} label={props.graph} />*/}
 
                 <br/>
 
