@@ -1,3 +1,8 @@
+/**
+ * @file Dropdown menu for timestep
+ * @author Johnathyn Strong and Nickolas Wofford
+ */
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,6 +12,10 @@ import Select from '@mui/material/Select';
 
 function TimestepDropdown (props) {
 
+    /**
+     * Event handle for user interacting with the drop down.
+     * @param event
+     */
     const handleChange = (event) => {
         props.setTimestep(event.target.value);
     };

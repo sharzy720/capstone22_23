@@ -1,21 +1,51 @@
+/**
+ * @file The detail panel that contains information about the dataset and handles all user inputted data
+ * @author Johnathyn Strong and Nickolas Wofford
+ */
+
 import React from 'react'
 import {Paper} from "@mui/material";
 import DisplayButton from "./DisplayButton";
 import TimestepDropdown from "./TimestepDropdown";
 import LimitDropdown from "./LimitDropdown";
 
-const numNodes = 4000; // Temp data value for amount of nodes in the graph
+/**
+ * Current number of transactions in the database
+ * @type {number}
+ */
+const numOfTransactions = 4000;
 
+/**
+ * Creates the detail panel and handles user input
+ *
+ * @param {Function} props.setTimestep
+ * @param {Function} props.setLimit
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function DetailsPanel(props) {
+    /**
+     * User selected timestep of transactions to query
+     * @type {String, Function}
+     */
     const [timeStep, setTimeStep] = React.useState();
+
+    /**
+     * User selected number of transactions to return from the database
+     * @type {Number, Function}
+     */
     const [limit, setLimit] = React.useState()
 
+    /**
+     * Updates the timestep and limit values in the parent component
+     */
     const updateValue = () => {
-        props.setGraph(timeStep);
+        props.setTimestep(timeStep);
         props.setLimit(limit);
     }
+
+
     return (
-        // old background color 'lightcoral
         <Paper style={{
             backgroundColor: 'lightblue',
             minHeight: '98.5vh'
@@ -30,9 +60,8 @@ function DetailsPanel(props) {
                 <br/>
 
                 {/* sub information */}
-                <h4>Number of transactions in database: {numNodes}</h4>
+                <h4>Number of transactions in database: {numOfTransactions}</h4>
 
-                {/*<br/>*/}
 
                 {/* Details about the dataset */}
                 <p style={{ fontSize: '16px' }}>
@@ -45,7 +74,6 @@ function DetailsPanel(props) {
                 {/*<DisplayButton onClickFunction={updateValue} label={props.graph} />*/}
 
                 <br/>
-                {/*<br/>*/}
 
                 {/* Selecting the number of transactions to display */}
                 <LimitDropdown setLimit={setLimit} limit={limit} />
@@ -53,20 +81,13 @@ function DetailsPanel(props) {
                 <br/>
 
                 {/* Button to display a graph with the users selected parameters */}
-                <DisplayButton onClickFunction={updateValue} label={props.graph} />
+                <DisplayButton onClickFunction={updateValue} label={props.timestep} />
 
-                {/* Footer */}
-                {/*<div style={{*/}
-                {/*    display: 'flex',*/}
-                {/*    justifyContent: 'flex-end',*/}
-                {/*    alignItems: 'flex-end'*/}
-                {/*}}>*/}
-                    <h4 style={{
-                        position: 'absolute',
-                        bottom: '0'
-                    }}>Developed by Johnathyn Strong and Nick Wofford</h4>
-                {/*</div>*/}
 
+                <h4 style={{
+                    position: 'absolute',
+                    bottom: '0'
+                }}>Developed by Johnathyn Strong and Nick Wofford</h4>
             </div>
         </Paper>
     );
