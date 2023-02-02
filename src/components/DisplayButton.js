@@ -15,8 +15,9 @@ function DisplayButton(props) {
     
     return (
         <Button variant="contained" onClick={props.onClickFunction} style={{
-            height: '100%', width: '100%',
+            height: '50px', width: '100%',
             marginTop: '4px',
+            marginBottom: '4px',
             backgroundColor: 'white', color: 'black'
         }}>
             Display
