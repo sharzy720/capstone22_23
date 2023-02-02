@@ -11,8 +11,8 @@ import axios from "axios";
 /**
  * Creates the visualization panel and calls the graph visualization
  *
- * @param {number} props.timestep
- * @param {number} props.limit
+ * @param {Object} props.timestep
+ * @param {Object} props.limit
  * @returns {JSX.Element}
  * @constructor
  */
@@ -21,7 +21,7 @@ function VisualizationPanel(props) {
      * Whether to display the graph
      * @type {boolean}
      */
-    let displayGraph = props.timestep !== 51;
+    // let displayGraph = props.timestep !== 51;
 
     /**
      * Used to not display the graph when the app is first loaded
@@ -50,19 +50,27 @@ function VisualizationPanel(props) {
      */
     useEffect(() => {
         if (props.timestep <= noGraph) {
-            console.log("====USERS USE EFFECT RUNNING====")
+            console.log("====NODE USE EFFECT RUNNING====")
+            console.log("VALUE OF TIMESTEP == " + props.timestep)
+            console.log("VALUE OF LIMIT == " + props.limit)
+            console.log("URL == http://localhost:4000/users/" + props.timestep + "/" + props.limit)
 
             axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
                 // Show response data
                 .then(res => setNodes(res.data))
                 .catch(err => console.log(err))
+            console.log("Received links: " + JSON.stringify(nodes))
         }
     }, [props.timestep, props.limit, noGraph]);
 
     // API request to get transactions JSON object
     useEffect(() => {
         if (props.timestep <= noGraph) {
-            
+            console.log("====LINK USE EFFECT RUNNING====")
+            console.log("VALUE OF TIMESTEP == " + props.timestep)
+            console.log("VALUE OF LIMIT == " + props.limit)
+            console.log("URL == http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
+
             axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
                 // Show response data
                 .then(res => setLinks(res.data))
@@ -75,16 +83,17 @@ function VisualizationPanel(props) {
 
     
     return (
-        <Paper style={{backgroundColor: "lightblue",
-                       minHeight: "98.5vh",
+        <Paper style={{backgroundColor: "PapayaWhip",
+                       // minHeight: "98.5vh",
                        width: "100%"}}>
 
             {/*/!*Container for the graph visualization*!/*/}
             <div
                 id={'visContainer'}
-                style={{ height: "96vh",
+                style={{ height: "94.7vh",
                         width: "73vw",
-                        padding: "0px"}}>
+                        padding: "0px",
+                        margin: '0px'}}>
 
                 <JSONForceGraph nodes={nodes} links={links} />
             </div>
