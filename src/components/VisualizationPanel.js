@@ -11,21 +11,17 @@ import axios from "axios";
 /**
  * Creates the visualization panel and calls the graph visualization
  *
- * @param {Object} props.timestep
- * @param {Object} props.limit
+ * @param {number} props.timestep
+ * @param {number} props.limit
  * @returns {JSX.Element}
  * @constructor
  */
 function VisualizationPanel(props) {
-
-    const nodes = require('../testData/users.json');
-    const links = require('../testData/transactions.json');
-
     /**
      * Whether to display the graph
      * @type {boolean}
      */
-    // let displayGraph = props.timestep !== 51;
+    let displayGraph = props.timestep !== 51;
 
     /**
      * Used to not display the graph when the app is first loaded
@@ -33,74 +29,62 @@ function VisualizationPanel(props) {
      */
     let noGraph = 50;
 
-    // /**
-    //  * JSON object with all user nodes received from the database
-    //  * @type {Object} nodes
-    //  */
-    // const [nodes, setNodes]=useState()
-    //
-    // /**
-    //  * JSON object with all transaction links received from the database
-    //  * @type {Object} links
-    //  */
-    // const [links, setLinks]=useState()
-    //
-    //
-    //
-    // // API request to get users JSON object
-    //
-    // /**
-    //  * React to changes on node count
-    //  */
-    // useEffect(() => {
-    //     if (props.timestep <= noGraph) {
-    //         console.log("====NODE USE EFFECT RUNNING====")
-    //         console.log("VALUE OF TIMESTEP == " + props.timestep)
-    //         console.log("VALUE OF LIMIT == " + props.limit)
-    //         console.log("URL == http://localhost:4000/users/" + props.timestep + "/" + props.limit)
-    //
-    //         axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
-    //             // Show response data
-    //             .then(res => setNodes(res.data))
-    //             .catch(err => console.log(err))
-    //         console.log("====RECEIVED NODES====")
-    //         console.log(nodes)
-    //         console.log("====RECEIVED NODES====")
-    //     }
-    // }, [props.timestep, props.limit, noGraph]);
-    //
-    // // API request to get transactions JSON object
-    // useEffect(() => {
-    //     if (props.timestep <= noGraph) {
-    //         console.log("====LINK USE EFFECT RUNNING====")
-    //         console.log("VALUE OF TIMESTEP == " + props.timestep)
-    //         console.log("VALUE OF LIMIT == " + props.limit)
-    //         console.log("URL == http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
-    //
-    //         axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
-    //             // Show response data
-    //             .then(res => setLinks(res.data))
-    //             .catch(err => console.log(err))
-    //         console.log("====RECEIVED LINKS====")
-    //         console.log(links)
-    //         console.log("====RECEIVED LINKS====")
-    //     }
-    // }, [nodes, noGraph, props.limit, props.timestep]); // removed dependency: links
+    /**
+     * JSON object with all user nodes received from the database
+     * @type {Object} nodes
+     */
+    const [nodes, setNodes]=useState()
+
+    /**
+     * JSON object with all transaction links received from the database
+     * @type {Object} links
+     */
+    const [links, setLinks]=useState()
+
+    
+
+    // API request to get users JSON object
+
+    /**
+     * React to changes on node count
+     */
+    useEffect(() => {
+        if (props.timestep <= noGraph) {
+            console.log("====USERS USE EFFECT RUNNING====")
+
+            axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
+                // Show response data
+                .then(res => setNodes(res.data))
+                .catch(err => console.log(err))
+        }
+    }, [props.timestep, props.limit, noGraph]);
+
+    // API request to get transactions JSON object
+    useEffect(() => {
+        if (props.timestep <= noGraph) {
+            
+            axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
+                // Show response data
+                .then(res => setLinks(res.data))
+                .catch(err => console.log(err))
+            console.log("Received links: " + JSON.stringify(links))
+
+
+        }
+    }, [nodes, links, noGraph, props.limit, props.timestep]);
 
     
     return (
-        <Paper style={{backgroundColor: "lavender",
-                       // minHeight: "98.5vh",
-                       // width: "100%"
-        }}>
+        <Paper style={{backgroundColor: "lightblue",
+                       minHeight: "98.5vh",
+                       width: "100%"}}>
 
             {/*/!*Container for the graph visualization*!/*/}
             <div
                 id={'visContainer'}
-                style={{ height: "100%",
-                        width: "100%",
-                        padding: "0px",
-                        margin: '0px'}}>
+                style={{ height: "96vh",
+                        width: "73vw",
+                        padding: "0px"}}>
 
                 <JSONForceGraph nodes={nodes} links={links} />
             </div>

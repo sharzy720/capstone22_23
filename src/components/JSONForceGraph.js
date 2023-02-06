@@ -15,8 +15,7 @@ import './JSONForceGraph.css';
  */
 function JSONForceGraph(props) {
 
-    console.log("Prop nodes = " + props.nodes)
-    console.log("Prop links = " + props.links)
+    console.log("Prop timestep = " + props.timestep)
 
     /**
      * Http object
