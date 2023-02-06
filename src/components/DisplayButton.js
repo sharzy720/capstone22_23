@@ -14,7 +14,7 @@ import {Button} from "@mui/material";
 function DisplayButton(props) {
     
     return (
-        <Button variant="contained" onClick={props.onClickFunction} style={{
+        <Button variant="contained" onClick={() => props.onClickFunction(props.graphNum)} style={{
             height: '50px', width: '100%',
             marginTop: '4px',
             marginBottom: '4px',
