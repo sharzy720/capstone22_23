@@ -36,13 +36,14 @@ const drawerWidth = 300;
  * @param {Object} props.limit
  * @param {Function} props.setTimestep
  * @param {Function} props.setLimit
+ * @param {Function} props.setShowGraph
  * @returns {React.ReactElement} The component
  */
 export default function ButtonAppBar(props) {
 
-    console.log("====APPBAR PROP VALUES====")
-    console.log("props.timestep.graph1 == " + props.timestep.graph1)
-    console.log("props.limit.graph1 == " + props.limit.graph1)
+    // console.log("====APPBAR PROP VALUES====")
+    // console.log("props.timestep.graph1 == " + props.timestep.graph1)
+    // console.log("props.limit.graph1 == " + props.limit.graph1)
 
     /**
      * State variable to track if the drawer is open or not
@@ -131,7 +132,10 @@ export default function ButtonAppBar(props) {
                         Each time step has around 7,000 unique transactions. However, our subset of this dataset only has 1,000 unique transactions per time step.
                     </p>
 
-                    <SimpleAccordion timestep={props.timestep} setTimestep={props.setTimestep} limit={props.limit} setLimit={props.setLimit}/>
+                    <SimpleAccordion timestep={props.timestep} setTimestep={props.setTimestep}
+                                     limit={props.limit} setLimit={props.setLimit}
+                                     setShowGraph={props.setShowGraph}
+                    />
                 </div>
             </Drawer>
         </div>
