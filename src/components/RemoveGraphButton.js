@@ -8,21 +8,21 @@ import {Button} from "@mui/material";
 /**
  * Creates a button to update the visualization using the user selected values
  * @param {Function} props.onClickFunction
+ * @param {Number} props.graphNum
  * @returns {JSX.Element}
  * @constructor
  */
-function DisplayButton(props) {
-    
+function RemoveGraphButton(props) {
+//props.onClickFunction(props.graphNum)
     return (
         <Button variant="contained" onClick={() => props.onClickFunction(props.graphNum)} style={{
             height: '50px', width: '100%',
             marginTop: '4px',
-            marginBottom: '4px',
-            backgroundColor: 'white', color: 'black'
+            backgroundColor: 'IndianRed', color: 'black'
         }}>
-            Display
+            Remove
         </Button>
     )
 }
 
-export default DisplayButton
+export default RemoveGraphButton

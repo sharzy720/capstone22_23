@@ -7,6 +7,7 @@ import React from 'react'
 import Grid from '@mui/material/Grid'
 import DetailsPanel from "./components/DetailsPanel";
 import VisualizationPanel from "./components/VisualizationPanel";
+import ButtonAppBar from './components/AppBar';
 
 /**
  * creates the root element of the app
@@ -17,39 +18,106 @@ import VisualizationPanel from "./components/VisualizationPanel";
 const App = () => {
     /**
      * User selected timestep of transactions to query
-     * @type {String, Function}
+     * @type {Object, Function}
      */
-    const [timestep, setTimestep] = React.useState('51');
+    const [timestep, setTimestep] = React.useState({
+        graph1: '51',
+        graph2: '51',
+        graph3: '51',
+        graph4: '51'
+    });
 
     /**
      * User selected number of transactions to return from the database
-     * @type {String, Function}
+     * @type {Object, Function}
      */
-    const [limit, setLimit] = React.useState('125');
+    const [limit, setLimit] = React.useState({
+        graph1: '125',
+        graph2: '125',
+        graph3: '125',
+        graph4: '125'
+    });
+
+    /**
+     * If one of 3 extra graphs should be displayed
+     * @type {Object, Function}
+     */
+    const [showGraph, setShowGraph] = React.useState({
+        graph2: false,
+        graph3: false,
+        graph4: false
+    })
+
+
+
+    // console.log("====INTIAL VALUES OF LIMIT AND TIMESTEP====")
+    // console.log("TIMESTEP == " + timestep.graph1)
+    // console.log("LIMIT == " + limit.graph1)
 
     return (
         <div style={{
-            backgroundColor: "black",
-            minWidth: '1280px',
-            minHeight: '720px'
-        }}>
-            <Grid
-                container
+            backgroundColor: "PapayaWhip",
+            width: '100vw',
+            height: '100vh',
+            // width: '50vw'
+            // border: "1px solid black"
+            }}>
+            <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit}
+                          setLimit={setLimit} setShowGraph={setShowGraph}/>
+
+            <Grid style={{
+                // border: "1px solid black"
+            }}
+                // container
                 direction={"row"}
                 spacing={{ md: 1, xl: 2}}
-                style={{padding: "10px"}}>
+                // style={{padding: "10px"}}
+            >
 
-                <Grid item md={9}>
+                <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
 
-                    <VisualizationPanel timestep={timestep} limit={limit}/>
-
-                </Grid>
-                <Grid item md={3}>
-
-                    <DetailsPanel timestep={timestep} setTimestep={setTimestep} limit={limit} setLimit={setLimit} />
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
 
                 </Grid>
+
+                {
+                    showGraph.graph2? <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
+
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+
+                    </Grid> :null
+                }
+
+                {
+                    showGraph.graph3? <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
+
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+
+                    </Grid> :null
+                }
+
+                {
+                    showGraph.graph4? <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
+
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+
+                    </Grid> :null
+                }
             </Grid>
+
+            {/*<button onClick={()=>setShowGraph(*/}
+            {/*    previousState => {*/}
+            {/*        return { ...previousState, graph2: !showGraph.graph2}*/}
+            {/*    }*/}
+            {/*)}>Toggle graph2</button>*/}
       </div>
     );
 }
