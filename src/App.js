@@ -38,36 +38,86 @@ const App = () => {
         graph4: '125'
     });
 
-    console.log("====INTIAL VALUES OF LIMIT AND TIMESTEP====")
-    console.log("TIMESTEP == " + timestep.graph1)
-    console.log("LIMIT == " + limit.graph1)
+    /**
+     * If one of 3 extra graphs should be displayed
+     * @type {Object, Function}
+     */
+    const [showGraph, setShowGraph] = React.useState({
+        graph2: false,
+        graph3: false,
+        graph4: false
+    })
+
+
+
+    // console.log("====INTIAL VALUES OF LIMIT AND TIMESTEP====")
+    // console.log("TIMESTEP == " + timestep.graph1)
+    // console.log("LIMIT == " + limit.graph1)
 
     return (
         <div style={{
-            // backgroundColor: "black",
-            // minWidth: '1280px',
-            // minHeight: '720px',
+            backgroundColor: "PapayaWhip",
+            width: '100vw',
+            height: '100vh',
             // width: '50vw'
+            // border: "1px solid black"
             }}>
-            <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit} setLimit={setLimit}/>
-            <Grid
+            <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit}
+                          setLimit={setLimit} setShowGraph={setShowGraph}/>
+
+            <Grid style={{
+                // border: "1px solid black"
+            }}
                 // container
-                // direction={"row"}
-                // spacing={{ md: 1, xl: 2}}
+                direction={"row"}
+                spacing={{ md: 1, xl: 2}}
                 // style={{padding: "10px"}}
             >
 
-                <Grid item md={9}>
+                <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
 
-                    <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
 
                 </Grid>
-                {/*<Grid item md={3}>*/}
 
-                {/*    <DetailsPanel timestep={timestep} setTimestep={setTimestep} limit={limit} setLimit={setLimit} />*/}
+                {
+                    showGraph.graph2? <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
 
-                {/*</Grid>*/}
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+
+                    </Grid> :null
+                }
+
+                {
+                    showGraph.graph3? <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
+
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+
+                    </Grid> :null
+                }
+
+                {
+                    showGraph.graph4? <Grid item md={6} style={{
+                        border: "1px solid black"
+                    }}>
+
+                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+
+                    </Grid> :null
+                }
             </Grid>
+
+            {/*<button onClick={()=>setShowGraph(*/}
+            {/*    previousState => {*/}
+            {/*        return { ...previousState, graph2: !showGraph.graph2}*/}
+            {/*    }*/}
+            {/*)}>Toggle graph2</button>*/}
       </div>
     );
 }
