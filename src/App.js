@@ -67,16 +67,15 @@ const App = () => {
 
             <Grid style={{
                 // border: "1px solid black"
+                marginTop: "5vh"
             }}
-                // container
+                container
                 direction={"row"}
-                spacing={{ md: 1, xl: 2}}
+                // spacing={{ md: 1, xl: 2}}
                 // style={{padding: "10px"}}
             >
 
-                <Grid item md={6} style={{
-                        border: "1px solid black"
-                    }}>
+                <Grid item md={6}>
 
                         <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
 
@@ -87,7 +86,7 @@ const App = () => {
                         border: "1px solid black"
                     }}>
 
-                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+                        <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}/>
 
                     </Grid> :null
                 }
@@ -97,7 +96,7 @@ const App = () => {
                         border: "1px solid black"
                     }}>
 
-                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+                        <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}/>
 
                     </Grid> :null
                 }
@@ -107,17 +106,47 @@ const App = () => {
                         border: "1px solid black"
                     }}>
 
-                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}/>
+                        <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}/>
 
                     </Grid> :null
                 }
             </Grid>
 
-            {/*<button onClick={()=>setShowGraph(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph2: !showGraph.graph2}*/}
-            {/*    }*/}
-            {/*)}>Toggle graph2</button>*/}
+            <button onClick={()=>setShowGraph(
+                previousState => {
+                    return { ...previousState, graph2: !showGraph.graph2}
+                }
+            )}>Toggle graph2</button>
+            <button onClick={()=>setShowGraph(
+                previousState => {
+                    return { ...previousState, graph3: !showGraph.graph3}
+                }
+            )}>Toggle graph3</button>
+            <button onClick={()=>setShowGraph(
+                previousState => {
+                    return { ...previousState, graph4: !showGraph.graph4}
+                }
+            )}>Toggle graph4</button>
+            <button onClick={()=>setTimestep(
+                previousState => {
+                    return { ...previousState, graph1: '1'}
+                }
+            )}>Show Graph1</button>
+            <button onClick={()=>setTimestep(
+                previousState => {
+                    return { ...previousState, graph2: '1'}
+                }
+            )}>Show Graph2</button>
+            <button onClick={()=>setTimestep(
+                previousState => {
+                    return { ...previousState, graph3: '1'}
+                }
+            )}>Show Graph3</button>
+            <button onClick={()=>setTimestep(
+                previousState => {
+                    return { ...previousState, graph4: '1'}
+                }
+            )}>Show Graph4</button>
       </div>
     );
 }
