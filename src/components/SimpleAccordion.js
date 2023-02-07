@@ -39,8 +39,8 @@ export default function SimpleAccordion(props) {
 
 
     const [disabledAccordion, setDisabledAccordion] = React.useState({
-        graph3: true,
-        graph4: true
+        graph3: false,
+        graph4: false
     })
 
     // console.log("====ACCORDIAN LOCAL VALUES====")
@@ -70,18 +70,19 @@ export default function SimpleAccordion(props) {
                 props.setShowGraph(previousState => {
                     return { ...previousState, graph2: true}
                 });
-                setDisabledAccordion(previousState => {
-                    console.log("ADDING GRAPH3 ACCORDION")
-                    return { ...previousState, graph3: false}
-                });
+                // console.log("display button 2")
+                // setDisabledAccordion(previousState => {
+                //     console.log("ADDING GRAPH3 ACCORDION")
+                //     return { ...previousState, graph3: false}
+                // });
                 break;
             case 3:
                 props.setShowGraph(previousState => {
                     return { ...previousState, graph3: true}
                 });
-                setDisabledAccordion(previousState => {
-                    return { ...previousState, graph4: false}
-                });
+                // setDisabledAccordion(previousState => {
+                //     return { ...previousState, graph4: false}
+                // });
                 break;
             case 4:
                 props.setShowGraph(previousState => {
@@ -92,7 +93,8 @@ export default function SimpleAccordion(props) {
                 console.log("Received value of: " + graph.toString());
         }
         updateValue();
-        console.log("SHOW GRAPH VALUES" + JSON.stringify(showGraph))
+        console.log("SHOW TIMESTEP VALUE" + JSON.stringify(timeStep))
+        console.log("SHOW SELECTED LIMIT VALUE" + JSON.stringify(limit))
     }
 
     /**
@@ -110,18 +112,18 @@ export default function SimpleAccordion(props) {
                 props.setShowGraph(previousState => {
                     return { ...previousState, graph3: false}
                 });
-                setDisabledAccordion(previousState => {
-                    console.log("REMOVING GRAPH3 ACCORDION")
-                    return { ...previousState, graph3: true}
-                });
+                // setDisabledAccordion(previousState => {
+                //     console.log("REMOVING GRAPH3 ACCORDION")
+                //     return { ...previousState, graph3: true}
+                // });
                 break;
             case 4:
                 props.setShowGraph(previousState => {
                     return { ...previousState, graph4: false}
                 });
-                setDisabledAccordion(previousState => {
-                    return { ...previousState, graph4: true}
-                });
+                // setDisabledAccordion(previousState => {
+                //     return { ...previousState, graph4: true}
+                // });
                 break;
             default:
                 console.log("Received value of: " + graph.toString());
@@ -145,12 +147,12 @@ export default function SimpleAccordion(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     {/* Selecting the time step to display */}
-                    <TimestepDropdown setTimestep={setTimeStep} timestep={timeStep} graph={"1"} />
+                    <TimestepDropdown setTimestep={setTimeStep} timestep={timeStep.graph1} graph={"1"} />
 
                     <br/>
 
                     {/* Selecting the number of transactions to display */}
-                    <LimitDropdown setLimit={setLimit} limit={limit} graph={"1"}/>
+                    <LimitDropdown setLimit={setLimit} limit={limit.graph1} graph={"1"}/>
 
                     <br/>
 
@@ -173,12 +175,12 @@ export default function SimpleAccordion(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     {/* Selecting the time step to display */}
-                    <TimestepDropdown />
+                    <TimestepDropdown setTimestep={setTimeStep} timestep={timeStep.graph2} graph={"2"}/>
 
                     <br/>
 
                     {/* Selecting the number of transactions to display */}
-                    <LimitDropdown />
+                    <LimitDropdown setLimit={setLimit} limit={limit.graph2} graph={"2"}/>
 
                     <br/>
 
@@ -206,22 +208,22 @@ export default function SimpleAccordion(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     {/* Selecting the time step to display */}
-                    <TimestepDropdown />
+                    <TimestepDropdown setTimestep={setTimeStep} timestep={timeStep.graph3} graph={"3"}/>
 
                     <br/>
 
                     {/* Selecting the number of transactions to display */}
-                    <LimitDropdown />
+                    <LimitDropdown setLimit={setLimit} limit={limit.graph3} graph={"3"}/>
 
                     <br/>
 
                     {/* Button to display a graph with the users selected parameters */}
-                    <DisplayButton />
+                    <DisplayButton onClickFunction={showGraph} graphNum={3}/>
 
                     <br/>
 
                     {/* Button to remove the associated graph*/}
-                    <RemoveGraphButton/>
+                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={3}/>
                 </AccordionDetails>
             </Accordion>
 
@@ -239,22 +241,22 @@ export default function SimpleAccordion(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     {/* Selecting the time step to display */}
-                    <TimestepDropdown />
+                    <TimestepDropdown setTimestep={setTimeStep} timestep={timeStep.graph4} graph={"4"}/>
 
                     <br/>
 
                     {/* Selecting the number of transactions to display */}
-                    <LimitDropdown />
+                    <LimitDropdown setLimit={setLimit} limit={limit.graph4} graph={"4"}/>
 
                     <br/>
 
                     {/* Button to display a graph with the users selected parameters */}
-                    <DisplayButton />
+                    <DisplayButton onClickFunction={showGraph} graphNum={4}/>
 
                     <br/>
 
                     {/* Button to remove the associated graph*/}
-                    <RemoveGraphButton/>
+                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={4}/>
                 </AccordionDetails>
             </Accordion>
         </div>
