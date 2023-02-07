@@ -101,16 +101,15 @@ function VisualizationPanel(props) {
             // Container for the graph visualization
             <div
                 id={'visContainer'}
-                style={{ height: "30vh",
-                        width: "100%",
-                        margin: "0px",
-                        // backgroundColor: "Lavender",
-                        border: "1px solid black"}}>
-
-                {
-                    props.timestep <= noGraph? <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/> : null
-                }
-                {/*<JSONForceGraph nodes={nodes} links={links} />*/}
+                style={{
+                    height: "45vh",
+                    width: "100%",
+                    margin: "0px",
+                    border: "1px solid black"}}>
+                {/*{*/}
+                {/*    props.timestep <= noGraph? <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/> : null*/}
+                {/*}*/}
+                <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/>
             </div>
         // {/*</Paper>*/}
     );
