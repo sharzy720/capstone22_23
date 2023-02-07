@@ -8,11 +8,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {useEffect} from "react";
 
 /**
  * Creates a drop-down menu for selecting a timestep to visualize
  * @param {Function} props.setLimit
- * @param {Number} props.limit
+ * @param {String} props.limit
+ * @param {String} props.graph
  * @returns {JSX.Element}
  */
 function LimitDropdown (props) {
@@ -22,9 +24,21 @@ function LimitDropdown (props) {
 
     /**
      * User selected number of transactions
-     * @type {Number, Function}
+     * @type {String, Function}
      */
     const [limit, setLimit] = React.useState("")
+
+
+    useEffect(() => {
+        console.log("testing received limit value")
+        if (parseInt(props.limit) < 9999) {
+            console.log("value acceptable")
+            setLimit(props.limit);
+        } else {
+            console.log("value is too small")
+            setLimit("");
+        }
+    }, [props.limit]);
 
     /**
      * Event handle for user interacting with the drop-down.
