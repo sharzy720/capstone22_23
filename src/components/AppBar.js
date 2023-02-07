@@ -69,10 +69,11 @@ export default function ButtonAppBar(props) {
         <div>
             {/* AppBar */}
             <Box sx={{ flexGrow: 1}}>
-                <AppBar position="static" sx={{ backgroundColor: 'Black', height: '5vh'}}>
+                <AppBar position="fixed" sx={{ backgroundColor: 'Black', height: '5vh'}}>
+
                     <Toolbar>
 
-                        {/* Menu icon button to open the drawer */}
+            {/*            /!* Menu icon button to open the drawer *!/*/}
                         <IconButton
                             size="large"
                             edge="start"
@@ -82,9 +83,10 @@ export default function ButtonAppBar(props) {
                             onClick={handleDrawerOpen}
                         >
                             <MenuIcon />
+                            {/*<button onClick={handleDrawerOpen}>Drawer</button>*/}
                         </IconButton>
 
-                        {/* Title */}
+            {/*            /!* Title *!/*/}
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             Elliptic Dataset Visualization
                         </Typography>
@@ -92,6 +94,8 @@ export default function ButtonAppBar(props) {
                     </Toolbar>
                 </AppBar>
             </Box>
+
+
 
             {/* Drawer */}
             <Drawer
