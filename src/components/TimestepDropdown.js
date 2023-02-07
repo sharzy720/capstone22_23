@@ -9,11 +9,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {useEffect} from "react";
 
 /**
  * Creates a drop-down menu for selecting a timestep to visualize
  * @param {Function} props.setTimestep
- * @param {Number} props.graph What graph is associated to this dropdown
+ * @param {String} props.timestep
+ * @param {String} props.graph What graph is associated to this dropdown
  * @returns {JSX.Element}
  */
 function TimestepDropdown (props) {
@@ -26,6 +28,15 @@ function TimestepDropdown (props) {
      * @type {String, Function}
      */
     const [timeStep, setTimeStep] = React.useState("");
+
+
+    useEffect(() => {
+        if (parseInt(props.timestep) < 50) {
+            setTimeStep(props.timestep);
+        } else {
+            setTimeStep("");
+        }
+    }, [props.timestep]);
 
     /**
      * Event handle for user interacting with the drop-down.
@@ -57,10 +68,9 @@ function TimestepDropdown (props) {
         }
     };
 
-    // const updateTimeStep = () => {
-    //     props.setTimestep(previousState => {
-    //         return { ...previousState, graph1: timeStep }
-    //     })
+    // if (parseInt(props.timestep) < 50) {
+    //     console.log("if timestep is less than or equal to 50 ")
+    //     setTimeStep(props.timestep)
     // }
 
     return (
