@@ -70,7 +70,7 @@ const App = () => {
     return (
         <div style={{
             backgroundColor: "PapayaWhip",
-            width: '100vw',
+            width: '100%',
             height: '100vh',
             // width: '50vw'
             // border: "1px solid black"
@@ -96,7 +96,7 @@ const App = () => {
                 </Grid>
 
                 {
-                    showGraph.graph2? <Grid item md={6}>
+                    showGraph.graph2? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}
                                             graphId={graphId.graph2}/>
@@ -105,7 +105,7 @@ const App = () => {
                 }
 
                 {
-                    showGraph.graph3? <Grid item md={6}>
+                    showGraph.graph3? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}
                                             graphId={graphId.graph3}/>
@@ -114,7 +114,7 @@ const App = () => {
                 }
 
                 {
-                    showGraph.graph4? <Grid item md={6}>
+                    showGraph.graph4? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}
                                             graphId={graphId.graph4}/>
