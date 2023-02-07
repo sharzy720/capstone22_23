@@ -7,6 +7,8 @@ import React, {useEffect, useState} from 'react'
 import {Paper} from "@mui/material";
 import JSONForceGraph from "./JSONForceGraph";
 import axios from "axios";
+import nodes from "../testData/users.json";
+import links from "../testData/transactions.json";
 
 /**
  * Creates the visualization panel and calls the graph visualization
@@ -89,7 +91,8 @@ function VisualizationPanel(props) {
 
     
     return (
-        <Paper style={{backgroundColor: "lavender",
+        <Paper style={{
+            // backgroundColor: "lavender",
                        // minHeight: "98.5vh",
                        // width: "100%"
         }}>
@@ -97,12 +100,14 @@ function VisualizationPanel(props) {
             {/*/!*Container for the graph visualization*!/*/}
             <div
                 id={'visContainer'}
-                style={{ height: "100%",
-                        width: "100%",
-                        padding: "0px",
-                        margin: '0px'}}>
+                style={{ height: "50vw",
+                        width: "50vw",
+                        padding: "0px"}}>
 
-                <JSONForceGraph nodes={nodes} links={links} />
+                {
+                    props.timestep <= noGraph? <JSONForceGraph nodes={nodes} links={links} /> : null
+                }
+                {/*<JSONForceGraph nodes={nodes} links={links} />*/}
             </div>
         </Paper>
     );
