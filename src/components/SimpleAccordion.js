@@ -92,6 +92,7 @@ export default function SimpleAccordion(props) {
                 console.log("Received value of: " + graph.toString());
         }
         updateValue();
+        console.log("SHOW GRAPH VALUES" + JSON.stringify(showGraph))
     }
 
     /**
@@ -125,6 +126,7 @@ export default function SimpleAccordion(props) {
             default:
                 console.log("Received value of: " + graph.toString());
         }
+        console.log("SHOW GRAPH VALUES" + JSON.stringify(showGraph))
     }
 
     return (
