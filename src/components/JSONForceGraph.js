@@ -11,6 +11,7 @@ import './JSONForceGraph.css';
  * @param {Number} props.timestep
  * @param {JSON} props.links
  * @param {JSON} props.nodes
+ * @param {String} props.graphId
  * @returns {JSX.Element}
  */
 function JSONForceGraph(props) {
@@ -24,7 +25,7 @@ function JSONForceGraph(props) {
      * Http object, change value to state where the svg will be attached
      * @type {object}
      */
-    const svg = d3.select("#graph");
+    const svg = d3.select("#" + props.graphId);
 
     /**
      * useEffect() reaction to change. Might remove.
@@ -170,7 +171,7 @@ function JSONForceGraph(props) {
                 height: '100%'
             }}>
             {props.timestep}
-            <svg id={'graph'}
+            <svg id={props.graphId}
                  {...svg}
                  width={"100%"}
                  height={"100%"}>
