@@ -127,7 +127,7 @@ export default function ButtonAppBar(props) {
                     <br/>
 
                     {/* sub information */}
-                    <h4>Number of transactions in database: 4000</h4>
+                    <h3>Number of transactions in database: 4000</h3>
 
 
                     {/* Details about the dataset */}
@@ -135,6 +135,10 @@ export default function ButtonAppBar(props) {
                         The Elliptic dataset is a collection of transactions made using bitcoin taken over the course of 50 time steps.
                         Each time step has around 7,000 unique transactions. However, our subset of this dataset only has 1,000 unique transactions per time step.
                     </p>
+
+                    <h5>
+                        Warning: Using 500 or more transactions for multiple graphs will lead to a significant performance impact
+                    </h5>
 
                     <SimpleAccordion timestep={props.timestep} setTimestep={props.setTimestep}
                                      limit={props.limit} setLimit={props.setLimit}
