@@ -88,7 +88,7 @@ function VisualizationPanel(props) {
             // console.log(links)
             // console.log("====RECEIVED LINKS====")
         }
-    }, [nodes, noGraph, props.limit, props.timestep]); // removed dependency: links
+    }, [nodes]); // removed dependency: links
 
     
     return (
