@@ -58,7 +58,12 @@ const App = () => {
         graph3: "graph3",
         graph4: "graph4"
     })
-
+    const [color, setColor] = React.useState({
+        graph1: "PapayaWhip",
+        graph2: "PapayaWhip",
+        graph3: "PapayaWhip",
+        graph4: "PapayaWhip"
+    })
     const graphSize = [12, 6]
 
 
@@ -71,12 +76,13 @@ const App = () => {
         <div style={{
             backgroundColor: "PapayaWhip",
             width: '100%',
-            height: '100vh',
+            height: '93vh',
             // width: '50vw'
             // border: "1px solid black"
             }}>
             <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit}
-                          setLimit={setLimit} setShowGraph={setShowGraph}/>
+                          setLimit={setLimit} setShowGraph={setShowGraph} color={color}
+                          setColor={setColor}/>
 
             <Grid style={{
                 // border: "1px solid black"
@@ -91,7 +97,7 @@ const App = () => {
                 <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}
-                                            graphId={graphId.graph1}/>
+                                            graphId={graphId.graph1} color={color.graph1}/>
 
                 </Grid>
 
@@ -99,7 +105,7 @@ const App = () => {
                     showGraph.graph2? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}
-                                            graphId={graphId.graph2}/>
+                                            graphId={graphId.graph2} color={color.graph2}/>
 
                     </Grid> :null
                 }
@@ -108,7 +114,7 @@ const App = () => {
                     showGraph.graph3? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}
-                                            graphId={graphId.graph3}/>
+                                            graphId={graphId.graph3} color={color.graph3}/>
 
                     </Grid> :null
                 }
@@ -117,7 +123,7 @@ const App = () => {
                     showGraph.graph4? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}
-                                            graphId={graphId.graph4}/>
+                                            graphId={graphId.graph4} color={color.graph4}/>
 
                     </Grid> :null
                 }

@@ -70,7 +70,7 @@ function VisualizationPanel(props) {
             // console.log(nodes)
             // console.log("====RECEIVED NODES====")
         }
-    }, [props.timestep, props.limit, noGraph]);
+    }, [props.timestep, props.limit]);
 
     // API request to get transactions JSON object
     useEffect(() => {
@@ -102,7 +102,8 @@ function VisualizationPanel(props) {
             <div
                 id={'visContainer'}
                 style={{
-                    height: "45vh",
+                    backgroundColor: props.color,
+                    height: "46.25vh",
                     width: "100%",
                     margin: "0px",
                     border: "1px solid black"}}>

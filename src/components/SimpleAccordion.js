@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TimestepDropdown from "./TimestepDropdown";
 import LimitDropdown from "./LimitDropdown";
+import ColorDropdown from "./ColorDropdown";
 import DisplayButton from "./DisplayButton";
 import RemoveGraphButton from "./RemoveGraphButton";
 
@@ -35,7 +36,13 @@ export default function SimpleAccordion(props) {
      * User selected number of transactions to return from the database
      * @type {Number, Function}
      */
-    const [limit, setLimit] = React.useState(props.limit)
+    const [limit, setLimit] = React.useState(props.limit);
+
+    /**
+     * User selected number of transactions to return from the database
+     * @type {Number, Function}
+     */
+    const [color, setColor] = React.useState(props.color);
 
 
     const [disabledAccordion, setDisabledAccordion] = React.useState({
@@ -55,6 +62,7 @@ export default function SimpleAccordion(props) {
         // console.log("====Accordian local values====\nTIMESTEP == " + timeStep.graph1 + "\n LIMIT == " + limit.graph1);
         props.setTimestep(timeStep);
         props.setLimit(limit);
+        props.setColor(color);
         // console.log("====Accordian prop values after sent====\nTIMESTEP == " + props.timestep.graph1 + "\n LIMIT == " + props.limit.graph1);
     }
 
@@ -156,6 +164,11 @@ export default function SimpleAccordion(props) {
 
                     <br/>
 
+                    {/* Selecting the backgroun color for the graph */}
+                    <ColorDropdown setColor={setColor} color={color.graph1} graph={"1"}/>
+
+                    <br/>
+
                     {/* Button to display a graph with the users selected parameters */}
                     <DisplayButton onClickFunction={showGraph} graphNum={1}/>
                 </AccordionDetails>
@@ -181,6 +194,11 @@ export default function SimpleAccordion(props) {
 
                     {/* Selecting the number of transactions to display */}
                     <LimitDropdown setLimit={setLimit} limit={limit.graph2} graph={"2"}/>
+
+                    <br/>
+
+                    {/* Selecting the backgroun color for the graph */}
+                    <ColorDropdown setColor={setColor} color={color.graph2} graph={"2"}/>
 
                     <br/>
 
@@ -217,6 +235,11 @@ export default function SimpleAccordion(props) {
 
                     <br/>
 
+                    {/* Selecting the backgroun color for the graph */}
+                    <ColorDropdown setColor={setColor} color={color.graph3} graph={"3"}/>
+
+                    <br/>
+
                     {/* Button to display a graph with the users selected parameters */}
                     <DisplayButton onClickFunction={showGraph} graphNum={3}/>
 
@@ -247,6 +270,11 @@ export default function SimpleAccordion(props) {
 
                     {/* Selecting the number of transactions to display */}
                     <LimitDropdown setLimit={setLimit} limit={limit.graph4} graph={"4"}/>
+
+                    <br/>
+
+                    {/* Selecting the backgroun color for the graph */}
+                    <ColorDropdown setColor={setColor} color={color.graph4} graph={"4"}/>
 
                     <br/>
 

@@ -142,7 +142,8 @@ export default function ButtonAppBar(props) {
 
                     <SimpleAccordion timestep={props.timestep} setTimestep={props.setTimestep}
                                      limit={props.limit} setLimit={props.setLimit}
-                                     setShowGraph={props.setShowGraph}
+                                     setShowGraph={props.setShowGraph} color={props.color}
+                                     setColor={props.setColor}
                     />
                 </div>
             </Drawer>
