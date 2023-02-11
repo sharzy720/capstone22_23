@@ -2,11 +2,13 @@
  * @file The display button component.
  * @author Johnathyn Strong and Nickolas Wofford
  */
+
 import React from 'react'
 import {Button} from "@mui/material";
 
 /**
  * Creates a button to update the visualization using the user selected values
+ * @param {String} props.graphNum
  * @param {Function} props.onClickFunction
  * @returns {JSX.Element}
  * @constructor
