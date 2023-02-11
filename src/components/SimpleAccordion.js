@@ -1,3 +1,8 @@
+/**
+ * @file Accordion that holds all user choices pertaining to displaying graphs
+ * @author Johnathyn Strong and Nickolas Wofford
+ */
+
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -15,16 +20,14 @@ import RemoveGraphButton from "./RemoveGraphButton";
  *
  * @param {Object} props.timestep
  * @param {Object} props.limit
+ * @param {Object} props.vizColor
  * @param {Function} props.setTimestep
  * @param {Function} props.setLimit
+ * @param {Function} props.setVizColor
  * @returns {JSX.Element}
  * @constructor
  */
 export default function SimpleAccordion(props) {
-
-    // console.log("====ACCORDIAN PROP VALUES====")
-    // console.log("props.timestep.graph1 == " + props.timestep.graph1)
-    // console.log("props.limit.graph1 == " + props.limit.graph1)
 
     /**
      * User selected timestep of transactions to query
@@ -39,40 +42,39 @@ export default function SimpleAccordion(props) {
     const [limit, setLimit] = React.useState(props.limit);
 
     /**
-     * User selected number of transactions to return from the database
+     * User selected color for visualization
      * @type {Number, Function}
      */
-    const [color, setColor] = React.useState(props.color);
+    const [color, setColor] = React.useState(props.vizColor);
 
-
+    /**
+     * To stop a user from rendering a graph before all the previous graph slots are used
+     * @type {Object, Function}
+     */
     const [disabledAccordion, setDisabledAccordion] = React.useState({
         graph3: false,
         graph4: false
     })
 
-    // console.log("====ACCORDIAN LOCAL VALUES====")
-    // console.log("timestep.graph1 == " + timeStep.graph1)
-    // console.log("limit.graph1 == " + limit.graph1)
-
     /**
      * Updates the timestep and limit values in the parent component
      */
     const updateValue = () => {
-        // console.log("====Accordian prop values====\nTIMESTEP == " + props.timestep.graph1 + "\n LIMIT == " + props.limit.graph1);
-        // console.log("====Accordian local values====\nTIMESTEP == " + timeStep.graph1 + "\n LIMIT == " + limit.graph1);
         props.setTimestep(timeStep);
         props.setLimit(limit);
-        props.setColor(color);
-        // console.log("====Accordian prop values after sent====\nTIMESTEP == " + props.timestep.graph1 + "\n LIMIT == " + props.limit.graph1);
+        props.setVizColor(color);
     }
 
     /**
-     *
-     * @param graph
+     * Displays the graph relative to the pressed to button
+     * @param {String} graph
      */
     const showGraph = (graph) => {
-        switch (graph) {
+        switch (parseInt(graph)) {
             case 1:
+                props.setShowGraph(previousState => {
+                    return { ...previousState, graph1: true}
+                });
                 break;
             case 2:
                 props.setShowGraph(previousState => {
@@ -106,11 +108,16 @@ export default function SimpleAccordion(props) {
     }
 
     /**
-     *
-     * @param graph
+     * Hides the graph relative to the pressed to button
+     * @param {String} graph
      */
     const removeGraph = (graph) => {
-        switch (graph) {
+        switch (parseInt(graph)) {
+            case 1:
+                props.setShowGraph(previousState => {
+                    return { ...previousState, graph1: false}
+                });
+                break;
             case 2:
                 props.setShowGraph(previousState => {
                     return { ...previousState, graph2: false}
@@ -164,13 +171,13 @@ export default function SimpleAccordion(props) {
 
                     <br/>
 
-                    {/* Selecting the backgroun color for the graph */}
-                    <ColorDropdown setColor={setColor} color={color.graph1} graph={"1"}/>
+                    {/* Selecting the background color for the graph */}
+                    <ColorDropdown setVizColor={setColor} vizColor={color.graph1} graph={"1"}/>
 
                     <br/>
 
                     {/* Button to display a graph with the users selected parameters */}
-                    <DisplayButton onClickFunction={showGraph} graphNum={1}/>
+                    <DisplayButton onClickFunction={showGraph} graphNum={"1"}/>
                 </AccordionDetails>
             </Accordion>
 
@@ -197,18 +204,18 @@ export default function SimpleAccordion(props) {
 
                     <br/>
 
-                    {/* Selecting the backgroun color for the graph */}
-                    <ColorDropdown setColor={setColor} color={color.graph2} graph={"2"}/>
+                    {/* Selecting the background color for the graph */}
+                    <ColorDropdown setVizColor={setColor} vizColor={color.graph2} graph={"2"}/>
 
                     <br/>
 
                     {/* Button to display a graph with the users selected parameters */}
-                    <DisplayButton onClickFunction={showGraph} graphNum={2}/>
+                    <DisplayButton onClickFunction={showGraph} graphNum={"2"}/>
 
                     <br/>
 
                     {/* Button to remove the associated graph*/}
-                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={2}/>
+                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={"2"}/>
                 </AccordionDetails>
             </Accordion>
 
@@ -235,18 +242,18 @@ export default function SimpleAccordion(props) {
 
                     <br/>
 
-                    {/* Selecting the backgroun color for the graph */}
-                    <ColorDropdown setColor={setColor} color={color.graph3} graph={"3"}/>
+                    {/* Selecting the background color for the graph */}
+                    <ColorDropdown setVizColor={setColor} vizColor={color.graph3} graph={"3"}/>
 
                     <br/>
 
                     {/* Button to display a graph with the users selected parameters */}
-                    <DisplayButton onClickFunction={showGraph} graphNum={3}/>
+                    <DisplayButton onClickFunction={showGraph} graphNum={"3"}/>
 
                     <br/>
 
                     {/* Button to remove the associated graph*/}
-                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={3}/>
+                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={"3"}/>
                 </AccordionDetails>
             </Accordion>
 
@@ -273,18 +280,18 @@ export default function SimpleAccordion(props) {
 
                     <br/>
 
-                    {/* Selecting the backgroun color for the graph */}
-                    <ColorDropdown setColor={setColor} color={color.graph4} graph={"4"}/>
+                    {/* Selecting the background color for the graph */}
+                    <ColorDropdown setVizColor={setColor} vizColor={color.graph4} graph={"4"}/>
 
                     <br/>
 
                     {/* Button to display a graph with the users selected parameters */}
-                    <DisplayButton onClickFunction={showGraph} graphNum={4}/>
+                    <DisplayButton onClickFunction={showGraph} graphNum={"4"}/>
 
                     <br/>
 
                     {/* Button to remove the associated graph*/}
-                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={4}/>
+                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={"4"}/>
                 </AccordionDetails>
             </Accordion>
         </div>
