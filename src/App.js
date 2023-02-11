@@ -5,7 +5,6 @@
 
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import DetailsPanel from "./components/DetailsPanel";
 import VisualizationPanel from "./components/VisualizationPanel";
 import ButtonAppBar from './components/AppBar';
 
@@ -39,73 +38,76 @@ const App = () => {
     });
 
     /**
-     * If one of 3 extra graphs should be displayed
+     * If any of the graphs should be displayed
      * @type {Object, Function}
      */
     const [showGraph, setShowGraph] = React.useState({
+        graph1: false,
         graph2: false,
         graph3: false,
         graph4: false
     })
 
     /**
-     * Unique ids for each div that is a graph is rendered in
-     * @type {Object, Function}
+     * Unique ids for each div that a graph is rendered in
+     * @type {Object}
      */
-    const [graphId, setGraphId] = React.useState({
+    const [graphId] = React.useState({
         graph1: "graph1",
         graph2: "graph2",
         graph3: "graph3",
         graph4: "graph4"
     })
-    const [color, setColor] = React.useState({
-        graph1: "PapayaWhip",
-        graph2: "PapayaWhip",
-        graph3: "PapayaWhip",
-        graph4: "PapayaWhip"
+
+    /**
+     * Color for the background of each visualization
+     * @type {Object, Function}
+     */
+    const [vizColor, setVizColor] = React.useState({
+        graph1: "9999",
+        graph2: "9999",
+        graph3: "9999",
+        graph4: "9999"
     })
+
+    /**
+     * Sizes for the grid sections that
+     * @type {number[]}
+     */
     const graphSize = [12, 6]
-
-
-
-    // console.log("====INTIAL VALUES OF LIMIT AND TIMESTEP====")
-    // console.log("TIMESTEP == " + timestep.graph1)
-    // console.log("LIMIT == " + limit.graph1)
 
     return (
         <div style={{
             backgroundColor: "PapayaWhip",
             width: '100%',
-            height: '93vh',
-            // width: '50vw'
-            // border: "1px solid black"
+            height: '95vh',
             }}>
             <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit}
-                          setLimit={setLimit} setShowGraph={setShowGraph} color={color}
-                          setColor={setColor}/>
+                          setLimit={setLimit} setShowGraph={setShowGraph} vizColor={vizColor}
+                          setVizColor={setVizColor}/>
 
             <Grid style={{
-                // border: "1px solid black"
-                marginTop: "5vh"
+                marginTop: "5vh",
+                marginBottom: "0px"
             }}
                 container
                 direction={"row"}
-                // spacing={{ md: 1, xl: 2}}
-                // style={{padding: "10px"}}
             >
 
-                <Grid item md={graphSize[1]}>
+                {
+                    showGraph.graph1? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}
-                                            graphId={graphId.graph1} color={color.graph1}/>
+                                            graphId={graphId.graph1} color={vizColor.graph1}/>
 
-                </Grid>
+                    </Grid> : null
+                }
 
                 {
                     showGraph.graph2? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}
-                                            graphId={graphId.graph2} color={color.graph2}/>
+                                            graphId={graphId.graph2} color={vizColor.graph2}/>
 
                     </Grid> :null
                 }
@@ -114,7 +116,7 @@ const App = () => {
                     showGraph.graph3? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}
-                                            graphId={graphId.graph3} color={color.graph3}/>
+                                            graphId={graphId.graph3} color={vizColor.graph3}/>
 
                     </Grid> :null
                 }
@@ -123,47 +125,11 @@ const App = () => {
                     showGraph.graph4? <Grid item md={graphSize[1]}>
 
                         <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}
-                                            graphId={graphId.graph4} color={color.graph4}/>
+                                            graphId={graphId.graph4} color={vizColor.graph4}/>
 
                     </Grid> :null
                 }
             </Grid>
-
-            {/*<button onClick={()=>setShowGraph(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph2: !showGraph.graph2}*/}
-            {/*    }*/}
-            {/*)}>Toggle graph2</button>*/}
-            {/*<button onClick={()=>setShowGraph(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph3: !showGraph.graph3}*/}
-            {/*    }*/}
-            {/*)}>Toggle graph3</button>*/}
-            {/*<button onClick={()=>setShowGraph(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph4: !showGraph.graph4}*/}
-            {/*    }*/}
-            {/*)}>Toggle graph4</button>*/}
-            {/*<button onClick={()=>setTimestep(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph1: '1'}*/}
-            {/*    }*/}
-            {/*)}>Show Graph1</button>*/}
-            {/*<button onClick={()=>setTimestep(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph2: '1'}*/}
-            {/*    }*/}
-            {/*)}>Show Graph2</button>*/}
-            {/*<button onClick={()=>setTimestep(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph3: '1'}*/}
-            {/*    }*/}
-            {/*)}>Show Graph3</button>*/}
-            {/*<button onClick={()=>setTimestep(*/}
-            {/*    previousState => {*/}
-            {/*        return { ...previousState, graph4: '1'}*/}
-            {/*    }*/}
-            {/*)}>Show Graph4</button>*/}
       </div>
     );
 }
