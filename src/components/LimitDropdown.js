@@ -2,6 +2,7 @@
  * @file Dropdown menu for Limits
  * @author Johnathyn Strong and Nickolas Wofford
  */
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -18,9 +19,6 @@ import {useEffect} from "react";
  * @returns {JSX.Element}
  */
 function LimitDropdown (props) {
-
-    // console.log("====TIMESTEP DROPDOWN PROP VALUES====")
-    // console.log("props.limit.graph1 == " + JSON.stringify(props.limit))
 
     /**
      * User selected number of transactions

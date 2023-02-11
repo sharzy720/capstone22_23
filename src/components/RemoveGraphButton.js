@@ -8,7 +8,7 @@ import {Button} from "@mui/material";
 /**
  * Creates a button to update the visualization using the user selected values
  * @param {Function} props.onClickFunction
- * @param {Number} props.graphNum
+ * @param {String} props.graphNum
  * @returns {JSX.Element}
  * @constructor
  */

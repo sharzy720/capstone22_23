@@ -2,7 +2,7 @@
  * @file D3 Force graph visualization.
  * @author Johnathyn Strong and Nickolas Wofford
  */
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import * as d3 from 'd3';
 import './JSONForceGraph.css';
 
@@ -16,11 +16,6 @@ import './JSONForceGraph.css';
  */
 function JSONForceGraph(props) {
 
-    // console.log("Prop nodes = " + props.nodes)
-    // console.log("Prop links = " + props.links)
-
-    // const test = useRef(null);
-
     /**
      * Http object, change value to state where the svg will be attached
      * @type {object}
@@ -30,9 +25,9 @@ function JSONForceGraph(props) {
     /**
      * useEffect() reaction to change. Might remove.
      */
-    /*useEffect(() => {
-        svg.selectAll("g").remove();
-    }, [props.links]);*/
+    // useEffect(() => {
+    //     svg.selectAll("g").remove();
+    // }, [props.links]);
     useEffect(() => {
         setTimeout(function() {
 
@@ -110,7 +105,6 @@ function JSONForceGraph(props) {
 
 
             function ticked() {
-                // console.log("JSON FORCE GRAPH TICKED IS RUNNING")
                 // Allows for a boundary to be set up at the edges on the display area
                 const radius = 0;
 
@@ -169,7 +163,9 @@ function JSONForceGraph(props) {
         <div id='forceGraph'
             style={{
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                margin: "0px",
+                padding: "0px"
             }}>
             {props.timestep}
             <svg id={props.graphId}

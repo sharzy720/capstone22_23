@@ -20,9 +20,6 @@ import {useEffect} from "react";
  */
 function TimestepDropdown (props) {
 
-    // console.log("====TIMESTEP DROPDOWN PROP VALUES====")
-    // console.log("props.timestep.graph1 == " + JSON.stringify(props.timestep))
-
     /**
      * User selected timestep of transactions
      * @type {String, Function}
@@ -67,11 +64,6 @@ function TimestepDropdown (props) {
                 break;
         }
     };
-
-    // if (parseInt(props.timestep) < 50) {
-    //     console.log("if timestep is less than or equal to 50 ")
-    //     setTimeStep(props.timestep)
-    // }
 
     return (
         <Box sx={{ minWidth: 120, height: '50px' }}>
