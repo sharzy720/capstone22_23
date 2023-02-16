@@ -107,25 +107,26 @@ export default function ButtonAppBar(props) {
                 }}>
 
                     {/* Title */}
-                    <h1 style={{ margin: '0'}}>
-                        Elliptic dataset
-                    </h1>
+                    {/*<h1 style={{ margin: '0'}}>*/}
+                    {/*    Elliptic dataset*/}
+                    {/*</h1>*/}
 
-                    <br/>
+                    {/*<br/>*/}
 
-                    {/* sub information */}
-                    <h3>Number of transactions in database: 4000</h3>
+                    {/*/!* sub information *!/*/}
+                    {/*<h3>Number of transactions in database: 4000</h3>*/}
 
 
-                    {/* Details about the dataset */}
-                    <p style={{ fontSize: '16px' }}>
-                        The Elliptic dataset is a collection of transactions made using bitcoin taken over the course of 50 time steps.
-                        Each time step has around 7,000 unique transactions. However, our subset of this dataset only has 1,000 unique transactions per time step.
-                    </p>
+                    {/*/!* Details about the dataset *!/*/}
+                    {/*<p style={{ fontSize: '16px' }}>*/}
+                    {/*    The Elliptic dataset is a collection of transactions made using bitcoin taken over the course of 50 time steps.*/}
+                    {/*    Each time step has around 7,000 unique transactions. However, our subset of this dataset only has 1,000 unique transactions per time step.*/}
+                    {/*</p>*/}
 
-                    <h5>
-                        Warning: Using 500 or more transactions for multiple graphs will lead to a significant performance impact
-                    </h5>
+                    <h4>Red nodes are the current / source node of a transactions</h4>
+                    <h4>Blue nodes are the target nodes of a transaction</h4>
+
+                    <h4>Warning: Using 500 or more transactions for multiple graphs will lead to a significant performance impact</h4>
 
                     <SimpleAccordion timestep={props.timestep} setTimestep={props.setTimestep}
                                      limit={props.limit} setLimit={props.setLimit}
