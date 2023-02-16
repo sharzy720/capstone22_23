@@ -78,6 +78,10 @@ function JSONForceGraph(props) {
                 .append("line")
                 .attr("stroke-width", function () {
                     return 3;
+                })
+                .on('mouseover', function (d, i) {
+                    // console.log("the value of d3.select is: " + JSON.stringify(d3.selectAll("circle")))
+
                 });
 
             /**
@@ -86,6 +90,7 @@ function JSONForceGraph(props) {
             var div = d3.select("body").append("div")
                 .attr("class", "node-details")
                 .style("opacity", 0);
+
 
             /**
              * Node data
@@ -102,23 +107,56 @@ function JSONForceGraph(props) {
                 .attr("fill", function () {
                     return "purple";
                 })
+                // Display node pop out on mouse over
                 .on('mouseover', function (d, i) {
+                    d3.selectAll("line").each(function (f) {
+                        if (f.source.name === d.name) { // finding the source
+                            // console.log("f's source name = " + f.source.name)
+                            // console.log("f's target name = " + f.target.name)
+                            d3.selectAll("circle").each(function (j) { // finding the targets
+                                if (j.name === f.target.name) {
+                                    console.log("j as a string = " + JSON.stringify(j))
+                                    d3.select(this).transition()
+                                        .duration('50')
+                                        .attr('fill', 'blue')
+                                }
+
+                                // d3.select(f.target).transition()
+                                //     .duration('50')
+                                //     .attr('fill', 'blue')
+                            })
+                        }
+                        // console.log("d's source name = " + f.source.name)
+                        // console.log("d's target name = " + f.target.name)
+                    })
                     d3.select(this).transition()
                         .duration('50')
-                        .attr('opacity', '.85');
+                        .attr('fill', 'red');
                     div.transition()
                         .duration(50)
                         .style("opacity", 1);
                     let num = ("id: " + d.name);
-                    console.log("the value of d is: " + d.name)
                     div.html(num)
                         .style("left", (d3.event.pageX + 10) + "px")
                         .style("top", (d3.event.pageY - 15) + "px");
                 })
+                // Hide node pop out when mouse moves off node
                 .on('mouseout', function (d, i) {
+                    d3.selectAll("line").each(function (f) {
+                        if (f.source.name === d.name) { // finding the source
+                            d3.selectAll("circle").each(function (j) { // finding the targets
+                                if (j.name === f.target.name) {
+                                    console.log("j as a string = " + JSON.stringify(j))
+                                    d3.select(this).transition()
+                                        .duration('50')
+                                        .attr('fill', 'purple')
+                                }
+                            })
+                        }
+                    })
                     d3.select(this).transition()
                         .duration('50')
-                        .attr('opacity', '1');
+                        .attr('fill', 'purple');
                     div.transition()
                         .duration('50')
                         .style("opacity", 0);
