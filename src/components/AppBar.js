@@ -103,7 +103,7 @@ export default function ButtonAppBar(props) {
 
                 <div style={{ padding: '20px',
                     height: '100%',
-                    // backgroundColor: 'PapayaWhip'
+                    backgroundColor: 'PapayaWhip'
                 }}>
 
                     {/* Title */}
