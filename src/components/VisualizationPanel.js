@@ -4,24 +4,25 @@
  */
 
 import React, {useEffect, useState} from 'react'
-import {Paper} from "@mui/material";
 import JSONForceGraph from "./JSONForceGraph";
 import axios from "axios";
 
 /**
  * Creates the visualization panel and calls the graph visualization
  *
- * @param {number} props.timestep
- * @param {number} props.limit
+ * @param {Object} props.timestep
+ * @param {Object} props.limit
+ * @param {String} props.graphId
  * @returns {JSX.Element}
  * @constructor
  */
 function VisualizationPanel(props) {
+
     /**
      * Whether to display the graph
      * @type {boolean}
      */
-    let displayGraph = props.timestep !== 51;
+    // let displayGraph = props.timestep !== 51;
 
     /**
      * Used to not display the graph when the app is first loaded
@@ -31,17 +32,17 @@ function VisualizationPanel(props) {
 
     /**
      * JSON object with all user nodes received from the database
-     * @type {Object} nodes
+     * @type {Object, Function} nodes
      */
     const [nodes, setNodes]=useState()
 
     /**
      * JSON object with all transaction links received from the database
-     * @type {Object} links
+     * @type {Object, Function} links
      */
     const [links, setLinks]=useState()
 
-    
+
 
     // API request to get users JSON object
 
@@ -50,45 +51,38 @@ function VisualizationPanel(props) {
      */
     useEffect(() => {
         if (props.timestep <= noGraph) {
-            console.log("====USERS USE EFFECT RUNNING====")
-
             axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
                 // Show response data
                 .then(res => setNodes(res.data))
                 .catch(err => console.log(err))
         }
-    }, [props.timestep, props.limit, noGraph]);
+    }, [props.timestep, props.limit]);
 
     // API request to get transactions JSON object
     useEffect(() => {
         if (props.timestep <= noGraph) {
-            
             axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
                 // Show response data
                 .then(res => setLinks(res.data))
                 .catch(err => console.log(err))
-            console.log("Received links: " + JSON.stringify(links))
-
-
         }
-    }, [nodes, links, noGraph, props.limit, props.timestep]);
+    }, [nodes]);
 
     
     return (
-        <Paper style={{backgroundColor: "lightblue",
-                       minHeight: "98.5vh",
-                       width: "100%"}}>
-
-            {/*/!*Container for the graph visualization*!/*/}
-            <div
-                id={'visContainer'}
-                style={{ height: "96vh",
-                        width: "73vw",
-                        padding: "0px"}}>
-
-                <JSONForceGraph nodes={nodes} links={links} />
-            </div>
-        </Paper>
+        // Container for the graph visualization
+        <div
+            id={'visContainer'}
+            style={{
+                backgroundColor: props.color,
+                height: "47.3vh", // According to math 47.5vh should be the perfect height, but it runs offscreen
+                width: "100%",
+                margin: "0px"}}>
+            {/*{*/}
+            {/*    props.timestep <= noGraph? <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/> : null*/}
+            {/*}*/}
+            <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/>
+        </div>
     );
 }
 
