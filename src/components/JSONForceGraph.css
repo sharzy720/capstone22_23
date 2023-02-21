@@ -1,6 +1,6 @@
 .links line {
     stroke: black; /*Color for links between nodes*/
-    stroke-opacity: 60%;
+    stroke-opacity: 45%;
 }
 
 .nodes circle {
