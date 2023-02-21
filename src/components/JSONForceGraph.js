@@ -108,14 +108,14 @@ function JSONForceGraph(props) {
                     return "purple";
                 })
                 // Display node pop out on mouse over
-                .on('mouseover', function (d, i) {
+                .on('mouseover', function (d) {
                     d3.selectAll("line").each(function (f) {
                         if (f.source.name === d.name) { // finding the source
                             // console.log("f's source name = " + f.source.name)
                             // console.log("f's target name = " + f.target.name)
                             d3.selectAll("circle").each(function (j) { // finding the targets
                                 if (j.name === f.target.name) {
-                                    console.log("j as a string = " + JSON.stringify(j))
+                                    // console.log("j as a string = " + JSON.stringify(j))
                                     d3.select(this).transition()
                                         .duration('50')
                                         .attr('fill', 'blue')
@@ -135,13 +135,14 @@ function JSONForceGraph(props) {
                     div.transition()
                         .duration(50)
                         .style("opacity", 1);
-                    let num = ("id: " + d.name);
-                    div.html(num)
-                        .style("left", (d3.event.pageX + 10) + "px")
-                        .style("top", (d3.event.pageY - 15) + "px");
+                    // let nodeDetails = ("id: " + d.name + " | class: " + decodeNodeClass(d.class));
+                    let nodeDetails = (d.name + " | " + decodeNodeClass(d.class));
+                    div.html(nodeDetails)
+                        .style("left", (d3.event.pageX + 25) + "px")    // Old value + 10
+                        .style("top", (d3.event.pageY - 30) + "px");    // Old value - 15
                 })
                 // Hide node pop out when mouse moves off node
-                .on('mouseout', function (d, i) {
+                .on('mouseout', function (d) {
                     d3.selectAll("line").each(function (f) {
                         if (f.source.name === d.name) { // finding the source
                             d3.selectAll("circle").each(function (j) { // finding the targets
@@ -169,6 +170,26 @@ function JSONForceGraph(props) {
                         .on("end", dragEnded)
                 );
 
+            /**
+             *
+             * @param {string} nodeClass
+             * @returns {string}
+             */
+            function decodeNodeClass(nodeClass) {
+                let userClass;
+                switch (nodeClass) {
+                    case "1":
+                        userClass = "Illicit";
+                        break;
+                    case "2":
+                        userClass = "Licit";
+                        break;
+                    default:
+                        userClass = "Unknown";
+                        break;
+                }
+                return userClass;
+            }
 
             function ticked() {
                 // Allows for a boundary to be set up at the edges on the display area
