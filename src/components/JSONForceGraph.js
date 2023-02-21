@@ -105,7 +105,7 @@ function JSONForceGraph(props) {
                 .append("circle")
                 .attr("r", 5)
                 .attr("fill", function () {
-                    return "purple";
+                    return "black";
                 })
                 // Display node pop out on mouse over
                 .on('mouseover', function (d) {
@@ -118,7 +118,7 @@ function JSONForceGraph(props) {
                                     // console.log("j as a string = " + JSON.stringify(j))
                                     d3.select(this).transition()
                                         .duration('50')
-                                        .attr('fill', 'blue')
+                                        .attr('fill', 'Blue')
                                 }
 
                                 // d3.select(f.target).transition()
@@ -131,7 +131,7 @@ function JSONForceGraph(props) {
                     })
                     d3.select(this).transition()
                         .duration('50')
-                        .attr('fill', 'red');
+                        .attr('fill', 'Red');
                     div.transition()
                         .duration(50)
                         .style("opacity", 1);
@@ -150,14 +150,14 @@ function JSONForceGraph(props) {
                                     console.log("j as a string = " + JSON.stringify(j))
                                     d3.select(this).transition()
                                         .duration('50')
-                                        .attr('fill', 'purple')
+                                        .attr('fill', 'black')
                                 }
                             })
                         }
                     })
                     d3.select(this).transition()
                         .duration('50')
-                        .attr('fill', 'purple');
+                        .attr('fill', 'black');
                     div.transition()
                         .duration('50')
                         .style("opacity", 0);
