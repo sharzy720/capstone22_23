@@ -184,19 +184,14 @@ function JSONForceGraph(props) {
              * @returns {String}
              */
             function decodeNodeClass(nodeClass) {
-                let userClass;
                 switch (nodeClass) {
                     case "1":
-                        userClass = "Illicit";
-                        break;
+                        return "Illicit";
                     case "2":
-                        userClass = "Licit";
-                        break;
+                        return "Licit";
                     default:
-                        userClass = "Unknown";
-                        break;
+                        return "Unknown";
                 }
-                return userClass;
             }
 
             /**
