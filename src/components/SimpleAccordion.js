@@ -103,8 +103,8 @@ export default function SimpleAccordion(props) {
                 console.log("Received value of: " + graph.toString());
         }
         updateValue();
-        console.log("SHOW TIMESTEP VALUE" + JSON.stringify(timeStep))
-        console.log("SHOW SELECTED LIMIT VALUE" + JSON.stringify(limit))
+        // console.log("SHOW TIMESTEP VALUE" + JSON.stringify(timeStep))
+        // console.log("SHOW SELECTED LIMIT VALUE" + JSON.stringify(limit))
     }
 
     /**

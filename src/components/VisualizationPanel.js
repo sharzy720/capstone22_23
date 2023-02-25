@@ -50,6 +50,7 @@ function VisualizationPanel(props) {
      * React to changes on node count
      */
     useEffect(() => {
+        console.log("Visualization panel getting users")
         if (props.timestep <= noGraph) {
             axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
                 // Show response data
@@ -60,6 +61,7 @@ function VisualizationPanel(props) {
 
     // API request to get transactions JSON object
     useEffect(() => {
+        console.log("Visualization panel getting transactions")
         if (props.timestep <= noGraph) {
             axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
                 // Show response data
