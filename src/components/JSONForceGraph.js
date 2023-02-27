@@ -53,7 +53,9 @@ function JSONForceGraph(props) {
     }
 
     const [previousNode, setPreviousNode] = React.useState();
-    const [target, setTarget] = React.useState();
+
+    const [mouseOverNode, setMouseOverNode] = React.useState();
+    const [mouseOffNode, setMouseOffNode] = React.useState();
 
     useEffect(() => {
         setTimeout(function() {
@@ -136,50 +138,16 @@ function JSONForceGraph(props) {
                 })
                 // Display node pop out on mouse over
                 .on('mouseover', function (currentNode) {
-                    setTarget(currentNode.name);
-                    d3.selectAll("line").each(function (transaction) {
+                    setMouseOverNode(currentNode.name);
 
-                        // Check if the current node is a part of any transactions
-                        if (currentNode.name === transaction.source.name) {
-                            d3.selectAll("circle").each(function (targetNode) {
-
-                                // Check if the target node is a target of any valid transactions
-                                //  where the currentNode === the sourceNode
-                                if (targetNode.name === transaction.target.name &&
-                                    targetNode.name !== props.selectedNode) {
-                                    colorNode(this, "Blue")
-                                }
-                            })
-                        }
-                    })
-
-                    if (currentNode.name !== props.selectedNode) {
-                        colorNode(this, "Red");
-                    }
+                    console.log("Over\n");
                     displayNodeDetails(true, currentNode.name + " | " + decodeNodeClass(currentNode.class));
                 })
                 // Hide node pop out when mouse moves off node
                 .on('mouseout', function (currentNode) {
-                    setTarget(currentNode.name);
-                    d3.selectAll("line").each(function (transaction) {
-
-                        // Check if the current node is a part of any transactions
-                        if (currentNode.name === transaction.source.name) {
-                            d3.selectAll("circle").each(function (targetNode) {
-
-                                // Check if the target node is a target of any valid transactions
-                                //  where the currentNode === the sourceNode
-                                if (targetNode.name === transaction.target.name &&
-                                    targetNode.name !== props.selectedNode) {
-                                    colorNode(this, getNodeClassColor(targetNode.class))
-                                }
-                            })
-                        }
-                    })
-                    if (currentNode.name !== props.selectedNode) {
-
-                        colorNode(this, getNodeClassColor(currentNode.class))
-                    }
+                    setMouseOffNode(currentNode.name);
+                    //setMouseOverNode("");
+                    console.log("Off\n");
                     displayNodeDetails(false);
                 })
                 .on('click', function (currentNode) {
@@ -307,20 +275,69 @@ function JSONForceGraph(props) {
     }, [props.links]);
 
 
+    useEffect(() => {
+        if (mouseOverNode != "") {
+            console.log("OverE " + mouseOverNode + "\n");
+            d3.selectAll("line").each(function (transaction) {
+                // Check if the current node is a part of any transactions
+                if (mouseOverNode === transaction.source.name) {
+                    d3.selectAll("circle").each(function (targetNode) {
 
+                        // Check if the target node is a target of any valid transactions
+                        //  where the currentNode === the sourceNode
+                        if (targetNode.name === transaction.target.name &&
+                            targetNode.name !== props.selectedNode) {
+                            colorNode(this, "Blue")
+                        }
+                    })
+                }
+            })
+            d3.selectAll("circle").each(function (targetNode) {
+                if (targetNode.name === mouseOverNode && targetNode.name !== props.selectedNode) {
+                    colorNode(this, "Red");
+                }
+            })
+            setMouseOverNode("");
+        }
+    }, [mouseOverNode, props.selectedNode]);
 
     useEffect(() => {
+        if (mouseOffNode != "") {
+            console.log("OffE " + mouseOffNode + "\n");
+            d3.selectAll("line").each(function (transaction) {
 
+                // Check if the current node is a part of any transactions
+                if (mouseOffNode === transaction.source.name) {
+                    d3.selectAll("circle").each(function (targetNode) {
+                        // Check if the target node is a target of any valid transactions
+                        //  where the currentNode === the sourceNode
+                        if (targetNode.name === transaction.target.name &&
+                            targetNode.name !== props.selectedNode) {
+                            colorNode(this, getNodeClassColor(targetNode.class))
+                        }
+                    })
+                }
+            })
+
+            d3.selectAll("circle").each(function (targetNode) {
+                if (targetNode.name === mouseOffNode && targetNode.name !== props.selectedNode) {
+
+                    colorNode(this, getNodeClassColor(targetNode.class))
+                }
+            })
+            setMouseOffNode("");
+        }
+
+    }, [mouseOffNode, props.selectedNode]);
+
+    useEffect(() => {
         //colorNode(props.select, "Yellow")
-
-
         d3.selectAll("circle").each(function (targetNode) {
-
             // Check if the target node is a target of any valid transactions
             //  where the currentNode === the sourceNode
             if (targetNode.name === props.selectedNode) {
                 colorNode(this, "Yellow");
-
+                console.log(targetNode.name + " " + props.selectedNode);
                 //colorNode(this, getNodeClassColor(targetNode.class))
             }
             else if (targetNode.name === previousNode) {
@@ -330,6 +347,7 @@ function JSONForceGraph(props) {
 
 
         })
+        setMouseOverNode(props.selectedNode);
         setPreviousNode(props.selectedNode);
     }, [props.selectedNode]);
     
@@ -348,7 +366,7 @@ function JSONForceGraph(props) {
                  width={"100%"}
                  height={"100%"}>
             </svg>
-            {props.select} {target}
+
         </div>
     )
 }
