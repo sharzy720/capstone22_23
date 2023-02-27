@@ -77,13 +77,15 @@ function VisualizationPanel(props) {
             id={'visContainer'}
             style={{
                 backgroundColor: props.color,
-                height: "47.3vh", // According to math 47.5vh should be the perfect height, but it runs offscreen
-                width: "100%",
+                height: "47.1652vh", // According to math 47.5vh should be the perfect height, but it runs offscreen
+                width: "99.8%",
+                border: "thin solid black",
                 margin: "0px"}}>
             {/*{*/}
             {/*    props.timestep <= noGraph? <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/> : null*/}
             {/*}*/}
-            <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/>
+            <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId} selectedNode={props.select} setSelectedNode={props.setSelect}/>
+            
         </div>
     );
 }
