@@ -47,14 +47,6 @@ export default function SimpleAccordion(props) {
      */
     const [color, setColor] = React.useState(props.vizColor);
 
-    /**
-     * To stop a user from rendering a graph before all the previous graph slots are used
-     * @type {Object, Function}
-     */
-    const [disabledAccordion, setDisabledAccordion] = React.useState({
-        graph3: false,
-        graph4: false
-    })
 
     /**
      * Updates the timestep and limit values in the parent component
@@ -127,18 +119,11 @@ export default function SimpleAccordion(props) {
                 props.setShowGraph(previousState => {
                     return { ...previousState, graph3: false}
                 });
-                // setDisabledAccordion(previousState => {
-                //     console.log("REMOVING GRAPH3 ACCORDION")
-                //     return { ...previousState, graph3: true}
-                // });
                 break;
             case 4:
                 props.setShowGraph(previousState => {
                     return { ...previousState, graph4: false}
                 });
-                // setDisabledAccordion(previousState => {
-                //     return { ...previousState, graph4: true}
-                // });
                 break;
             default:
                 console.log("Received value of: " + graph.toString());
@@ -146,10 +131,28 @@ export default function SimpleAccordion(props) {
         console.log("SHOW GRAPH VALUES" + JSON.stringify(showGraph))
     }
 
+    /**
+     * The open state of each accordion displayed
+     * @type {Array, Function}
+     */
+    const [accordionState, setAccordionState] = React.useState([false, false, false, false])
+
+    /**
+     * Closes all accordions except the most recently clicked one
+     * @param {Number} accordionIndex
+     */
+    function closeAccordions(accordionIndex) {
+        setAccordionState(accordionState.map((state, index) => {
+            return index === accordionIndex;
+        }))
+    }
+
     return (
         <div>
             {/* Graph 1 details */}
-            <Accordion>
+            <Accordion expanded={accordionState[0]} onChange={(event, expanded) => {
+                expanded && closeAccordions(0);
+            }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -181,8 +184,11 @@ export default function SimpleAccordion(props) {
                 </AccordionDetails>
             </Accordion>
 
+
             {/* Graph 2 details */}
-            <Accordion >
+            <Accordion expanded={accordionState[1]} onChange={(event, expanded) => {
+                expanded && closeAccordions(1);
+            }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2a-content"
@@ -220,7 +226,9 @@ export default function SimpleAccordion(props) {
             </Accordion>
 
             {/* Graph 3 details */}
-            <Accordion disabled={disabledAccordion.graph3}>
+            <Accordion expanded={accordionState[2]} onChange={(event, expanded) => {
+                expanded && closeAccordions(2);
+            }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel3a-content"
@@ -258,7 +266,9 @@ export default function SimpleAccordion(props) {
             </Accordion>
 
             {/* Graph 4 details */}
-            <Accordion disabled={disabledAccordion.graph4}>
+            <Accordion expanded={accordionState[3]} onChange={(event, expanded) => {
+                expanded && closeAccordions(3);
+            }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel4a-content"
