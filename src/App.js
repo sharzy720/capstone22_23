@@ -78,10 +78,17 @@ const App = () => {
     const [select, setSelect] = React.useState();
 
     /**
-     * Sizes for the grid sections that
-     * @type {number[]}
+     * Grid size for a large graph
+     * @type {number}
      */
-    const graphSize = [12, 6]
+    const largeGraph = 12;
+
+    /**
+     * Grid size for a small graph
+     * @type {number}
+     */
+    const smallGraph = 6;
+
 
     return (
         <div style={{
@@ -102,7 +109,7 @@ const App = () => {
             >
 
                 {
-                    showGraph.graph1? <Grid item md={graphSize[0]} xl={graphSize[1]}>
+                    showGraph.graph1? <Grid item md={showGraph.graph2? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}
                                             graphId={graphId.graph1} color={vizColor.graph1}
@@ -112,7 +119,7 @@ const App = () => {
                 }
 
                 {
-                    showGraph.graph2? <Grid item md={graphSize[0]} xl={graphSize[1]}>
+                    showGraph.graph2? <Grid item md={showGraph.graph1? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}
                                             graphId={graphId.graph2} color={vizColor.graph2}
@@ -122,7 +129,7 @@ const App = () => {
                 }
 
                 {
-                    showGraph.graph3? <Grid item md={graphSize[0]} xl={graphSize[1]}>
+                    showGraph.graph3? <Grid item md={showGraph.graph4? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}
                                             graphId={graphId.graph3} color={vizColor.graph3}
@@ -132,7 +139,7 @@ const App = () => {
                 }
 
                 {
-                    showGraph.graph4? <Grid item md={graphSize[0]} xl={graphSize[1]}>
+                    showGraph.graph4? <Grid item md={showGraph.graph4? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}
                                             graphId={graphId.graph4} color={vizColor.graph4}
