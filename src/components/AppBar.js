@@ -24,11 +24,11 @@ const drawerWidth = 300;
  *
  * @param {Object} props.timestep
  * @param {Object} props.limit
- * @param {Object} props.vizColor
+ * @param {Object} props.vizBackgroundColor
  * @param {Function} props.setTimestep
  * @param {Function} props.setLimit
  * @param {Function} props.setShowGraph
- * @param {Function} props.setVizColor
+ * @param {Function} props.setVizBackgroundColor
  * @returns {React.ReactElement} The component
  */
 export default function ButtonAppBar(props) {
@@ -130,8 +130,8 @@ export default function ButtonAppBar(props) {
 
                     <SimpleAccordion timestep={props.timestep} setTimestep={props.setTimestep}
                                      limit={props.limit} setLimit={props.setLimit}
-                                     setShowGraph={props.setShowGraph} vizColor={props.vizColor}
-                                     setVizColor={props.setVizColor}
+                                     setShowGraph={props.setShowGraph} vizBackgroundColor={props.vizBackgroundColor}
+                                     setVizBackgroundColor={props.setVizBackgroundColor}
                     />
                 </div>
             </Drawer>
