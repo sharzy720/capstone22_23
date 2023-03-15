@@ -49,7 +49,7 @@ const App = () => {
     })
 
     /**
-     * Unique ids for each div that a graph is rendered in
+     * Unique ids for each svg that a graph is rendered in
      * @type {Object}
      */
     const [graphId] = React.useState({
@@ -60,10 +60,21 @@ const App = () => {
     })
 
     /**
+     * Unique ids for each visualization panel that houses a graph
+     * @type {Object}
+     */
+    const [vizPanelId] = React.useState({
+        graph1: "visContainer1",
+        graph2: "visContainer2",
+        graph3: "visContainer3",
+        graph4: "visContainer4"
+    })
+
+    /**
      * Color for the background of each visualization
      * @type {Object, Function}
      */
-    const [vizColor, setVizColor] = React.useState({
+    const [vizBackgroundColor, setVizBackgroundColor] = React.useState({
         graph1: "9999",
         graph2: "9999",
         graph3: "9999",
@@ -74,8 +85,7 @@ const App = () => {
      * ID of selected node
      * @type {Object, Function}
      */
-
-    const [select, setSelect] = React.useState();
+    const [selectedNode, setSelectedNode] = React.useState();
 
     /**
      * Grid size for a large graph
@@ -97,8 +107,8 @@ const App = () => {
             height: '94.12vh',
             }}>
             <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit}
-                          setLimit={setLimit} setShowGraph={setShowGraph} vizColor={vizColor}
-                          setVizColor={setVizColor}/>
+                          setLimit={setLimit} setShowGraph={setShowGraph} vizBackgroundColor={vizBackgroundColor}
+                          setVizBackgroundColor={setVizBackgroundColor}/>
 
             <Grid style={{
                 marginTop: "5vh",
@@ -112,8 +122,9 @@ const App = () => {
                     showGraph.graph1? <Grid item md={showGraph.graph2? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}
-                                            graphId={graphId.graph1} color={vizColor.graph1}
-                                            select={select} setSelect={setSelect}/>
+                                            graphId={graphId.graph1} vizBackgroundColor={vizBackgroundColor.graph1}
+                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                            showGraph={showGraph} vizPanelId={vizPanelId.graph1}/>
 
                     </Grid> : null
                 }
@@ -122,8 +133,9 @@ const App = () => {
                     showGraph.graph2? <Grid item md={showGraph.graph1? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}
-                                            graphId={graphId.graph2} color={vizColor.graph2}
-                                            select={select} setSelect={setSelect} />
+                                            graphId={graphId.graph2} vizBackgroundColor={vizBackgroundColor.graph2}
+                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                            showGraph={showGraph} vizPanelId={vizPanelId.graph2}/>
 
                     </Grid> :null
                 }
@@ -132,8 +144,9 @@ const App = () => {
                     showGraph.graph3? <Grid item md={showGraph.graph4? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}
-                                            graphId={graphId.graph3} color={vizColor.graph3}
-                                            select={select} setSelect={setSelect}/>
+                                            graphId={graphId.graph3} vizBackgroundColor={vizBackgroundColor.graph3}
+                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                            showGraph={showGraph} vizPanelId={vizPanelId.graph3}/>
 
                     </Grid> :null
                 }
@@ -142,8 +155,9 @@ const App = () => {
                     showGraph.graph4? <Grid item md={showGraph.graph4? smallGraph : largeGraph}>
 
                         <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}
-                                            graphId={graphId.graph4} color={vizColor.graph4}
-                                            select={select} setSelect={setSelect}/>
+                                            graphId={graphId.graph4} vizBackgroundColor={vizBackgroundColor.graph4}
+                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                            showGraph={showGraph} vizPanelId={vizPanelId.graph4}/>
 
                     </Grid> :null
                 }
