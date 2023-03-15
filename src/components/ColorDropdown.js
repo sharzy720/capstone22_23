@@ -13,8 +13,8 @@ import {useEffect} from "react";
 /**
  * Creates a drop-down menu for selecting a timestep to visualize
  * @param {String} props.graph
- * @param {String} props.vizColor
- * @param {Function} props.setVizColor
+ * @param {String} props.selectedBackgroundColor
+ * @param {Function} props.setSelectedBackgroundColors
  * @returns {JSX.Element}
  */
 function ColorDropdown (props) {
@@ -29,7 +29,7 @@ function ColorDropdown (props) {
      * Background color options for the visualizations, colors should go from light to dark
      * @type {*[String]}
      */
-    const vizBackground = ['Snow', 'LightSalmon', 'DarkSeaGreen', 'SteelBlue', 'SlateGrey', 'Black']
+    const backgroundColorOptions = ['Snow', 'LightSalmon', 'DarkSeaGreen', 'SteelBlue', 'SlateGrey', 'Black']
 
 
 
@@ -38,11 +38,11 @@ function ColorDropdown (props) {
      */
     useEffect(() => {
         console.log("testing received limit value")
-        if (props.vizColor !== '9999') {
-            console.log("Color acceptable")
-            setColor(props.vizColor);
+        if (props.selectedBackgroundColor !== '9999') {
+            // console.log("Color acceptable")
+            setColor(props.selectedBackgroundColor);
         }
-    }, [props.vizColor]);
+    }, [props.selectedBackgroundColor]);
 
     /**
      * Event handle for user interacting with the drop-down.
@@ -51,22 +51,22 @@ function ColorDropdown (props) {
     const handleChange = (event) => {
         switch (props.graph) {
             case "1":
-                props.setVizColor(previousState => {
+                props.setSelectedBackgroundColors(previousState => {
                     return { ...previousState, graph1: event.target.value }
                 });
                 break;
             case "2":
-                props.setVizColor(previousState => {
+                props.setSelectedBackgroundColors(previousState => {
                     return { ...previousState, graph2: event.target.value }
                 });
                 break;
             case "3":
-                props.setVizColor(previousState => {
+                props.setSelectedBackgroundColors(previousState => {
                     return { ...previousState, graph3: event.target.value }
                 });
                 break;
             case "4":
-                props.setVizColor(previousState => {
+                props.setSelectedBackgroundColors(previousState => {
                     return { ...previousState, graph4: event.target.value }
                 });
                 break;
@@ -89,36 +89,36 @@ function ColorDropdown (props) {
                             MenuListProps: {
                                 sx: {
                                     // Color of the background behind the menu options
-                                    background: "linear-gradient(" + vizBackground[0] + ", " + vizBackground[5] + ")"
+                                    background: "linear-gradient(" + backgroundColorOptions[0] + ", " + backgroundColorOptions[5] + ")"
                                 }
                             }
                         }
                     }}
                 >
-                    <MenuItem value={vizBackground[0]} style={{
-                        backgroundColor: vizBackground[0]
-                    }}>{vizBackground[0]}</MenuItem>
+                    <MenuItem value={backgroundColorOptions[0]} style={{
+                        backgroundColor: backgroundColorOptions[0]
+                    }}>{backgroundColorOptions[0]}</MenuItem>
 
-                    <MenuItem value={vizBackground[1]} style={{
-                        backgroundColor: vizBackground[1]
-                    }}>{vizBackground[1]}</MenuItem>
+                    <MenuItem value={backgroundColorOptions[1]} style={{
+                        backgroundColor: backgroundColorOptions[1]
+                    }}>{backgroundColorOptions[1]}</MenuItem>
 
-                    <MenuItem value={vizBackground[2]} style={{
-                        backgroundColor: vizBackground[2]
-                    }}>{vizBackground[2]}</MenuItem>
+                    <MenuItem value={backgroundColorOptions[2]} style={{
+                        backgroundColor: backgroundColorOptions[2]
+                    }}>{backgroundColorOptions[2]}</MenuItem>
 
-                    <MenuItem value={vizBackground[3]} style={{
-                        backgroundColor: vizBackground[3]
-                    }}>{vizBackground[3]}</MenuItem>
+                    <MenuItem value={backgroundColorOptions[3]} style={{
+                        backgroundColor: backgroundColorOptions[3]
+                    }}>{backgroundColorOptions[3]}</MenuItem>
 
-                    <MenuItem value={vizBackground[4]} style={{
-                        backgroundColor: vizBackground[4]
-                    }}>{vizBackground[4]}</MenuItem>
+                    <MenuItem value={backgroundColorOptions[4]} style={{
+                        backgroundColor: backgroundColorOptions[4]
+                    }}>{backgroundColorOptions[4]}</MenuItem>
 
-                    <MenuItem value={vizBackground[5]} style={{
-                        backgroundColor: vizBackground[5],
+                    <MenuItem value={backgroundColorOptions[5]} style={{
+                        backgroundColor: backgroundColorOptions[5],
                         color: 'white'
-                    }}>{vizBackground[5]}</MenuItem>
+                    }}>{backgroundColorOptions[5]}</MenuItem>
 
                 </Select>
             </FormControl>
