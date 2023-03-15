@@ -20,10 +20,10 @@ import RemoveGraphButton from "./RemoveGraphButton";
  *
  * @param {Object} props.timestep
  * @param {Object} props.limit
- * @param {Object} props.vizColor
+ * @param {Object} props.vizBackgroundColor
  * @param {Function} props.setTimestep
  * @param {Function} props.setLimit
- * @param {Function} props.setVizColor
+ * @param {Function} props.setVizBackgroundColor
  * @returns {JSX.Element}
  * @constructor
  */
@@ -31,21 +31,21 @@ export default function SimpleAccordion(props) {
 
     /**
      * User selected timestep of transactions to query
-     * @type {String, Function}
+     * @type {Object, Function}
      */
     const [timeStep, setTimeStep] = React.useState(props.timestep);
 
     /**
      * User selected number of transactions to return from the database
-     * @type {Number, Function}
+     * @type {Object, Function}
      */
     const [limit, setLimit] = React.useState(props.limit);
 
     /**
      * User selected color for visualization
-     * @type {Number, Function}
+     * @type {Object, Function}
      */
-    const [color, setColor] = React.useState(props.vizColor);
+    const [selectedBackgroundColors, setSelectedBackgroundColors] = React.useState(props.vizBackgroundColor);
 
 
     /**
@@ -54,7 +54,7 @@ export default function SimpleAccordion(props) {
     const updateValue = () => {
         props.setTimestep(timeStep);
         props.setLimit(limit);
-        props.setVizColor(color);
+        props.setVizBackgroundColor(selectedBackgroundColors);
     }
 
     /**
@@ -175,7 +175,7 @@ export default function SimpleAccordion(props) {
                     <br/>
 
                     {/* Selecting the background color for the graph */}
-                    <ColorDropdown setVizColor={setColor} vizColor={color.graph1} graph={"1"}/>
+                    <ColorDropdown setSelectedBackgroundColors={setSelectedBackgroundColors} selectedBackgroundColor={selectedBackgroundColors.graph1} graph={"1"}/>
 
                     <br/>
 
@@ -211,7 +211,7 @@ export default function SimpleAccordion(props) {
                     <br/>
 
                     {/* Selecting the background color for the graph */}
-                    <ColorDropdown setVizColor={setColor} vizColor={color.graph2} graph={"2"}/>
+                    <ColorDropdown setSelectedBackgroundColors={setSelectedBackgroundColors} selectedBackgroundColor={selectedBackgroundColors.graph2} graph={"2"}/>
 
                     <br/>
 
@@ -224,6 +224,7 @@ export default function SimpleAccordion(props) {
                     <RemoveGraphButton onClickFunction={removeGraph} graphNum={"2"}/>
                 </AccordionDetails>
             </Accordion>
+
 
             {/* Graph 3 details */}
             <Accordion expanded={accordionState[2]} onChange={(event, expanded) => {
@@ -251,7 +252,7 @@ export default function SimpleAccordion(props) {
                     <br/>
 
                     {/* Selecting the background color for the graph */}
-                    <ColorDropdown setVizColor={setColor} vizColor={color.graph3} graph={"3"}/>
+                    <ColorDropdown setSelectedBackgroundColors={setSelectedBackgroundColors} selectedBackgroundColor={selectedBackgroundColors.graph3} graph={"3"}/>
 
                     <br/>
 
@@ -264,6 +265,7 @@ export default function SimpleAccordion(props) {
                     <RemoveGraphButton onClickFunction={removeGraph} graphNum={"3"}/>
                 </AccordionDetails>
             </Accordion>
+
 
             {/* Graph 4 details */}
             <Accordion expanded={accordionState[3]} onChange={(event, expanded) => {
@@ -291,7 +293,7 @@ export default function SimpleAccordion(props) {
                     <br/>
 
                     {/* Selecting the background color for the graph */}
-                    <ColorDropdown setVizColor={setColor} vizColor={color.graph4} graph={"4"}/>
+                    <ColorDropdown setSelectedBackgroundColors={setSelectedBackgroundColors} selectedBackgroundColor={selectedBackgroundColors.graph4} graph={"4"}/>
 
                     <br/>
 
