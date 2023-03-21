@@ -158,7 +158,8 @@ export default function SimpleAccordion(props) {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     sx={{
-                        backgroundColor: "Lavender"
+                        backgroundColor: "#2763D1",
+                        color: "white"
                     }}
                 >
                     <Typography>Graph 1</Typography>
@@ -181,6 +182,7 @@ export default function SimpleAccordion(props) {
 
                     {/* Button to display a graph with the users selected parameters */}
                     <DisplayButton onClickFunction={showGraph} graphNum={"1"}/>
+                    <RemoveGraphButton onClickFunction={removeGraph} graphNum={"1"}/>
                 </AccordionDetails>
             </Accordion>
 
@@ -194,7 +196,8 @@ export default function SimpleAccordion(props) {
                     aria-controls="panel2a-content"
                     id="panel2a-header"
                     sx={{
-                        backgroundColor: "Lavender"
+                        backgroundColor: "#2763D1",
+                        color: "white"
                     }}
                 >
                     <Typography>Graph 2</Typography>
@@ -235,7 +238,8 @@ export default function SimpleAccordion(props) {
                     aria-controls="panel3a-content"
                     id="panel3a-header"
                     sx={{
-                        backgroundColor: "Lavender"
+                        backgroundColor: "#2763D1",
+                        color: "white"
                     }}
                 >
                     <Typography>Graph 3</Typography>
@@ -276,7 +280,8 @@ export default function SimpleAccordion(props) {
                     aria-controls="panel4a-content"
                     id="panel4a-header"
                     sx={{
-                        backgroundColor: "Lavender"
+                        backgroundColor: "#2763D1",
+                        color: "white"
                     }}
                 >
                     <Typography>Graph 4</Typography>

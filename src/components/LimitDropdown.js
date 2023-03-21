@@ -69,7 +69,7 @@ function LimitDropdown (props) {
     };
 
     return (
-        <Box sx={{ minWidth: 120, height: '50px' }}>
+        <Box sx={{ minWidth: 120, height: '50px', backgroundColor: "2D82C4" }}>
             <FormControl fullWidth variant={"filled"}>
                 <InputLabel id="limit-select-label">Transactions to display</InputLabel>
                 <Select

@@ -102,9 +102,10 @@ const App = () => {
 
     return (
         <div style={{
-            backgroundColor: "PapayaWhip",
+
             width: '100%',
             height: '94.12vh',
+            backgroundColor: '#E2D6BE'
             }}>
             <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit}
                           setLimit={setLimit} setShowGraph={setShowGraph} vizBackgroundColor={vizBackgroundColor}
