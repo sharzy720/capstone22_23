@@ -62,11 +62,11 @@ function JSONForceGraph(props) {
     function getNodeClassColor(currentNodeClass) {
         switch (currentNodeClass) {
             case "1":
-                return "Chartreuse";
+                return "#00D0FF";
             case "2":
-                return "DeepPink";
+                return "#0C69FF";
             default:
-                return "Black";
+                return "#06327A";
         }
     }
 
@@ -324,14 +324,14 @@ function JSONForceGraph(props) {
                         //  where the currentNode === the sourceNode
                         if (targetNode.name === transaction.target.name &&
                             targetNode.name !== props.selectedNode) {
-                            colorNode(this, "Blue")
+                            colorNode(this, "#A50871")
                         }
                     })
                 }
             })
             d3.selectAll("circle").each(function (targetNode) {
                 if (targetNode.name === mouseOverNode && targetNode.name !== props.selectedNode) {
-                    colorNode(this, "Red");
+                    colorNode(this, "#FF4800");
                 }
             })
             setMouseOverNode("");
@@ -373,7 +373,7 @@ function JSONForceGraph(props) {
             // Check if the target node is a target of any valid transactions
             //  where the currentNode === the sourceNode
             if (targetNode.name === props.selectedNode) {
-                colorNode(this, "Yellow");
+                colorNode(this, "#E50E06");
                 // console.log(targetNode.name + " " + props.selectedNode);
                 //colorNode(this, getNodeClassColor(targetNode.class))
             }

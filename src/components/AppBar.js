@@ -57,7 +57,7 @@ export default function ButtonAppBar(props) {
         <div style={{margin: "0px"}}>
             {/* AppBar */}
             <Box sx={{ flexGrow: 1}}>
-                <AppBar position="fixed" sx={{ backgroundColor: 'Black', height: '5vh'}}>
+                <AppBar position="fixed" sx={{ backgroundColor: '#2763D1', height: '5vh'}}>
                     <Toolbar>
 
                         {/* Menu icon button to open the drawer */}
@@ -91,7 +91,7 @@ export default function ButtonAppBar(props) {
                         width: drawerWidth,
                         boxSizing: 'border-box'
                     },
-                    backgroundColor: 'PapayaWhip'
+                    //backgroundColor: '6B5427'
                 }}
                 variant="temporary"
                 anchor="left"
@@ -103,7 +103,7 @@ export default function ButtonAppBar(props) {
 
                 <div style={{ padding: '20px',
                     height: '100%',
-                    backgroundColor: 'PapayaWhip'
+                    backgroundColor: '#E2D6BE'
                 }}>
 
                     {/* Title */}
