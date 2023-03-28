@@ -8,10 +8,12 @@ import './JSONForceGraph.css';
 
 /**
  * Creates a force directed graph using the given links and nodes
+ * @param {Object} props.showGraph
  * @param {Number} props.timestep
  * @param {JSON} props.links
  * @param {JSON} props.nodes
  * @param {String} props.graphId
+ * @param {String} props.vizPanelId
  * @returns {JSX.Element}
  */
 function JSONForceGraph(props) {
@@ -22,7 +24,35 @@ function JSONForceGraph(props) {
      */
     const svg = d3.select("#" + props.graphId);
 
+    /**
+     * Last node clicked
+     * @type {Object, Function}
+     */
+    const [previousNode, setPreviousNode] = React.useState();
 
+    /**
+     * Current node being moused over
+     * @type {Object, Function}
+     */
+    const [mouseOverNode, setMouseOverNode] = React.useState();
+
+    /**
+     * Current node that the mouse moved off
+     * @type {Object, Function}
+     */
+    const [mouseOffNode, setMouseOffNode] = React.useState();
+
+    /**
+     * Current width of the browser window
+     * @type {Number, Function}
+     */
+    const [windowWidth, setWindowWidth] = React.useState();
+
+    /**
+     * Current height of the browser window
+     * @type {Number, Function}
+     */
+    const [windowHeight, setWindowHeight] = React.useState();
 
     /**
      * Get a node color using its class
@@ -52,25 +82,32 @@ function JSONForceGraph(props) {
             .attr('fill', color)
     }
 
-    const [previousNode, setPreviousNode] = React.useState();
+    useEffect(() => {
+        function handleResize() {
+            setWindowWidth(window.innerWidth);
+            setWindowHeight(window.innerHeight);
+        }
 
-    const [mouseOverNode, setMouseOverNode] = React.useState();
-    const [mouseOffNode, setMouseOffNode] = React.useState();
+        window.addEventListener('resize', handleResize);
+    });
+
 
     useEffect(() => {
         setTimeout(function() {
 
             /**
-            * width of container
-            * @type {Number}
-            */
-            let width = document.getElementById('visContainer').clientWidth;
+             * width of container
+             * @type {Number}
+             */
+            let width = document.getElementById(props.vizPanelId).clientWidth;
+            // width = document.getElementById(props.vizPanelId).clientWidth;
 
             /**
              * height of container
              * @type {Number}
              */
-            let height = document.getElementById('visContainer').clientHeight;
+            let height = document.getElementById(props.vizPanelId).clientHeight;
+            // height = document.getElementById(props.vizPanelId).clientHeight;
             svg.selectAll("g").remove();
 
             /**
@@ -140,20 +177,20 @@ function JSONForceGraph(props) {
                 .on('mouseover', function (currentNode) {
                     setMouseOverNode(currentNode.name);
 
-                    console.log("Over\n");
+                    // console.log("Over\n");
                     displayNodeDetails(true, currentNode.name + " | " + decodeNodeClass(currentNode.class));
                 })
                 // Hide node pop out when mouse moves off node
                 .on('mouseout', function (currentNode) {
                     setMouseOffNode(currentNode.name);
                     //setMouseOverNode("");
-                    console.log("Off\n");
+                    // console.log("Off\n");
                     displayNodeDetails(false);
                 })
                 .on('click', function (currentNode) {
-                            props.setSelectedNode(currentNode.name);
-                            //previousNode = selectedNode;
-                            //selectedNode = currentNode;
+                    props.setSelectedNode(currentNode.name);
+                    // previousNode = selectedNode;
+                    //selectedNode = currentNode;
 
                 })
                 .call(
@@ -272,12 +309,12 @@ function JSONForceGraph(props) {
             }
 
         }, 100);
-    }, [props.links]);
+    }, [props.links, props.showGraph, windowWidth, windowHeight]);
 
 
     useEffect(() => {
-        if (mouseOverNode != "") {
-            console.log("OverE " + mouseOverNode + "\n");
+        if (mouseOverNode !== "") {
+            // console.log("OverE " + mouseOverNode + "\n");
             d3.selectAll("line").each(function (transaction) {
                 // Check if the current node is a part of any transactions
                 if (mouseOverNode === transaction.source.name) {
@@ -302,8 +339,8 @@ function JSONForceGraph(props) {
     }, [mouseOverNode, props.selectedNode]);
 
     useEffect(() => {
-        if (mouseOffNode != "") {
-            console.log("OffE " + mouseOffNode + "\n");
+        if (mouseOffNode !== "") {
+            // console.log("OffE " + mouseOffNode + "\n");
             d3.selectAll("line").each(function (transaction) {
 
                 // Check if the current node is a part of any transactions
@@ -337,7 +374,7 @@ function JSONForceGraph(props) {
             //  where the currentNode === the sourceNode
             if (targetNode.name === props.selectedNode) {
                 colorNode(this, "Yellow");
-                console.log(targetNode.name + " " + props.selectedNode);
+                // console.log(targetNode.name + " " + props.selectedNode);
                 //colorNode(this, getNodeClassColor(targetNode.class))
             }
             else if (targetNode.name === previousNode) {
@@ -350,16 +387,16 @@ function JSONForceGraph(props) {
         setMouseOverNode(props.selectedNode);
         setPreviousNode(props.selectedNode);
     }, [props.selectedNode]);
-    
+
 
     return (
         <div id='forceGraph'
-            style={{
-                width: '100%',
-                height: '100%',
-                margin: "0px",
-                padding: "0px"
-            }}>
+             style={{
+                 width: '100%',
+                 height: '100%',
+                 margin: "0px",
+                 padding: "0px"
+             }}>
 
             <svg id={props.graphId}
                  {...svg}

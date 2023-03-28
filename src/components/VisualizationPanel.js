@@ -10,9 +10,14 @@ import axios from "axios";
 /**
  * Creates the visualization panel and calls the graph visualization
  *
- * @param {Object} props.timestep
- * @param {Object} props.limit
+ * @param {String} props.timestep
+ * @param {String} props.limit
+ * @param {Object} props.showGraph
+ * @param {String} props.vizPanelId
  * @param {String} props.graphId
+ * @param {String} props.vizBackgroundColor
+ * @param {String} props.selectedNode
+ * @param {Function} props.setSelectedNode
  * @returns {JSX.Element}
  * @constructor
  */
@@ -50,7 +55,7 @@ function VisualizationPanel(props) {
      * React to changes on node count
      */
     useEffect(() => {
-        console.log("Visualization panel getting users")
+        console.log(props.vizPanelId + " getting users")
         if (props.timestep <= noGraph) {
             axios.get("http://localhost:4000/users/" + props.timestep + "/" + props.limit)
                 // Show response data
@@ -61,7 +66,7 @@ function VisualizationPanel(props) {
 
     // API request to get transactions JSON object
     useEffect(() => {
-        console.log("Visualization panel getting transactions")
+        console.log(props.vizPanelId + " getting transactions")
         if (props.timestep <= noGraph) {
             axios.get("http://localhost:4000/transactions/" + props.timestep + "/" + props.limit)
                 // Show response data
@@ -70,13 +75,13 @@ function VisualizationPanel(props) {
         }
     }, [nodes]);
 
-    
+
     return (
         // Container for the graph visualization
         <div
-            id={'visContainer'}
+            id={props.vizPanelId}
             style={{
-                backgroundColor: props.color,
+                backgroundColor: props.vizBackgroundColor,
                 height: "47.1652vh", // According to math 47.5vh should be the perfect height, but it runs offscreen
                 width: "99.8%",
                 border: "thin solid black",
@@ -84,8 +89,11 @@ function VisualizationPanel(props) {
             {/*{*/}
             {/*    props.timestep <= noGraph? <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/> : null*/}
             {/*}*/}
-            <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId} selectedNode={props.select} setSelectedNode={props.setSelect}/>
-            
+            <JSONForceGraph nodes={nodes} links={links}
+                            graphId={props.graphId} selectedNode={props.selectedNode}
+                            setSelectedNode={props.setSelectedNode} showGraph={props.showGraph}
+                            vizPanelId={props.vizPanelId}/>
+
         </div>
     );
 }
