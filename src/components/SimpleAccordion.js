@@ -152,14 +152,17 @@ export default function SimpleAccordion(props) {
             {/* Graph 1 details */}
             <Accordion expanded={accordionState[0]} onChange={(event, expanded) => {
                 expanded && closeAccordions(0);
-            }}>
+            }} sx={{borderRadius: '5px', boxShadow: 3}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     sx={{
                         backgroundColor: "#2763D1",
-                        color: "white"
+                        color: "white",
+                        borderTopLeftRadius: '5px',
+                        borderTopRightRadius: '5px',
+                        boxShadow: 1
                     }}
                 >
                     <Typography>Graph 1</Typography>
@@ -190,14 +193,15 @@ export default function SimpleAccordion(props) {
             {/* Graph 2 details */}
             <Accordion expanded={accordionState[1]} onChange={(event, expanded) => {
                 expanded && closeAccordions(1);
-            }}>
+            }} sx={{borderRadius: '5px', boxShadow: 3}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2a-content"
                     id="panel2a-header"
                     sx={{
                         backgroundColor: "#2763D1",
-                        color: "white"
+                        color: "white",
+                        boxShadow: 1
                     }}
                 >
                     <Typography>Graph 2</Typography>
@@ -232,14 +236,15 @@ export default function SimpleAccordion(props) {
             {/* Graph 3 details */}
             <Accordion expanded={accordionState[2]} onChange={(event, expanded) => {
                 expanded && closeAccordions(2);
-            }}>
+            }} sx={{borderRadius: '5px', boxShadow: 3}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel3a-content"
                     id="panel3a-header"
                     sx={{
                         backgroundColor: "#2763D1",
-                        color: "white"
+                        color: "white",
+                        boxShadow: 1
                     }}
                 >
                     <Typography>Graph 3</Typography>
@@ -274,14 +279,17 @@ export default function SimpleAccordion(props) {
             {/* Graph 4 details */}
             <Accordion expanded={accordionState[3]} onChange={(event, expanded) => {
                 expanded && closeAccordions(3);
-            }}>
+            }} sx={{borderRadius: '5px', boxShadow: 3}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel4a-content"
                     id="panel4a-header"
                     sx={{
                         backgroundColor: "#2763D1",
-                        color: "white"
+                        color: "white",
+                        // borderTopLeftRadius: '5px',
+                        // borderTopRightRadius: '5px',
+                        boxShadow: 1
                     }}
                 >
                     <Typography>Graph 4</Typography>
