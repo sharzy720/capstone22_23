@@ -71,7 +71,7 @@ function LimitDropdown (props) {
     return (
         <Box sx={{ minWidth: 120, height: '50px', backgroundColor: "2D82C4" }}>
             <FormControl fullWidth variant={"filled"}>
-                <InputLabel id="limit-select-label">Transactions to display</InputLabel>
+                <InputLabel id="limit-select-label">Max transactions to display</InputLabel>
                 <Select
                     labelId="limit-select-label"
                     id="limit-select"
@@ -79,9 +79,12 @@ function LimitDropdown (props) {
                     label="limit"
                     onChange={handleChange}
                 >
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={25}>25</MenuItem>
                     <MenuItem value={125}>125</MenuItem>
                     <MenuItem value={250}>250</MenuItem>
                     <MenuItem value={500}>500</MenuItem>
+                    <MenuItem value={750}>750</MenuItem>
                     <MenuItem value={1000}>1,000</MenuItem>
                 </Select>
             </FormControl>

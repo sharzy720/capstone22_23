@@ -86,9 +86,6 @@ function VisualizationPanel(props) {
                 width: "99.8%",
                 border: "thin solid black",
                 margin: "0px"}}>
-            {/*{*/}
-            {/*    props.timestep <= noGraph? <JSONForceGraph nodes={nodes} links={links} graphId={props.graphId}/> : null*/}
-            {/*}*/}
             <JSONForceGraph nodes={nodes} links={links}
                             graphId={props.graphId} selectedNode={props.selectedNode}
                             setSelectedNode={props.setSelectedNode} showGraph={props.showGraph}
