@@ -154,6 +154,7 @@ function JSONForceGraph(props) {
             const zoomRect = svg.append("rect")
                 .attr("width", (width * 2))
                 .attr("height", (height * 2))
+                .attr("center", (width, height))
                 .style("fill", "none")
                 .style("pointer-events", "all")
 
@@ -215,7 +216,9 @@ function JSONForceGraph(props) {
                 .on("zoom", zoomed);
 
             zoomRect.call(zoom)
-                .call(zoom.translateTo, 0, 0);
+                .call(zoom.translateTo, width, height);
+
+
 
             /**
              * Display node detail pop out
@@ -304,7 +307,7 @@ function JSONForceGraph(props) {
              */
             function dragStarted(currentNode) {
                 // States how fast nodes will spread out while dragging
-                const alpha = 0.1
+                const alpha = 0.2
 
                 if (!d3.event.active) simulation.alphaTarget(alpha).restart();
                 currentNode.fx = currentNode.x;
