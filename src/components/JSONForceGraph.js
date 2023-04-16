@@ -154,7 +154,6 @@ function JSONForceGraph(props) {
             const zoomRect = svg.append("rect")
                 .attr("width", (width * 2))
                 .attr("height", (height * 2))
-                .attr("center", (width, height))
                 .style("fill", "none")
                 .style("pointer-events", "all")
 
