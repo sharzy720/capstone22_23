@@ -428,10 +428,10 @@ function JSONForceGraph(props) {
                  // margin: "0px",
                  // padding: "0px",
                  // display: 'inline-block',
-                 position: 'relative',
+                 position: 'relative'
                  // right: '50%',
                  // paddingBottom: '400px',
-                 border: '1px solid red'
+                 //border: '1px solid red'
              }}>
 
             <svg id={props.graphId}
