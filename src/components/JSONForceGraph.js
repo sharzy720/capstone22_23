@@ -54,6 +54,8 @@ function JSONForceGraph(props) {
      */
     const [windowHeight, setWindowHeight] = React.useState();
 
+    let transform = d3.zoomIdentity;
+
     /**
      * Get a node color using its class
      * @param {String} currentNodeClass
@@ -127,7 +129,8 @@ function JSONForceGraph(props) {
                         .links(props.links)
                 )
                 .force("charge", d3.forceManyBody().strength(-0.3))
-                .force("center", d3.forceCenter(width / 2, height / 2))
+                // TODO center needs to be based on zoomRect as well as the zoomRect needs to be centered on the screen
+                .force("center", d3.forceCenter((width * 2) / 2, (height * 2) / 2))
                 .on("tick", ticked);
 
             /**
@@ -147,6 +150,12 @@ function JSONForceGraph(props) {
                 .on('mouseover', function (d, i) {
                     // unused mouse over event for a link
                 });
+
+            const zoomRect = svg.append("rect")
+                .attr("width", (width * 2))
+                .attr("height", (height * 2))
+                .style("fill", "none")
+                .style("pointer-events", "all")
 
             /**
              * Pop out div for displaying a nodes id
@@ -199,6 +208,14 @@ function JSONForceGraph(props) {
                         .on("drag", dragged)
                         .on("end", dragEnded)
                 );
+
+            const zoom = d3.zoom()
+                .scaleExtent([1/2, 64])
+                .translateExtent([[0, 0], [width * 2, height * 2]])
+                .on("zoom", zoomed);
+
+            zoomRect.call(zoom)
+                .call(zoom.translateTo, width, height);
 
 
 
@@ -265,11 +282,22 @@ function JSONForceGraph(props) {
 
                 node
                     .attr("cx", function(currentNode) {
-                        return (currentNode.x = Math.max(radius, Math.min(width - radius, currentNode.x)));
+                        return (currentNode.x = Math.max(radius, Math.min((width * 2) - radius, currentNode.x)));
                     })
                     .attr("cy", function(currentNode) {
-                        return (currentNode.y = Math.max(radius, Math.min(height - radius, currentNode.y)));
+                        return (currentNode.y = Math.max(radius, Math.min((height * 2) - radius, currentNode.y)));
                     });
+            }
+
+            /**
+             * Allows for a user to zoom into the visualization panel
+             */
+            function zoomed() {
+                transform = d3.event.transform;
+                node.attr("transform", d3.event.transform);
+                link.attr("transform", d3.event.transform);
+                // console.log("zoomRect height = " + zoomRect.height);
+                // console.log("zoomRect width = " + zoomRect.width);
             }
 
             /**
@@ -278,7 +306,7 @@ function JSONForceGraph(props) {
              */
             function dragStarted(currentNode) {
                 // States how fast nodes will spread out while dragging
-                const alpha = 0.1
+                const alpha = 0.2
 
                 if (!d3.event.active) simulation.alphaTarget(alpha).restart();
                 currentNode.fx = currentNode.x;
@@ -392,16 +420,29 @@ function JSONForceGraph(props) {
     return (
         <div id='forceGraph'
              style={{
-                 width: '100%',
-                 height: '100%',
-                 margin: "0px",
-                 padding: "0px"
+                 // width: '100%',
+                 // height: '100%',
+                 // display: 'flex',
+                 // justifyContent: 'center',
+                 // alignItems: 'center',
+                 // margin: "0px",
+                 // padding: "0px",
+                 // display: 'inline-block',
+                 position: 'relative'
+                 // right: '50%',
+                 // paddingBottom: '400px',
+                 //border: '1px solid red'
              }}>
 
             <svg id={props.graphId}
-                 {...svg}
-                 width={"100%"}
-                 height={"100%"}>
+                {...svg}
+                width={"100%"}
+                height={"100%"}
+            style={{
+                // position: 'relative',
+                // left: '30%',
+            }}
+            >
             </svg>
 
         </div>
