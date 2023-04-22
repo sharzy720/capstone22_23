@@ -106,10 +106,10 @@ const App = () => {
      * @return {number} Width of the current graphs grid container
      */
     function dynamicGridSize(currentGraph, graphObject) {
+        // Array of booleans pertaining to what graphs are currently displayed
         let currGraphs = Object.values(graphObject);
-        let count = currGraphs.filter(e => {
-            return e === true;
-        }).length;
+        // Number of graphs currently displayed
+        let count = currGraphs.filter(e => { return e === true; }).length;
 
         // If only 1 or 2 graphs are displayed
         if (count === 1) {
@@ -120,14 +120,12 @@ const App = () => {
 
         // If 3 or 4 graphs are displayed
         switch (currentGraph) {
-            // Top half
             case 1:
                 return (graphObject.graph2) ? smallGraph : largeGraph
 
             case 2:
                 return (graphObject.graph1) ? smallGraph : largeGraph
 
-            // Bottom half
             case 3:
                 return (graphObject.graph4) ? smallGraph : largeGraph
 
@@ -142,32 +140,67 @@ const App = () => {
      * displayed
      * @param currentGraph The current graph being displayed
      * @param graphObject Object holding boolean values for what graphs are currently displayed
-     * @return {{borderRight: string, borderBottom: string, height: string}|
-     * {borderBottom: string, height: string}} Styling for the current graphs grid container
+     * @return {
+     * {height: string}|
+     * {borderBottom: string, height: string}|
+     * {borderRight: string, height: string}|
+     * {borderRight: string, borderBottom: string, height: string}
+     * } Styling for the current graphs grid container
      */
-    function dynamicGrids(currentGraph, graphObject) {
-        console.log("dynamicGrids running with:");
+    function dynamicGrids(currentGraph, graphObject) {// before: 63 after: 53
+        // Array of booleans pertaining to what graphs are currently displayed
         let currGraphs = Object.values(graphObject);
+        // Height of a graph container
         let sizeString = "47.5vh";
-        console.log("currGraphs = " + currGraphs.toString() + "\nsizeString = " + sizeString);
-        let count = currGraphs.filter(e => {
-            return e === true;
-        }).length;
+        // Number of graphs currently displayed
+        let count = currGraphs.filter(e => { return e === true }).length;
 
-        console.log("count = " + count)
+        // If 1 or 2 graphs are displayed take up the full screen
         if (count <= 2) {
             sizeString = "95vh";
         }
 
+        // Dynamically change what borders are displayed on a given graph container
         switch (currentGraph) {
             case 1:
-                return {borderRight:"thin solid black", borderBottom:"thin solid black", height:sizeString};
+                if (count === 1) {
+                    return {height:sizeString}
+
+                } else if (count === 2) {
+                    return {borderRight:"thin solid black", height:sizeString}
+
+                } else {
+                    return {borderRight:"thin solid black", borderBottom:"thin solid black", height:sizeString}
+                }
+
             case 2:
-                return {borderBottom:"thin solid black", height:sizeString};
+                if (count === 1) {
+                    return {height:sizeString}
+
+                } else if (count === 2 && !currGraphs[0]) { // If 2 graphs and graph 1 is not displayed
+                    return {borderRight:"thin solid black", height:sizeString}
+
+                } else {
+                    return (currGraphs[0]) // If there are more than 3 graphs and graph 1 is displayed
+                        ? {borderBottom:"thin solid black", height:sizeString}
+                        : {borderRight:"thin solid black", borderBottom:"thin solid black", height:sizeString}
+                }
+
             case 3:
-                return {borderRight:"thin solid black", borderBottom:"thin solid black", height:sizeString};
+                if (count === 1) {
+                    return {height:sizeString}
+
+                } else if (currGraphs[0] && currGraphs[1]) { // If graphs 1 and 2 exist
+                    return (currGraphs[3])
+                        ? {borderRight:"thin solid black", height:sizeString}
+                        : {height:sizeString}
+
+                } else {
+                    return {borderRight:"thin solid black", borderBottom:"thin solid black", height:sizeString}
+                }
+
             case 4:
-                return {borderBottom:"thin solid black", height:sizeString};
+                return {height:sizeString}
         }
     }
 
