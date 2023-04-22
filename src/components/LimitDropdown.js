@@ -28,12 +28,12 @@ function LimitDropdown (props) {
 
 
     useEffect(() => {
-        console.log("testing received limit value")
+        // console.log("testing received limit value")
         if (parseInt(props.limit) < 9999) {
-            console.log("value acceptable")
+            // console.log("value acceptable")
             setLimit(props.limit);
         } else {
-            console.log("value is too small")
+            // console.log("value is too small")
             setLimit("");
         }
     }, [props.limit]);

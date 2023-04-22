@@ -37,7 +37,7 @@ function ColorDropdown (props) {
      * If the user has already selected a background color then that color will be reselected
      */
     useEffect(() => {
-        console.log("testing received limit value")
+        // console.log("testing received limit value")
         if (props.selectedBackgroundColor !== '9999') {
             // console.log("Color acceptable")
             setColor(props.selectedBackgroundColor);
