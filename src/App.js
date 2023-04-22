@@ -99,68 +99,146 @@ const App = () => {
      */
     const smallGraph = 6;
 
+    /**
+     * Dynamically sizes the grid depending on home many and what graphs are displayed
+     * @param currentGraph The current graph being displayed
+     * @param graphObject Object holding boolean values for what graphs are currently displayed
+     * @return {number} Width of the current graphs grid container
+     */
+    function dynamicGridSize(currentGraph, graphObject) {
+        let currGraphs = Object.values(graphObject);
+        let count = currGraphs.filter(e => {
+            return e === true;
+        }).length;
+
+        // If only 1 or 2 graphs are displayed
+        if (count === 1) {
+            return largeGraph;
+        } else if (count === 2) {
+            return smallGraph;
+        }
+
+        // If 3 or 4 graphs are displayed
+        switch (currentGraph) {
+            // Top half
+            case 1:
+                return (graphObject.graph2) ? smallGraph : largeGraph
+
+            case 2:
+                return (graphObject.graph1) ? smallGraph : largeGraph
+
+            // Bottom half
+            case 3:
+                return (graphObject.graph4) ? smallGraph : largeGraph
+
+            case 4:
+                return (graphObject.graph3) ? smallGraph : largeGraph
+        }
+    }
+
+
+    /**
+     * Dynamically change the height and border of graphs depending on how many and what graphs are
+     * displayed
+     * @param currentGraph The current graph being displayed
+     * @param graphObject Object holding boolean values for what graphs are currently displayed
+     * @return {{borderRight: string, borderBottom: string, height: string}|
+     * {borderBottom: string, height: string}} Styling for the current graphs grid container
+     */
+    function dynamicGrids(currentGraph, graphObject) {
+        console.log("dynamicGrids running with:");
+        let currGraphs = Object.values(graphObject);
+        let sizeString = "47.5vh";
+        console.log("currGraphs = " + currGraphs.toString() + "\nsizeString = " + sizeString);
+        let count = currGraphs.filter(e => {
+            return e === true;
+        }).length;
+
+        console.log("count = " + count)
+        if (count <= 2) {
+            sizeString = "95vh";
+        }
+
+        switch (currentGraph) {
+            case 1:
+                return {borderRight:"thin solid black", borderBottom:"thin solid black", height:sizeString};
+            case 2:
+                return {borderBottom:"thin solid black", height:sizeString};
+            case 3:
+                return {borderRight:"thin solid black", borderBottom:"thin solid black", height:sizeString};
+            case 4:
+                return {borderBottom:"thin solid black", height:sizeString};
+        }
+    }
 
     return (
         <div style={{
-
             width: '100%',
-            height: '94.12vh',
+            height: "95vh",//'94.12vh',
             backgroundColor: '#E2D6BE'
-            }}>
+        }}>
             <ButtonAppBar timestep={timestep} setTimestep={setTimestep} limit={limit}
                           setLimit={setLimit} setShowGraph={setShowGraph} vizBackgroundColor={vizBackgroundColor}
                           setVizBackgroundColor={setVizBackgroundColor}/>
 
             <Grid style={{
-                marginTop: "5vh",
-                marginBottom: "0px"
-            }}
+                    marginTop: "5vh",
+                    marginBottom: "0px"
+                }}
                 container
                 direction={"row"}
             >
 
                 {
-                    showGraph.graph1? <Grid item md={showGraph.graph2? smallGraph : largeGraph}>
+                    showGraph.graph1?
+                        <Grid item md={dynamicGridSize(1, showGraph)}
+                              style={dynamicGrids(1, showGraph)}>
 
-                        <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}
-                                            graphId={graphId.graph1} vizBackgroundColor={vizBackgroundColor.graph1}
-                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
-                                            showGraph={showGraph} vizPanelId={vizPanelId.graph1}/>
-
-                    </Grid> : null
+                            <VisualizationPanel timestep={timestep.graph1} limit={limit.graph1}
+                                                graphId={graphId.graph1} vizBackgroundColor={vizBackgroundColor.graph1}
+                                                selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                                showGraph={showGraph} vizPanelId={vizPanelId.graph1}/>
+                        </Grid>
+                    : null
                 }
 
                 {
-                    showGraph.graph2? <Grid item md={showGraph.graph1? smallGraph : largeGraph}>
+                    showGraph.graph2?
+                        <Grid item md={dynamicGridSize(2, showGraph)}
+                              style={dynamicGrids(2, showGraph)}>
 
-                        <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}
-                                            graphId={graphId.graph2} vizBackgroundColor={vizBackgroundColor.graph2}
-                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
-                                            showGraph={showGraph} vizPanelId={vizPanelId.graph2}/>
-
-                    </Grid> :null
+                            <VisualizationPanel timestep={timestep.graph2} limit={limit.graph2}
+                                                graphId={graphId.graph2} vizBackgroundColor={vizBackgroundColor.graph2}
+                                                selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                                showGraph={showGraph} vizPanelId={vizPanelId.graph2}/>
+                        </Grid>
+                    : null
                 }
 
                 {
-                    showGraph.graph3? <Grid item md={showGraph.graph4? smallGraph : largeGraph}>
+                    showGraph.graph3?
+                        <Grid item md={dynamicGridSize(3, showGraph)}
+                              style={dynamicGrids(3, showGraph)}>
 
-                        <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}
-                                            graphId={graphId.graph3} vizBackgroundColor={vizBackgroundColor.graph3}
-                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
-                                            showGraph={showGraph} vizPanelId={vizPanelId.graph3}/>
-
-                    </Grid> :null
+                            <VisualizationPanel timestep={timestep.graph3} limit={limit.graph3}
+                                                graphId={graphId.graph3} vizBackgroundColor={vizBackgroundColor.graph3}
+                                                selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                                showGraph={showGraph} vizPanelId={vizPanelId.graph3}/>
+                        </Grid>
+                    : null
                 }
 
                 {
-                    showGraph.graph4? <Grid item md={showGraph.graph4? smallGraph : largeGraph}>
+                    showGraph.graph4?
+                        <Grid item md={dynamicGridSize(4, showGraph)}
+                              style={dynamicGrids(4, showGraph)}>
 
-                        <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}
-                                            graphId={graphId.graph4} vizBackgroundColor={vizBackgroundColor.graph4}
-                                            selectedNode={selectedNode} setSelectedNode={setSelectedNode}
-                                            showGraph={showGraph} vizPanelId={vizPanelId.graph4}/>
-
-                    </Grid> :null
+                            <VisualizationPanel timestep={timestep.graph4} limit={limit.graph4}
+                                                graphId={graphId.graph4} vizBackgroundColor={vizBackgroundColor.graph4}
+                                                selectedNode={selectedNode} setSelectedNode={setSelectedNode}
+                                                showGraph={showGraph} vizPanelId={vizPanelId.graph4}/>
+                        </Grid>
+                    : null
                 }
             </Grid>
       </div>
