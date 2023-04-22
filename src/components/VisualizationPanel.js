@@ -82,9 +82,9 @@ function VisualizationPanel(props) {
             id={props.vizPanelId}
             style={{
                 backgroundColor: props.vizBackgroundColor,
-                height: "47.1652vh", // According to math 47.5vh should be the perfect height, but it runs offscreen
-                width: "99.8%",
-                border: "thin solid black",
+                height: "100%",//"47.1652vh", // According to math 47.5vh should be the perfect height, but it runs offscreen
+                width: "100%",//"99.8%",
+                // border: "thin solid black",
                 margin: "0px",
                 overflow: 'hidden',
         }}>
