@@ -84,6 +84,9 @@ function JSONForceGraph(props) {
             .attr('fill', color)
     }
 
+    /**
+     * useEffect() - Dynamic window resizing for graph.
+     */
     useEffect(() => {
         function handleResize() {
             setWindowWidth(window.innerWidth);
@@ -93,7 +96,13 @@ function JSONForceGraph(props) {
         window.addEventListener('resize', handleResize);
     });
 
-
+    /**
+     * useEffect() - Creates/Re-Creates Graph visualization
+     * @dependency props.links
+     * @dependency props.showGraph
+     * @dependency windowWidth
+     * @dependency windowHeight
+     */
     useEffect(() => {
         setTimeout(function() {
 
@@ -339,7 +348,11 @@ function JSONForceGraph(props) {
         }, 100);
     }, [props.links, props.showGraph, windowWidth, windowHeight]);
 
-
+    /**
+     * useEffect() - For MouseOver interaction.
+     * @dependency mouseOverNode
+     * @dependency props.selectedNode
+     */
     useEffect(() => {
         if (mouseOverNode !== "") {
             // console.log("OverE " + mouseOverNode + "\n");
@@ -366,6 +379,11 @@ function JSONForceGraph(props) {
         }
     }, [mouseOverNode, props.selectedNode]);
 
+    /**
+     * useEffect() - For MouseOff interaction.
+     * @dependency mouseOffNode
+     * @dependency props.selectedNode
+     */
     useEffect(() => {
         if (mouseOffNode !== "") {
             // console.log("OffE " + mouseOffNode + "\n");
@@ -395,22 +413,18 @@ function JSONForceGraph(props) {
 
     }, [mouseOffNode, props.selectedNode]);
 
+    /**
+     * useEffect() - Recolors selected noe and the previously selected node.
+     * @dependency props.selectedNode
+     */
     useEffect(() => {
-        //colorNode(props.select, "Yellow")
         d3.selectAll("circle").each(function (targetNode) {
-            // Check if the target node is a target of any valid transactions
-            //  where the currentNode === the sourceNode
             if (targetNode.name === props.selectedNode) {
                 colorNode(this, "#E50E06");
-                // console.log(targetNode.name + " " + props.selectedNode);
-                //colorNode(this, getNodeClassColor(targetNode.class))
             }
             else if (targetNode.name === previousNode) {
-
                 colorNode(this, getNodeClassColor(targetNode.class));
             }
-
-
         })
         setMouseOverNode(props.selectedNode);
         setPreviousNode(props.selectedNode);
