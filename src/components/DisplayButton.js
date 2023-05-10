@@ -17,7 +17,7 @@ function DisplayButton(props) {
     
     return (
         <Button variant="contained" onClick={() => props.onClickFunction(props.graphNum)} style={{
-            height: '100%', width: '100%',
+            height: '40px', width: '100%',
             marginTop: '4px',
             backgroundColor: '#98C3E2', color: 'black'
         }}>

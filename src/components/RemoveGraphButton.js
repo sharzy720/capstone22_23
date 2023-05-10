@@ -16,7 +16,7 @@ function RemoveGraphButton(props) {
 //props.onClickFunction(props.graphNum)
     return (
         <Button variant="contained" onClick={() => props.onClickFunction(props.graphNum)} style={{
-            height: '50px', width: '100%',
+            height: '40px', width: '100%',
             marginTop: '4px',
             backgroundColor: 'IndianRed', color: 'black'
         }}>
